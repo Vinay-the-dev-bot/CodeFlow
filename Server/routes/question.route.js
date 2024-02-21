@@ -6,7 +6,7 @@ const { auth } = require("../middleware/auth.middleware");
 const questionRouter = express.Router();
 
 // Add Question
-questionRouter.post("/add", auth,access(["admin"]), async (req, res) => {
+questionRouter.post("/add", auth, access(["admin"]), async (req, res) => {
     try {
       const note = new QuestionModel(req.body);
       await note.save();
@@ -19,7 +19,7 @@ questionRouter.post("/add", auth,access(["admin"]), async (req, res) => {
 
 
   // Update Question
-questionRouter.patch("/:questionID" ,auth,async(req,res)=>{
+questionRouter.patch("/:questionID" ,auth,access(["admin"]),async(req,res)=>{
     const{questionID}=req.params
     try{
       const question=await QuestionModel.findOne({ _id:questionID })
@@ -35,7 +35,7 @@ questionRouter.patch("/:questionID" ,auth,async(req,res)=>{
 })
 
 // Delete Question
-questionRouter.delete("/:questionID" ,auth,async(req,res)=>{
+questionRouter.delete("/:questionID" ,auth, access(["admin"]),async(req,res)=>{
     const{questionID}=req.params
     try{
       const question=await QuestionModel.findOne({ _id:questionID })
