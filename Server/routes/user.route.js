@@ -43,7 +43,7 @@ userRouter.post("/register", (req, res) => {
       if (user) {
         bcrypt.compare(pass, user.pass, (err, result) => {
           if (result) {
-            const token = jwt.sign({ userID: user._id }, "codeflow", { expiresIn: "7d"});
+            const token = jwt.sign({ userID: user._id , author: user.name}, "codeflow", { expiresIn: "7d"});
             res .status(200).send({ msg: "Login Successfull!", token});
              
           } else {

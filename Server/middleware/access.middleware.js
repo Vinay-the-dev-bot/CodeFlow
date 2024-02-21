@@ -1,8 +1,8 @@
 
 
-const access = (role) => {
+const access = (roles) => {
     return (req, res, next) => {
-      if (role.includes(req.role)) {
+      if (roles.includes(req.role)) {
         next();
       } else {
         res.json({ msg: "You are not authorized" });

@@ -3,10 +3,9 @@ const { UserModel } = require("../models/user.model");
 const { blackListTokenModel } = require("../models/blacklist.model");
 
 const auth = async (req, res, next) => {
-  
-    const token = req.headers.authorization?.split(" ")[1];
-  
-  if (await blackListTokenModel.findOne({ token })) {
+  const token = req.headers.authorization?.split(" ")[1];
+
+   if (await blackListTokenModel.findOne({ token })) {
     return res.json({ msg: "You have been logged out again" });
   }
   if (token) {
@@ -27,7 +26,9 @@ const auth = async (req, res, next) => {
   }
 };
 
-
 module.exports = {
   auth
 };
+
+
+

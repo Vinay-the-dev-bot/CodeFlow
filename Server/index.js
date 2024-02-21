@@ -2,9 +2,11 @@ const express = require("express");
 require("dotenv").config();
 const {connection} = require("./config/db");
 const {userRouter} = require("./routes/user.route");
+const {questionRouter} = require("./routes/question.route");
+const { QuestionModel } = require("./models/question.model");
 const { auth } = require("./middleware/auth.middleware");
-const { access } = require("./middleware/access.middleware");
 const cors = require("cors");
+
 
 const app= express();
 
@@ -12,15 +14,17 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/users" , userRouter);
+app.use("/question" , questionRouter);
 
 
 app.get("/", (req, res) => {
     res.send("Welcome to home page");
   });
 
-app.get("/list", auth , access(["admin", "user"]), (req, res) => {
-    res.json({ msg: "All Questions list" });
-});
+  app.get("/questions",auth, async(req, res) => {
+    const questions = await QuestionModel.find();
+    res.status(200).send({questions})
+ });
 
 
 app.listen(process.env.port ,async()=>{
