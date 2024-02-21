@@ -19,7 +19,6 @@ compileRouter.post("/", async (req, res) => {
           console.error(err);
           return res.status(500).json({ error: "Error writing Java file" });
         } else {
-          console.log(2);
           exec("javac main.java", (err, stdout, stderr) => {
             if (err) {
               console.error(err);
