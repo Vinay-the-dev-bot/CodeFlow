@@ -4,7 +4,7 @@ import Footer from "../Components/Footer";
 import { Link } from "react-router-dom";
 
 function HomePage() {
-  const auth = true;
+  const auth = false;
   return (
     <>
       <Box className="bg-gradient-to-br from-slate-500 via-gray-700 to-zinc-800">
