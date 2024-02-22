@@ -1,21 +1,3 @@
-// import { Link } from "react-router-dom";
-
-// function NavBar() {
-//   return (
-// <nav className="flex w-4/5 py-5 m-auto justify-around gap-10">
-//   <Link to="/">Home</Link>
-//   <Link to="/about">About</Link>
-//   <Link to="html">HTML Compiler</Link>
-//   <Link to="judger">Judger</Link>
-//   <Link to="html">HTML Compiler</Link>
-//   <Link to="signup">Sign Up</Link>
-//   <Link to="login">Login</Link>
-// </nav>
-//   );
-// }
-
-// export default NavBar;
-
 import {
   Box,
   Button,
@@ -26,7 +8,6 @@ import {
   DrawerHeader,
   DrawerOverlay,
   Flex,
-  Heading,
   IconButton,
   Spacer,
   Text,
@@ -34,7 +15,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 // import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import { authLinLout } from "../redux/authSlice";
 // import axios from "axios";
 import { HamburgerIcon } from "@chakra-ui/icons";
@@ -47,26 +28,7 @@ const Navbar = () => {
   // const auth = useSelector((state) => state.auth.auth);
   const auth = false;
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  // const handleLogout = async () => {
-  //   try {
-  //     const response = await axios.post(
-  //       "https://simple-notes-backend.onrender.com/users/logout",
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //         },
-  //       }
-  //     );
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  //   setTimeout(() => {
-  //     dispatch(authLinLout(false));
-  //     navigate("/");
-  //   }, 2000);
-  // };
+  const { isOpen, onOpen, onClose } = useDisclosure();  
   return (
     <>
       <Box>
