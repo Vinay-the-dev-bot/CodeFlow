@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Button from "../Components/Button";
 import Editor, { useMonaco } from "@monaco-editor/react";
+import ThemeDropdown from "../Components/ThemeDropdown";
 function HTMLCompiler() {
   const [openedEditor, setOpenedEditor] = useState("HTML");
   const [html, setHTML] = useState(
@@ -28,8 +29,8 @@ function HTMLCompiler() {
   function handleJSChange(value, event) {
     setJS(value);
   }
-  const handleThemeChange = (e) => {
-    setTheme(e.target.value);
+  const handleThemeChange = (theme) => {
+    setTheme(theme.value);
   };
   useEffect(() => {
     const timeOut = setTimeout(() => {
@@ -75,7 +76,7 @@ function HTMLCompiler() {
           />
         </div>
         <div className="w-1/2 ">
-          <label className="m-auto" for="themeSelect">
+          {/* <label className="m-auto" for="themeSelect">
             Select Theme:
           </label>
           <select id="themeSelect" onChange={handleThemeChange}>
@@ -83,7 +84,8 @@ function HTMLCompiler() {
               Light
             </option>
             <option value="vs-dark">Dark</option>
-          </select>
+          </select> */}
+          <ThemeDropdown handleThemeChange={handleThemeChange} />
         </div>
       </div>
 
