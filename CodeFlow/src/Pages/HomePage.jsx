@@ -77,11 +77,11 @@ function HomePage() {
                   <Button
                     mt={"2rem"}
                     fontSize={"1.3rem"}
-                    color={"black"}
+                    color={"#eaf0c9"}
                     fontWeight={"bold"}
                     bg={"#a576f5"}
                     p={"1.3rem 3rem"}
-                    filter={"drop-shadow(0 0 0.45rem #854CE6)"}
+                    // filter={"drop-shadow(0 0 0.35rem #854CE6)"}
                     // variant={"outline"}
                     _hover={{ bg: "#5629a3", color: "white" }}
                   >
