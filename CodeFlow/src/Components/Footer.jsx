@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Box, GridItem, Heading, Text } from "@chakra-ui/react";
+import { Grid, Box, GridItem, Heading, Text, Flex } from "@chakra-ui/react";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
 // import FacebookIcon from '@mui/icons-material/Facebook';
@@ -34,29 +34,34 @@ const Footer = () => {
           //   w="100%"
           //   h={{ base: "auto", lg: "auto" }}
         >
-          <Heading fontSize={{ base: "1.6rem", md: "2.2rem" }}>Menu</Heading>
-          <Link to="/">
-            <Text mt={2} color={"white"} _hover={{ color: "#854CE6" }}>
-              Home
-            </Text>
-          </Link>
-          <Link to="/about">
-            <Text color={"white"} _hover={{ color: "#854CE6" }}>
-              About us
-            </Text>
-          </Link>
-          <Link to="/html">
-            <Text color={"white"} _hover={{ color: "#854CE6" }}>
-              {" "}
-              HTML Compiler
-            </Text>
-          </Link>
-          <Link to="/judger">
-            <Text color={"white"} _hover={{ color: "#854CE6" }}>
-              {" "}
-              Judger
-            </Text>
-          </Link>
+          <Heading fontSize={{ base: "1.2rem", md: "2rem" }}>Menu</Heading>
+          <Flex
+            flexDirection={"column"}
+            fontSize={{ base: ".8rem", md: "1rem" }}
+          >
+            <Link to="/">
+              <Text mt={2} color={"white"} _hover={{ color: "#854CE6" }}>
+                Home
+              </Text>
+            </Link>
+            <Link to="/about">
+              <Text color={"white"} _hover={{ color: "#854CE6" }}>
+                About us
+              </Text>
+            </Link>
+            <Link to="/html">
+              <Text color={"white"} _hover={{ color: "#854CE6" }}>
+                {" "}
+                HTML Compiler
+              </Text>
+            </Link>
+            <Link to="/judger">
+              <Text color={"white"} _hover={{ color: "#854CE6" }}>
+                {" "}
+                Judger
+              </Text>
+            </Link>
+          </Flex>
         </GridItem>
         <GridItem
           className=" flex flex-col justify-start  mt-8"
@@ -65,26 +70,31 @@ const Footer = () => {
           gap={1}
           //   h={{ base: "40", lg: "60" }}
         >
-          <Heading fontSize={{ base: "1.6rem", md: "2.2rem" }}>
+          <Heading fontSize={{ base: "1.2rem", md: "2rem" }}>
             Need Help ?
           </Heading>
-          <Link to="#">
-            <Text color={"white"} _hover={{ color: "#854CE6" }} mt={2}>
-              Code Q&A's
-            </Text>
-          </Link>
-          <Link to="https://www.termsfeed.com/blog/terms-conditions-url/">
-            <Text color={"white"} _hover={{ color: "#854CE6" }}>
-              {" "}
-              Terms of use
-            </Text>
-          </Link>
-          <Link to="https://www.termsfeed.com/blog/terms-conditions-url/">
-            <Text color={"white"} _hover={{ color: "#854CE6" }}>
-              {" "}
-              Privacy Policy
-            </Text>
-          </Link>
+          <Flex
+            flexDirection={"column"}
+            fontSize={{ base: ".8rem", md: "1rem" }}
+          >
+            <Link to="#">
+              <Text color={"white"} _hover={{ color: "#854CE6" }} mt={2}>
+                Code Q&A's
+              </Text>
+            </Link>
+            <Link to="https://www.termsfeed.com/blog/terms-conditions-url/">
+              <Text color={"white"} _hover={{ color: "#854CE6" }}>
+                {" "}
+                Terms of use
+              </Text>
+            </Link>
+            <Link to="https://www.termsfeed.com/blog/terms-conditions-url/">
+              <Text color={"white"} _hover={{ color: "#854CE6" }}>
+                {" "}
+                Privacy Policy
+              </Text>
+            </Link>
+          </Flex>
         </GridItem>
         <GridItem
           className="flex flex-col justify-start mt-8"
@@ -93,12 +103,15 @@ const Footer = () => {
           gap={1}
           //   h={{ base: "40", sm: "60", md: "40", lg: "60" }}
         >
-          <Heading fontSize={{ base: "1.6rem", md: "2.2rem" }}>
-            Contacts
-          </Heading>
-          <Text mt={2}>+91 828*74345*</Text>
-          <Text>49 Greenpark New Delhi</Text>
-          <Text>codeflow@gmail.com</Text>
+          <Heading fontSize={{ base: "1.2rem", md: "2rem" }}>Contacts</Heading>
+          <Flex
+            flexDirection={"column"}
+            fontSize={{ base: ".8rem", md: "1rem" }}
+          >
+            <Text mt={2}>+91 828*74345*</Text>
+            <Text>49 Greenpark New Delhi</Text>
+            <Text>codeflow@gmail.com</Text>
+          </Flex>
         </GridItem>
         <GridItem
           className="flex flex-col justify-start mt-8"
@@ -107,7 +120,7 @@ const Footer = () => {
           gap={1}
           //   h={{ base: "40", lg: "60" }}
         >
-          <Heading fontSize={{ base: "1.6rem", md: "2.2rem" }}>
+          <Heading fontSize={{ base: "1.2rem", md: "2rem" }}>
             Follow us on
           </Heading>
           <Box className="flex gap-4 justify-start" mt={2}>
@@ -131,7 +144,7 @@ const Footer = () => {
         // border={"1px solid white"}
         mt={2}
       >
-        <Text p={"1rem 0"}>© Copy right 2023 CodeFlow</Text>
+        <Text p={"1rem 0"} fontSize={{ base: ".8rem", md: "1rem" }}>© Copy right 2023 CodeFlow</Text>
       </Box>
     </Box>
   );
