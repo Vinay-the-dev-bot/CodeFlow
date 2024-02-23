@@ -73,27 +73,42 @@ userRouter.post("/register", (req, res) => {
   });
 
 
-userRouter.post("/:questionID/answer", auth, async (req, res) => {
-    const {questionID} =req.params
-    console.log(questionID);
-    const{userID,answer}=req.body
-    try {
-      const ans = new AnswerModel({questionID,userID,answer});
-      await ans.save();
-      res.status(200).send({ msg: "New ans Added." });
-    } catch (err) {
-      console.log("Error:", err);
-      res.status(400).send({ msg: "Bad Request." });
+// post question answer
+
+userRouter.post("/answer/:questionID", auth, async (req, res) => {
+  const { questionID } = req.params;
+  const { userID, answer } = req.body;
+
+  try {
+
+    if (!userID || !questionID) {
+      return res.status(400).send({ msg: "Bad Request. userID and questionID are required." });
     }
-  });
 
+    const user = await UserModel.findById(userID);
+    if (user.solved_questions.includes(questionID)) {
+      return res.status(400).send({ msg: "Bad Request. Question already solved by the user." });
+    }
 
+    await UserModel.findByIdAndUpdate(userID, { $push: { solved_questions: questionID } });
+
+    const ans = new AnswerModel({ questionID, userID, answer });
+    await ans.save();
+
+    res.status(200).send({ msg: "New answer added." });
+  } catch (err) {
+    console.log("Error:", err);
+    res.status(500).send({ msg: "Internal Server Error." });
+  }
+});
+
+// get submissions
 
 userRouter.get("/submissions",auth,async(req,res)=>{
   try{
     
-      const notes =await AnswerModel.find({userID:req.body.userID})
-      res.status(200).send({notes})
+      const answer =await AnswerModel.find({userID:req.body.userID})
+      res.status(200).send({answer})
   }catch(err){
       res.status(400).send({"error":err})
   }
