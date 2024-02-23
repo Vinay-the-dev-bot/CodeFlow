@@ -31,3 +31,22 @@
     padding: 0.25em 0.75em;
   }
 }
+
+.Easy {
+  color: white;
+  background-color: blue;
+  border-radius: 5px;
+  margin-left: 5px;
+}
+.Medium {
+  color: white;
+  background-color: orange;
+  border-radius: 5px;
+  margin-left: 5px;
+}
+.Hard {
+  color: white;
+  background-color: red;
+  border-radius: 5px;
+  margin-left: 5px;
+}

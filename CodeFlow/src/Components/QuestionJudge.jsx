@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { themes } from "../assets/EditorThemes";
 import { useToast } from "@chakra-ui/react";
 import PromisePending from "./PromisePending";
@@ -7,6 +7,7 @@ import ThemeDropdown from "./ThemeDropdown";
 import CodeEditor from "./CodeEditor";
 import OutputWindow from "./OutputWindow";
 import { languageOptions } from "../assets/LanguageOptions";
+import TestCaseResults from "../Components/TestCaseResults";
 
 function QuestionJudge({ questionId }) {
   const [javaCode, setJavaCode] = useState(`public class main {
@@ -21,12 +22,14 @@ function QuestionJudge({ questionId }) {
     `//Write Your Code Here`
   );
   const [langFocus, setLangFocus] = useState("java");
+  const [question, setQuestion] = useState();
   const [customInput, setCustomInput] = useState("");
   const [theme, setTheme] = useState(themes[0]);
   const [language, setLanguage] = useState(languageOptions[0]);
-  const [output, setOutPut] = useState("OUTPUT");
+  const [output, setOutPut] = useState([]);
   const [code, setCode] = useState(javaCode);
   const [pending, setPending] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const toast = useToast();
 
   const langCode = {
@@ -38,6 +41,8 @@ function QuestionJudge({ questionId }) {
     setTheme(th);
   }
   const submitCode = async () => {
+    setSubmitted(false);
+    setPending(true);
     if (!code) {
       toast({
         title: "Please Provide Code",
@@ -47,15 +52,7 @@ function QuestionJudge({ questionId }) {
       });
       return;
     }
-    if (!customInput) {
-      toast({
-        title: "Please Provide Input if needed",
-        status: "warning",
-        duration: 1000,
-        isClosable: true,
-      });
-    }
-    const res = await fetch("http://localhost:4500/compile/submit", {
+    const res = await fetch("http://localhost:4500/compile/submit222222222", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -67,8 +64,8 @@ function QuestionJudge({ questionId }) {
         questionId,
       }),
     });
-    setPending(true);
     const data = await res.json();
+    setSubmitted(true);
     setPending(false);
     console.log(data);
     if (data.error) {
@@ -80,7 +77,7 @@ function QuestionJudge({ questionId }) {
         duration: 2000,
         isClosable: true,
       });
-      setOutPut(data.error);
+      setOutPut(data);
     } else {
       toast({
         title: "Successfully Compiled.",
@@ -88,7 +85,7 @@ function QuestionJudge({ questionId }) {
         duration: 2000,
         isClosable: true,
       });
-      //   setOutPut(data.output);
+      setOutPut(data);
     }
   };
 
@@ -135,7 +132,7 @@ function QuestionJudge({ questionId }) {
         duration: 2000,
         isClosable: true,
       });
-      setOutPut(data.error);
+      setOutPut(data);
     } else {
       toast({
         title: "Successfully Compiled.",
@@ -143,10 +140,23 @@ function QuestionJudge({ questionId }) {
         duration: 2000,
         isClosable: true,
       });
-      //   setOutPut(data.output);
+      setOutPut(data);
     }
   };
-
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(
+          `http://localhost:4500/questions/${questionId}`
+        );
+        const data = await res.json();
+        setQuestion(data.question);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
   const onSelectChange = (sl) => {
     setCode(langCode[`${sl.value}`]);
     setLangFocus(sl.value);
@@ -177,44 +187,53 @@ function QuestionJudge({ questionId }) {
   return (
     <div>
       {pending && <PromisePending />}
-      <p>{JSON.stringify(customInput)}</p>
-
-      <div className="flex flex-row p-5 justify-around">
+      {/* <p>{JSON.stringify(customInput)}</p> */}
+      <div className="flex flex-row px-5 justify-around">
         <div className="px-4 py-2">
           <LanguageDropdown onSelectChange={onSelectChange} />
         </div>
         <div className="px-4 py-2">
           <ThemeDropdown handleThemeChange={handleThemeChange} />
         </div>
-        <button onClick={solveCode}>Solve</button>
+        {/* <button onClick={solveCode}>Solve</button> */}
       </div>
-      <div className="flex">
+      {/* {JSON.stringify(output)} */}
+      <div className="flex ">
         <CodeEditor
           code={langCode[langFocus]}
           onChange={onChange}
           language={langFocus}
           theme={theme.value}
         />
-        <div className="w-1/2 flex flex-col align-baseline ">
+        <div className="w-1/2 px-10 border-2 flex flex-col align-baseline ">
           <h1 className="font-bold text-xl w-fit p-5 m-auto   bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 mb-2">
             Output
           </h1>
           <textarea
-            className="w-4/5 border-2 h-1/5 border-black rounded "
+            className="w-full border-2 h-1/5 p-2 border-black rounded "
             placeholder="Custom Inputs"
             value={customInput}
             onChange={(e) => setCustomInput(e.target.value)}
             type="text"
           />
-          <button
-            className=" compileButton w-fit border-2 p-9 my-2 "
-            onClick={submitCode}
-          >
-            Submit
-          </button>
+          <div className="flex justify-around p-2 ">
+            <button
+              className=" compileButton w-1/4 border-2 p-9 my-2 "
+              onClick={submitCode}
+            >
+              Submit
+            </button>
+            <button
+              className=" compileButton w-1/4 border-2 p-9 my-2 "
+              onClick={solveCode}
+            >
+              Solve
+            </button>
+          </div>
           <OutputWindow outputDetails={output} />
         </div>
       </div>
+      {submitted && <TestCaseResults results={output.output} />}
     </div>
   );
 }

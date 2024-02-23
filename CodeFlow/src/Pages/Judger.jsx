@@ -78,7 +78,7 @@ let c = 8;
       });
       return;
     }
-    const res = await fetch("http://localhost:4500/compile", {
+    const res = await fetch("http://localhost:4500/compile/solve", {
       method: "POST",
       headers: {
         "content-type": "application/json",
