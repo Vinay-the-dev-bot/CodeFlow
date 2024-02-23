@@ -16,7 +16,14 @@ const auth = async (req, res, next) => {
       const user = await UserModel.findOne({ _id: userID });
       const required_role = user?.role; 
       req.role = required_role; 
-      next();
+      
+      if(decoded){
+        req.body.userID=decoded.userID;
+        next();
+      }else{
+        res.status(400).json({ msg: "You Don't have token" });
+      }
+    
     } catch (err) {
       res.status(400).json({ msg: "You Don't have token" });
       console.log(err);

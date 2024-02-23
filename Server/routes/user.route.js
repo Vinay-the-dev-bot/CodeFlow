@@ -3,6 +3,9 @@ const {UserModel} = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { blackListTokenModel } = require("../models/blacklist.model");
+const { AnswerModel } = require("../models/answer.model");
+const { auth } = require("../middleware/auth.middleware");
+const { access } = require("../middleware/access.middleware");
 
 const userRouter = express.Router();
 
@@ -68,6 +71,35 @@ userRouter.post("/register", (req, res) => {
       res.status(400).send({ error: "err" });
     }
   });
+
+
+userRouter.post("/:questionID/answer", auth, async (req, res) => {
+    const {questionID} =req.params
+    console.log(questionID);
+    const{userID,answer}=req.body
+    try {
+      const ans = new AnswerModel({questionID,userID,answer});
+      await ans.save();
+      res.status(200).send({ msg: "New ans Added." });
+    } catch (err) {
+      console.log("Error:", err);
+      res.status(400).send({ msg: "Bad Request." });
+    }
+  });
+
+
+
+userRouter.get("/submissions",auth,async(req,res)=>{
+  try{
+    
+      const notes =await AnswerModel.find({userID:req.body.userID})
+      res.status(200).send({notes})
+  }catch(err){
+      res.status(400).send({"error":err})
+  }
+})
+
+  
 
 module.exports = {
     userRouter
