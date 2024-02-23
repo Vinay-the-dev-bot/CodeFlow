@@ -221,6 +221,105 @@ compileRouter.post("/submit", async (req, res) => {
   }
 });
 
+compileRouter.post("/submit22", async (req, res) => {
+  let { language, code, customInput, questionId } = req.body;
+  console.log(questionId);
+  const question = await QuestionModel.findOne({
+    _id: questionId,
+  });
+  console.log(question.testCases.length);
+  const testCaseOP = [];
+  const errors = [];
+  let responseSent = false;
+  switch (language) {
+    case "java": {
+      fs.writeFile("main.java", code, (err) => {
+        if (err) {
+          console.error(err);
+          errors.push(err);
+        } else {
+          for (var i = 0; i < question.testCases.length && !responseSent; i++) {
+            const testCase = question.testCases[i].inp;
+            console.log(testCase);
+            exec("javac main.java", (err, stdout, stderr) => {
+              if (err) {
+                errors.push({ error: "Compilation error", stderr });
+                return;
+              } else {
+                let customInput = testCase;
+                customInput = customInput.replaceAll("\n", " ");
+                exec(
+                  `echo ${customInput} | java main`,
+                  (err, stdout, stderr) => {
+                    if (err) {
+                      errors.push({ error: "Execution error", stderr });
+                      return;
+                    } else {
+                      testCaseOP.push({
+                        tcId: question.testCases[0]._id,
+                        stdout,
+                      });
+                      if (testCaseOP.length == 4) {
+                        res.send({
+                          language: "Java",
+                          output: testCaseOP,
+                          errors: errors,
+                        });
+                        i += question.testCases.length;
+                        return;
+                      }
+                    }
+                  }
+                );
+              }
+            });
+          }
+        }
+      });
+      return;
+    }
+    case "python": {
+      fs.writeFile("python.py", code, (err) => {
+        if (err) {
+          //console.error(err);
+          return res.status(500).json({ error: "Error writing Python file" });
+        }
+        const stdin = customInput.replaceAll(" ", "\n");
+        const inputs = customInput.split(" ");
+        const processssss = exec(`python  python.py`, (err, stdout, stderr) => {
+          console.log("executed");
+          if (err) {
+            //console.error(err);
+            return res.status(500).json({ error: "Execution error", stderr });
+          }
+          console.log(stdout);
+          res.send({ language: "Python", output: stdout });
+        });
+        inputs.forEach((input) => {
+          processssss.stdin.write(input + "\n");
+        });
+
+        processssss.stdin.end();
+      });
+      return;
+    }
+    case "javascript": {
+      try {
+        const result = await eval(code);
+        res.send({ language: "JavaScript", output: result });
+      } catch (err) {
+        //console.error(err);
+        res.status(500).json({ error: "Execution error", stderr: err.message });
+      }
+      return;
+    }
+    default: {
+      res.send({ msg: "Please select language" });
+      return;
+    }
+  }
+});
+
 compileRouter.post("/solve", async (req, res) => {
   let { language, code, customInput, questionId } = req.body;
   // console.log(language);
