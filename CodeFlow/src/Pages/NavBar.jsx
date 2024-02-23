@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 // import { authLinLout } from "../redux/authSlice";
 // import axios from "axios";
 import { HamburgerIcon } from "@chakra-ui/icons";
-import image from "../assets/logo.png";
+import image from "../assets/logo2.png";
 // import React from "react";
 
 const Navbar = () => {
@@ -28,12 +28,12 @@ const Navbar = () => {
   // const auth = useSelector((state) => state.auth.auth);
   const auth = false;
 
-  const { isOpen, onOpen, onClose } = useDisclosure();  
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
       <Box>
         <Flex
-          p={{ base: ".8rem 1.3rem", md: ".8rem 3rem" }}
+          p={{ base: ".8rem 1.3rem", md: ".6rem 3rem" }}
           boxShadow="base"
           bg={"#19212C"}
           display={"flex"}
@@ -45,7 +45,7 @@ const Navbar = () => {
               <Image
                 src={image}
                 alt="Simple Notes Logo"
-                width={{ base: "2.9rem", md: "3.5rem" }}
+                width={{ base: "4.3rem", md: "4.5rem" }}
               />
             </Link>
           </Box>
@@ -69,7 +69,7 @@ const Navbar = () => {
                   fontSize={"1.3rem"}
                   color={"white"}
                   bg={"transparent"}
-                  _hover={{ bg: "transparent", color: "#854CE6" }}
+                  _hover={{ bg: "transparent", color: "#90ee90" }}
                 >
                   Home
                 </Button>
@@ -79,7 +79,7 @@ const Navbar = () => {
                   fontSize={"1.3rem"}
                   color={"white"}
                   bg={"transparent"}
-                  _hover={{ bg: "transparent", color: "#854CE6" }}
+                  _hover={{ bg: "transparent", color: "#90ee90" }}
                 >
                   About
                 </Button>
@@ -89,7 +89,7 @@ const Navbar = () => {
                   fontSize={"1.3rem"}
                   color={"white"}
                   bg={"transparent"}
-                  _hover={{ bg: "transparent", color: "#854CE6" }}
+                  _hover={{ bg: "transparent", color: "#90ee90" }}
                 >
                   HTML Compiler
                 </Button>
@@ -99,7 +99,7 @@ const Navbar = () => {
                   fontSize={"1.3rem"}
                   color={"white"}
                   bg={"transparent"}
-                  _hover={{ bg: "transparent", color: "#854CE6" }}
+                  _hover={{ bg: "transparent", color: "#90ee90" }}
                 >
                   Judger
                 </Button>
@@ -112,7 +112,7 @@ const Navbar = () => {
                       fontSize={"1.3rem"}
                       color={"white"}
                       bg={"transparent"}
-                      _hover={{ bg: "transparent", color: "#854CE6" }}
+                      _hover={{ bg: "transparent", color: "#90ee90" }}
                     >
                       User
                     </Button>
@@ -122,7 +122,7 @@ const Navbar = () => {
                     fontSize={"1.3rem"}
                     color={"white"}
                     bg={"transparent"}
-                    _hover={{ bg: "transparent", color: "#854CE6" }}
+                    _hover={{ bg: "transparent", color: "#90ee90" }}
                   >
                     Logout
                   </Button>
@@ -134,7 +134,7 @@ const Navbar = () => {
                       fontSize={"1.3rem"}
                       color={"white"}
                       bg={"transparent"}
-                      _hover={{ bg: "transparent", color: "#854CE6" }}
+                      _hover={{ bg: "transparent", color: "#90ee90" }}
                     >
                       Login
                     </Button>
@@ -144,9 +144,9 @@ const Navbar = () => {
                       fontSize={"1.3rem"}
                       color={"white"}
                       bg={"transparent"}
-                      _hover={{ bg: "transparent", color: "#854CE6" }}
+                      _hover={{ bg: "transparent", color: "#90ee90" }}
                     >
-                      SingUp
+                      Sign Up
                     </Button>
                   </Link>
                 </>
@@ -229,7 +229,7 @@ const Navbar = () => {
                     color="#2f4e44"
                     onClick={onClose}
                   >
-                    SingUp
+                    Sign Up
                   </Link>
                 </>
               )}
