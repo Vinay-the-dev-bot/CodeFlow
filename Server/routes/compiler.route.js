@@ -6,7 +6,6 @@ const fs = require("fs");
 app.use(bodyParser.json());
 const path = require("path");
 const { QuestionModel } = require("../models/question.model");
-const { error } = require("console");
 const compileRouter = express.Router();
 
 compileRouter.post("/solve", async (req, res) => {
@@ -91,11 +90,11 @@ compileRouter.post("/solve", async (req, res) => {
             return;
           }
           testCaseOP.push({
-            language: "Java",
+            language: "python",
             output: stdout,
           });
           res.send({
-            language: "Java",
+            language: "python",
             output: testCaseOP,
           });
           return;
@@ -112,11 +111,11 @@ compileRouter.post("/solve", async (req, res) => {
       try {
         const result = await eval(code);
         testCaseOP.push({
-          language: "Java",
+          language: "javascript",
           output: stdout,
         });
         res.send({
-          language: "Java",
+          language: "javascript",
           output: testCaseOP,
         });
         return;
@@ -135,7 +134,6 @@ compileRouter.post("/solve", async (req, res) => {
 });
 
 compileRouter.post("/submit", async (req, res) => {
-  console.log("SUBMIT");
   let { language, code, customInput, questionId } = req.body;
   // console.log(language);
   // console.log(code);
@@ -181,6 +179,8 @@ compileRouter.post("/submit", async (req, res) => {
                             testCaseOP.push({
                               language: "Java",
                               output: stdout,
+                              // testCases: question.testCases,
+                              inp: question.testCases[i].inp,
                             });
                             if (
                               testCaseOP.length == question.testCases.length
@@ -225,10 +225,163 @@ compileRouter.post("/submit", async (req, res) => {
           } else {
             try {
               for (var i = 0; i < question.testCases.length; i++) {
-                console.log("//////", i);
-                console.log(question.testCases[i]);
                 const inputs = question.testCases[i].inp.split(" ");
-                console.log(inputs);
+                const processssss = exec(
+                  `python  python.py`,
+                  (err, stdout, stderr) => {
+                    if (err) {
+                      errors.push({ error: "Execution error", stderr });
+                      // res
+                      //   .status(500)
+                      //   .json({ error: "Execution error", stderr });
+                      // return;
+                    }
+                    testCaseOP.push({ language: "Python", output: stdout });
+                    if (testCaseOP.length == question.testCases.length) {
+                      res.send({ language: "Python", output: testCaseOP });
+                      responseSent = true;
+                      return;
+                    } else if (
+                      errors.length == question.testCases.length &&
+                      !responseSent
+                    ) {
+                      res.send(errors);
+                    }
+                  }
+                );
+                inputs.forEach((input) => {
+                  processssss.stdin.write(input + "\n");
+                });
+                processssss.stdin.end();
+              }
+            } catch (error) {
+              errors.push({ error });
+            }
+          }
+        });
+      } catch (error) {
+        errors.push({ error });
+      }
+      return;
+    }
+    case "javascript": {
+      try {
+        const result = await eval(code);
+        res.send({ language: "JavaScript", output: result });
+      } catch (err) {
+        //console.error(err);
+        res.status(500).json({ error: "Execution error", stderr: err.message });
+      }
+      return;
+    }
+    default: {
+      res.send({ msg: "Please select language" });
+      return;
+    }
+  }
+});
+
+compileRouter.post("/submit222222222", async (req, res) => {
+  let { language, code, customInput, questionId } = req.body;
+  // console.log(language);
+  // console.log(code);
+  // console.log(customInput);
+  const question = await QuestionModel.findOne({
+    _id: questionId,
+  });
+  const errors = [];
+  const testCaseOP = [];
+  let resultOutput = [];
+  switch (language) {
+    case "java": {
+      try {
+        fs.writeFile("main.java", code, (err) => {
+          if (err) {
+            errors.push({ err });
+            res.status(500).json({ error: "Error writing Java file" });
+            return;
+          } else {
+            try {
+              exec("javac main.java", (err, stdout, stderr) => {
+                if (err) {
+                  res
+                    .status(500)
+                    .json({ error: "Compilation error", err, stderr, stdout });
+                  return;
+                } else {
+                  for (let i = 0; i < question.testCases.length; i++) {
+                    customInput = question.testCases[i].inp;
+                    customInput = customInput.replaceAll("\n", " ");
+                    try {
+                      exec(
+                        `echo ${customInput} | java main`,
+                        (err, stdout, stderr) => {
+                          if (err) {
+                            errors.push({ err });
+                            res.status(500).json({
+                              error: "Execution error",
+                              stderr,
+                              stdout,
+                            });
+                            return;
+                          } else {
+                            testCaseOP.push({
+                              language: "Java",
+                              output: stdout,
+                              // testCases: question.testCases,
+                              inp: question.testCases[i].inp,
+                            });
+
+                            resultOutput.push({
+                              inp: question.testCases[i].inp,
+                              expe: question.testCases[i].oup,
+                              stdout,
+                            });
+                            if (
+                              testCaseOP.length == question.testCases.length
+                            ) {
+                              res.send({
+                                // language: "Java",
+                                // output: testCaseOP,
+                                output: resultOutput,
+                              });
+                              // res.send(testCaseOP);
+                            } else if (errors.length > 1) {
+                              res.send(errors);
+                            }
+                            // res.send({ language: "Java", output: stdout });
+                            // return;
+                          }
+                        }
+                      );
+                    } catch (error) {
+                      errors.push({ error });
+                    }
+                  }
+                }
+              });
+            } catch (error) {
+              errors.push({ error });
+            }
+          }
+        });
+      } catch (error) {
+        errors.push({ error });
+      }
+      return;
+    }
+    case "python": {
+      let responseSent = false;
+      try {
+        fs.writeFile("python.py", code, (err) => {
+          if (err) {
+            errors.push({ error: "Error writing Python file" });
+            res.status(500).json({ error: "Error writing Python file" });
+            return;
+          } else {
+            try {
+              for (var i = 0; i < question.testCases.length; i++) {
+                const inputs = question.testCases[i].inp.split(" ");
                 const processssss = exec(
                   `python  python.py`,
                   (err, stdout, stderr) => {
