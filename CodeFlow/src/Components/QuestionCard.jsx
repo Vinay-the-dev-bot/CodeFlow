@@ -1,14 +1,48 @@
+import { Button } from "@chakra-ui/react";
+import { useNavigate } from "react-router";
+
 const QuestionCard = ({ question }) => {
+  const navigate = useNavigate();
+  const difficultyColors = {
+    Easy: "bg-sky-600",
+    Medium: "bg-orange-600",
+    Hard: "bg-red-800",
+  };
+  const solveQuestion = () => {
+    navigate(`solve/${question._id}`);
+  };
   return (
-    <div className="flex ">
-      <div>
+    <div className="flex border-2 w-4/5 m-auto px-5 py-4 justify-around rounded-md ">
+      <div className="w-1/5 flex flex-col justify-around ">
         <p>Title : </p>
         <span>{question.title}</span>
+      </div>
+      <div className="w-2/5 flex flex-col justify-around ">
         <p>Description</p>
         <span>{question.description}</span>
       </div>
-      <p>{question.difficulty}</p>
-      <p>{question.points}</p>
+      <div className="flex flex-col  justify-around w-1/5 gap-5 ">
+        {/* <div className="w-full text-center text-black    m-auto    py-2  rounded-md ">
+          {question.difficulty}
+        </div> */}
+        <div
+          className={`w-full text-center text-white  ${
+            difficultyColors[question.difficulty]
+          }  m-auto    py-2  rounded-md `}
+        >
+          {question.difficulty}
+        </div>
+        <div className="w-full text-center  rounded-md py-2 bg-pink-500 m-auto block ">
+          {question.points} Points{" "}
+        </div>
+        <Button
+          onClick={solveQuestion}
+          backgroundColor="  rgb(5 150 105);"
+          coloe="white"
+        >
+          Solve
+        </Button>
+      </div>
     </div>
   );
 };
