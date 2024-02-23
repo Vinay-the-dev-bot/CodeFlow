@@ -95,7 +95,7 @@ userRouter.post("/answer/:questionID", auth, async (req, res) => {
     const ans = new AnswerModel({ questionID, userID, answer });
     await ans.save();
 
-    res.status(200).send({ msg: "New answer added." });
+    res.status(200).send({ msg: "solution submitted." });
   } catch (err) {
     console.log("Error:", err);
     res.status(500).send({ msg: "Internal Server Error." });
