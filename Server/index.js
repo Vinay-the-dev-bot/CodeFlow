@@ -6,7 +6,7 @@ const { questionRouter } = require("./routes/question.route");
 const { QuestionModel } = require("./models/question.model");
 const { auth } = require("./middleware/auth.middleware");
 const cors = require("cors");
-const { compileRouter } = require("./routes/compilerRouter");
+const { compileRouter } = require("./routes/compiler.route");
 
 const app = express();
 

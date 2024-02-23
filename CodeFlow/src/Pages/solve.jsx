@@ -23,9 +23,21 @@ function Solve() {
 
   return (
     <div>
-      <p>Problem Statement</p>
-      <p>{question.description}</p>
-      <QuestionJudge questionId={questionId} />
+      {/* <p>{JSON.stringify(question)}</p> */}
+      <div className="px-10  pt-10 flex flex-col gap-5">
+        <h1 className="text-2xl font-bold "> Statement</h1>
+        <p className="text-2xl ">
+          {question.title} |
+          <span className={`px-2 ${question.difficulty}`}>
+            {question.difficulty}
+          </span>
+        </p>
+        <h1 className="text-2xl font-bold "> Description</h1>
+        <p>{question.description}</p>
+        <h1 className="text-2xl font-bold"> Constraints</h1>
+        <p>{question.constraints}</p>
+      </div>
+      <QuestionJudge question={question} questionId={questionId} />
     </div>
   );
 }
