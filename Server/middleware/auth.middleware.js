@@ -11,14 +11,17 @@ const auth = async (req, res, next) => {
   if (token) {
     try {
       const decoded = jwt.verify(token, "codeflow");
-      console.log(decoded);
+      // console.log(decoded);
       const { userID } = decoded;
+
       const user = await UserModel.findOne({ _id: userID });
+      // console.log(user)
       const required_role = user?.role; 
       req.role = required_role; 
       
       if(decoded){
         req.body.userID=decoded.userID;
+        // console.log(req.body.userID)
         next();
       }else{
         res.status(400).json({ msg: "You Don't have token" });
