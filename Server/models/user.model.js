@@ -1,15 +1,16 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
-const userSchema = mongoose.Schema({
-    
+const userSchema = mongoose.Schema(
+  {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     pass: { type: String, required: true },
-    points:{type:Number},
-    solved_questions:[{type:String}],
+    
+    points: { type: Number },
+    solved_questions: [{ type: String }],
     role: {
       type: String,
-      enum: [ "admin", "user"],
+      enum: ["admin", "user"],
       default: "user",
       required: true,
     },
@@ -17,10 +18,10 @@ const userSchema = mongoose.Schema({
   {
     versionKey: false,
   }
-)
+);
 
-const UserModel = mongoose.model("users" , userSchema);
+const UserModel = mongoose.model("users", userSchema);
 
 module.exports = {
-    UserModel
-}
+  UserModel,
+};
