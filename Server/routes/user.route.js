@@ -29,7 +29,7 @@ userRouter.post("/register", (req, res) => {
         console.log(user);
         res
           .status(200)
-          .json({ msg: "Hey! user You are successfully Register" });
+          .send({ msg: "Hey! user You are successfully Register" });
       }
     });
   } catch (err) {
@@ -80,17 +80,22 @@ userRouter.post("/answer/:questionID", auth, async (req, res) => {
   const { userID, answer } = req.body;
 
   try {
-
     if (!userID || !questionID) {
-      return res.status(400).send({ msg: "Bad Request. userID and questionID are required." });
+      return res
+        .status(400)
+        .send({ msg: "Bad Request. userID and questionID are required." });
     }
 
     const user = await UserModel.findById(userID);
     if (user.solved_questions.includes(questionID)) {
-      return res.status(400).send({ msg: "Bad Request. Question already solved by the user." });
+      return res
+        .status(400)
+        .send({ msg: "Bad Request. Question already solved by the user." });
     }
 
-    await UserModel.findByIdAndUpdate(userID, { $push: { solved_questions: questionID } });
+    await UserModel.findByIdAndUpdate(userID, {
+      $push: { solved_questions: questionID },
+    });
 
     const ans = new AnswerModel({ questionID, userID, answer });
     await ans.save();
@@ -104,26 +109,30 @@ userRouter.post("/answer/:questionID", auth, async (req, res) => {
 
 // get submissions
 
-userRouter.get("/submissions",auth,async(req,res)=>{
-  try{
-    
-      const answer =await AnswerModel.find({userID:req.body.userID})
-      res.status(200).send({answer})
-  }catch(err){
-      res.status(400).send({"error":err})
+userRouter.get("/submissions", auth, async (req, res) => {
+  try {
+    const answer = await AnswerModel.find({ userID: req.body.userID });
+    res.status(200).send({ answer });
+  } catch (err) {
+    res.status(400).send({ error: err });
   }
 });
 
 
 
+// route to get user profile picture
 userRouter.get("/", auth, async (req, res) => {
   // console.log(req.body);
   try {
     const user = await UserModel.find({ _id: req.body.userID });
     // console.log("user", user);
-    res.send({ user });
+    if (user) {
+      res.status(200).send({ user });
+    } else {
+      res.status(404).send({ Message: "User not found" });
+    }
   } catch (error) {
-    console.log(`Error in getting all Notes : ${error}`);
+    console.log(`Error in getting user : ${error}`);
     res.status(401).send({ error: "Error in fetching data!" });
   }
 });
