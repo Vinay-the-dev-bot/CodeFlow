@@ -1,24 +1,50 @@
-import axios from "axios";
+import { useState } from "react";
 
-const TestCaseResults = ({ code, questionId, results }) => {
-  // console.log("RESULT", results);
-  // const testCasePasses = results.reduce((res) => {
-  //    res.expe.replaceAll(" ", "") ==
-  //      res.stdout.replaceAll("\r\n", "").replaceAll(" ", "") && {pass +=1 }
-  // }, pass);
-
-  const pass = 0;
-  const testCasePassed = results.reduce((acc, res) => {
-    return res.expe.replaceAll(" ", "") ===
-      res.stdout.replaceAll("\r\n", "").replaceAll(" ", "")
-      ? acc + 1
-      : acc;
-  }, pass);
-
-  console.log("Number of test cases passed:", testCasePassed);
-
-  const percPassed = (testCasePassed / results.length) * 100;
-
+const TestCaseJudge0Results = ({ code, question, results }) => {
+  const [Vinay, setVinay] = useState("d");
+  console.log("SADSALD+++++++++++++++++++", results);
+  const resultsssss = [
+    {
+      inp: "10",
+      out: "NO\n",
+    },
+    {
+      inp: "1",
+      out: "NO\n",
+    },
+    {
+      inp: "7",
+      out: "YES\n",
+    },
+    {
+      inp: "17",
+      out: "YES\n",
+    },
+  ];
+  let count = 0;
+  const ressss = [];
+  console.log(question);
+  for (let i = 0; i < question.testCases.length; i++) {
+    for (let j = 0; j < results.length; j++) {
+      console.log("DATA");
+      if (question.testCases[i].inp == results[j].inp) {
+        let pass =
+          question.testCases[i].oup === results[j].out.replace("\n", "");
+        if (pass) {
+          count++;
+        }
+        let data = {
+          testcase: question.testCases[i].inp,
+          expe: question.testCases[i].oup,
+          out: results[j].out,
+          pass,
+        };
+        ressss.push(data);
+        console.log("DATA", data);
+      }
+    }
+  }
+  const percPassed = (count / question.testCases.length) * 100;
   const saveResults = async () => {
     const res = await fetch(`http://localhost:4500/users/submission2`, {
       method: "POST",
@@ -26,9 +52,9 @@ const TestCaseResults = ({ code, questionId, results }) => {
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        questionID: questionId,
+        questionID: question._id,
         code,
-        results,
+        ressss,
         userID: "65d9cbc56c9b36cd3dd0bf62",
       }),
     });
@@ -36,29 +62,11 @@ const TestCaseResults = ({ code, questionId, results }) => {
     console.log(data);
   };
 
-  // [
-  //   {
-  //     expe: "dlrow",
-  //     stdout: " dlrow\r\n",
-  //   },
-  //   {
-  //     expe: "avaj",
-  //     stdout: " avaj\r\n",
-  //   },
-  //   {
-  //     expe: "AAAAAAAA",
-  //     stdout: " AAAAAAAA\r\n",
-  //   },
-  //   {
-  //     expe: "mhtirogla",
-  //     stdout: " mhtirogla\r\n",
-  //   },
-  // ];
   return (
     <div className="testCaseResults w-4/5  my-10 m-auto border-2 py-10 h-fit ">
-      {/* <div className="w-4/5 mx-auto my-2 text-center text-5xl ">Results</div> */}
-      {/* <div>{JSON.stringify(question)}</div>
-      <div>{JSON.stringify(results)}</div> */}
+      {/* TestCaseJudge0Results. */}
+      {/* {JSON.stringify()} */}
+      <div className="w-4/5 mx-auto my-2 text-center text-5xl ">Results</div>
       {/* <div className="flex flex-col gap-5">
         {res.length > 0 &&
           res.map((res, i) => {
@@ -101,8 +109,11 @@ const TestCaseResults = ({ code, questionId, results }) => {
           <p>|</p>
           <p className="w-1/2 text-center  rounded-md m-auto">OutPut</p>
         </div>
-
-        {results.map((res, i) => {
+        {/* {ressss.map((res, i) => {
+          return <p>{JSON.stringify(res)}</p>;
+        })} */}
+        {/* <p>aksndncdsnclkdsn{JSON.stringify(ressss)}</p> */}
+        {/* {ressss.map((res, i) => {
           return (
             <div
               key={i}
@@ -120,10 +131,26 @@ const TestCaseResults = ({ code, questionId, results }) => {
               <p className="w-1/3 text-center m-auto">{res.stdout}</p>
             </div>
           );
+        })} */}
+        {ressss.map((res, i) => {
+          return (
+            <div
+              key={i}
+              className={`w-4/5 flex text-white items-center m-auto rounded-md  border-2 h-10 ${
+                res.pass ? "bg-emerald-800" : "bg-rose-800"
+              }`}
+            >
+              <p className="w-1/3 text-center m-auto">{res.testcase}</p>
+              <p>|</p>
+              <p className="w-1/3 text-center m-auto">{res.expe}</p>
+              <p>|</p>
+              <p className="w-1/3 text-center m-auto">{res.out}</p>
+            </div>
+          );
         })}
       </div>
     </div>
   );
 };
 
-export default TestCaseResults;
+export default TestCaseJudge0Results;

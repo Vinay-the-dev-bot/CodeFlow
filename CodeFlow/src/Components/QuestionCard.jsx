@@ -4,9 +4,9 @@ import { useNavigate } from "react-router";
 const QuestionCard = ({ question }) => {
   const navigate = useNavigate();
   const difficultyColors = {
-    Easy: "bg-sky-600",
-    Medium: "bg-orange-600",
-    Hard: "bg-red-800",
+    Easy: "Easy",
+    Medium: "Medium",
+    Hard: "Hard",
   };
   const solveQuestion = () => {
     navigate(`solve/${question._id}`);
@@ -17,7 +17,7 @@ const QuestionCard = ({ question }) => {
         <p>Title : </p>
         <span>{question.title}</span>
       </div>
-      <div className="w-2/5 flex flex-col justify-around ">
+      <div className="w-2/5   flex flex-col justify-around ">
         <p>Description</p>
         <span>{question.description}</span>
       </div>
@@ -32,10 +32,11 @@ const QuestionCard = ({ question }) => {
         >
           {question.difficulty}
         </div>
-        <div className="w-full text-center  rounded-md py-2 bg-pink-500 m-auto block ">
+        <div className="w-full text-center qstcard rounded-md py-2 bg-pink-500 m-auto block ">
           {question.points} Points{" "}
         </div>
         <Button
+          className="qstcard w-full "
           onClick={solveQuestion}
           backgroundColor="  rgb(5 150 105);"
           coloe="white"

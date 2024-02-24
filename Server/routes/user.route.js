@@ -6,6 +6,8 @@ const { blackListTokenModel } = require("../models/blacklist.model");
 const { AnswerModel } = require("../models/answer.model");
 const { auth } = require("../middleware/auth.middleware");
 const { access } = require("../middleware/access.middleware");
+const { submissionModel } = require("../models/submission.Model");
+const { QuestionModel } = require("../models/question.model");
 
 const userRouter = express.Router();
 
@@ -48,7 +50,7 @@ userRouter.post("/login", async (req, res) => {
           const token = jwt.sign({ userID: user._id }, "codeflow", {
             expiresIn: "7d",
           });
-          res.status(200).send({ msg: "Login Successfull!", token });
+          res.status(200).send({ msg: "Login Successfull!", token, user });
         } else {
           res
             .status(400)
@@ -74,6 +76,42 @@ userRouter.get("/logout", async (req, res) => {
 });
 
 // post question answer
+
+userRouter.post("/submission2", async (req, res) => {
+  const { questionID, userID, code, results } = req.body;
+  try {
+    if (!userID || !questionID) {
+      console.log("ANANAK");
+      return res
+        .status(400)
+        .send({ msg: "Bad Request. userID and questionID are required." });
+    }
+    const question = await QuestionModel.findOne({ _id: questionID });
+    const solPoints = question.points;
+    console.log(solPoints);
+
+    const user = await UserModel.findById(userID);
+    if (!user.solved_questions.includes(questionID)) {
+      await UserModel.findByIdAndUpdate(userID, {
+        $push: { solved_questions: questionID },
+        $inc: { points: solPoints },
+      });
+    }
+
+    const ans = new submissionModel({
+      questionID,
+      userID,
+      results,
+      code,
+    });
+    await ans.save();
+
+    res.status(200).send({ msg: "solution submitted." });
+  } catch (err) {
+    console.log("Error:", err);
+    res.status(500).send({ msg: "Internal Server Error." });
+  }
+});
 
 userRouter.post("/answer/:questionID", auth, async (req, res) => {
   const { questionID } = req.params;
@@ -118,9 +156,9 @@ userRouter.get("/submissions", auth, async (req, res) => {
   }
 });
 
+ 
 
-
-// route to get user profile picture
+// route to get user profile picture 
 userRouter.get("/", auth, async (req, res) => {
   // console.log(req.body);
   try {

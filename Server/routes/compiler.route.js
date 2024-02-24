@@ -48,10 +48,18 @@ compileRouter.post("/solve", async (req, res) => {
                           return;
                         } else {
                           // res.send([{ language: "Java", output: stdout }]);
-                          testCaseOP.push({
-                            language: "Java",
-                            output: stdout,
-                          });
+                          console.log(stdout);
+                          if (customInput) {
+                            testCaseOP.push({
+                              language: "Java",
+                              output: stdout,
+                            });
+                          } else {
+                            testCaseOP.push({
+                              language: "Java",
+                              output: "",
+                            });
+                          }
                           res.send({
                             language: "Java",
                             output: testCaseOP,
