@@ -10,10 +10,10 @@ const { access } = require("../middleware/access.middleware");
 const userRouter = express.Router();
 
 // get all Users
-// userRouter.get("/all", async (req, res) => {
-//   const users = await UserModel.find();
-//   res.status(200).send({ users });
-// });
+userRouter.get("/all", async (req, res) => {
+  const users = await UserModel.find();
+  res.status(200).send({ users });
+});
 
 //registration
 userRouter.post("/register", (req, res) => {
@@ -51,7 +51,7 @@ userRouter.post("/login", async (req, res) => {
           res.status(200).send({ msg: "Login Successfull!", token });
         } else {
           res
-            .status(200)
+            .status(400)
             .send({ msg: "Please register first, wrong Credential" });
         }
       });
