@@ -31,7 +31,7 @@ function SignUP() {
     const nav=useNavigate();
 
   // const isAuth=Cookies.get("token");
-
+// const url="http://localhost:8080/"
   const handleSubmit = (event) => {
     event.preventDefault();
     // You can access the user input values from the state variables
