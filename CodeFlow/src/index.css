@@ -50,3 +50,7 @@
   border-radius: 5px;
   margin-left: 5px;
 }
+.points,
+.qstcard {
+  margin-left: 5px;
+}
