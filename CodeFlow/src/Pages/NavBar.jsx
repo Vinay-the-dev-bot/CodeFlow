@@ -26,7 +26,7 @@ const Navbar = () => {
   // const dispatch = useDispatch();
   // const navigate = useNavigate();
   // const auth = useSelector((state) => state.auth.auth);
-  const auth = true;
+  const auth = false;
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
