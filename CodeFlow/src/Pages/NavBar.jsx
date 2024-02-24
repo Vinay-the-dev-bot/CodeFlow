@@ -94,14 +94,14 @@ const Navbar = () => {
                   HTML Compiler
                 </Button>
               </Link>
-              <Link to="/judger">
+              <Link to="/contest">
                 <Button
                   fontSize={"1.3rem"}
                   color={"white"}
                   bg={"transparent"}
                   _hover={{ bg: "transparent", color: "#90ee90" }}
                 >
-                  Judger
+                  Contest
                 </Button>
               </Link>
 
@@ -120,9 +120,9 @@ const Navbar = () => {
 
                   <Button
                     fontSize={"1.3rem"}
-                    color={"white"}
-                    bg={"transparent"}
-                    _hover={{ bg: "transparent", color: "#90ee90" }}
+                    color={"black"}
+                    bg={"white"}
+                    _hover={{ bg: "", color: "black" }}
                   >
                     Logout
                   </Button>

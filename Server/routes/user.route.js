@@ -12,10 +12,10 @@ const { QuestionModel } = require("../models/question.model");
 const userRouter = express.Router();
 
 // get all Users
-// userRouter.get("/all", async (req, res) => {
-//   const users = await UserModel.find();
-//   res.status(200).send({ users });
-// });
+userRouter.get("/all", async (req, res) => {
+  const users = await UserModel.find();
+  res.status(200).send({ users });
+});
 
 //registration
 userRouter.post("/register", (req, res) => {
@@ -31,7 +31,7 @@ userRouter.post("/register", (req, res) => {
         console.log(user);
         res
           .status(200)
-          .json({ msg: "Hey! user You are successfully Register" });
+          .send({ msg: "Hey! user You are successfully Register" });
       }
     });
   } catch (err) {
@@ -53,7 +53,7 @@ userRouter.post("/login", async (req, res) => {
           res.status(200).send({ msg: "Login Successfull!", token, user });
         } else {
           res
-            .status(200)
+            .status(400)
             .send({ msg: "Please register first, wrong Credential" });
         }
       });
@@ -156,14 +156,21 @@ userRouter.get("/submissions", auth, async (req, res) => {
   }
 });
 
+ 
+
+// route to get user profile picture 
 userRouter.get("/", auth, async (req, res) => {
   // console.log(req.body);
   try {
     const user = await UserModel.find({ _id: req.body.userID });
     // console.log("user", user);
-    res.send({ user });
+    if (user) {
+      res.status(200).send({ user });
+    } else {
+      res.status(404).send({ Message: "User not found" });
+    }
   } catch (error) {
-    console.log(`Error in getting all Notes : ${error}`);
+    console.log(`Error in getting user : ${error}`);
     res.status(401).send({ error: "Error in fetching data!" });
   }
 });
