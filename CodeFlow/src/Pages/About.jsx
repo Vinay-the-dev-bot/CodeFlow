@@ -22,16 +22,16 @@ const About = () => {
           Meet the Team:
         </Heading>
         <Text>
-          <strong>Vinaygouda Meti:</strong> Lead Developer and architect of CodeFlow's advanced functionalities. Vinaygouda's expertise in coding challenges and his innovative spirit drive the development of features that challenge and inspire skilled coders.
+          <strong>Vinaygouda Meti:</strong> Full Stack Developer  and architect of CodeFlow's advanced functionalities. Vinaygouda's expertise in coding challenges and his innovative spirit drive the development of features that challenge and inspire skilled coders.
         </Text>
         <Text>
-          <strong>Geetesh Mehuria:</strong> UI/UX Designer with a knack for crafting intuitive and visually stunning interfaces. Aishwarya's designs not only enhance the user experience but also reflect our commitment to making CodeFlow accessible and engaging for all.
+          <strong>Geetesh Mehuria:</strong> Full Stack Designer with a knack for crafting intuitive and visually stunning interfaces. Geetesh's designs not only enhance the user experience but also reflect our commitment to making CodeFlow accessible and engaging for all.
         </Text>
         <Text>
-          <strong>Aishwarya Lohakare:</strong> Backend Engineer extraordinaire, Geetesh lays the foundation for CodeFlow's seamless performance and scalability. With his expertise in Node.js and database management, Geetesh ensures that the platform remains robust even under heavy usage.
+          <strong>Aishwarya Lohakare:</strong> Backend Developer extraordinaire, Aishwarya lays the foundation for CodeFlow's seamless performance and scalability. With his expertise in Node.js and database management, Aishwarya ensures that the platform remains robust even under heavy usage.
         </Text>
         <Text>
-          <strong>Deepak Purohit:</strong> DevOps Enthusiast and Authentication Wizard, Deepak specializes in deployment technologies and server management. He played a pivotal role in implementing the login and signup functionality using JWT (JSON Web Tokens), ensuring secure authentication for CodeFlow users.
+          <strong>Deepak Purohit:</strong> Full Stack Developer and Authentication Wizard, Deepak specializes in deployment technologies and server management. He played a pivotal role in implementing the login and signup functionality using JWT (JSON Web Tokens), ensuring secure authentication for CodeFlow users.
         </Text>
       </Box>
 
