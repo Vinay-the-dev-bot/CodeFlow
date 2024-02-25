@@ -75,11 +75,11 @@ userRouter.get("/logout", async (req, res) => {
 
 // post question answer
 
-userRouter.post("/submission2", async (req, res) => {
+userRouter.post("/submissions", async (req, res) => {
   const { questionID, userID, code, results } = req.body;
+  console.log(userID);
   try {
     if (!userID || !questionID) {
-      console.log("ANANAK");
       return res
         .status(400)
         .send({ msg: "Bad Request. userID and questionID are required." });
@@ -98,8 +98,8 @@ userRouter.post("/submission2", async (req, res) => {
 
     const ans = new submissionModel({
       questionID,
-      userID,
-      results,
+      userID: userID,
+      results: [...results],
       code,
     });
     await ans.save();
@@ -111,50 +111,20 @@ userRouter.post("/submission2", async (req, res) => {
   }
 });
 
-userRouter.post("/answer/:questionID", auth, async (req, res) => {
-  const { questionID } = req.params;
-  const { userID, answer } = req.body;
-
-  try {
-    if (!userID || !questionID) {
-      return res
-        .status(400)
-        .send({ msg: "Bad Request. userID and questionID are required." });
-    }
-
-    const user = await UserModel.findById(userID);
-    if (user.solved_questions.includes(questionID)) {
-      return res
-        .status(400)
-        .send({ msg: "Bad Request. Question already solved by the user." });
-    }
-
-    await UserModel.findByIdAndUpdate(userID, {
-      $push: { solved_questions: questionID },
-    });
-
-    const ans = new AnswerModel({ questionID, userID, answer });
-    await ans.save();
-
-    res.status(200).send({ msg: "solution submitted." });
-  } catch (err) {
-    console.log("Error:", err);
-    res.status(500).send({ msg: "Internal Server Error." });
-  }
-});
-
 // get submissions
-
 userRouter.get("/submissions", auth, async (req, res) => {
   try {
-    const answer = await AnswerModel.find({ userID: req.body.userID });
-    res.status(200).send({ answer });
+    const submissions = await submissionModel.find({
+      userID: req.body.userID,
+    });
+    res.status(200).send({ submissions });
   } catch (err) {
     res.status(400).send({ error: err });
   }
 });
 
-
+// route to get user profile picture
+ 
 userRouter.get("/", auth, async (req, res) => {
   // console.log(req.body);
   try {

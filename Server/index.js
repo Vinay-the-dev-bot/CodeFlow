@@ -30,6 +30,7 @@ app.listen(process.env.port, async () => {
   try {
     await connection;
     console.log(`Server is running at http://localhost:${process.env.port}`);
+    console.log(`ajncsdnsdv ${process.env.mongoURL}`);
     console.log("codeFlow database is connected..");
   } catch (err) {
     console.log(err);

@@ -9,6 +9,7 @@ import SignUP from "../Pages/SignUp";
 import Contest from "../Pages/Contest";
 import Solve from "../Pages/solve";
 import Dashboard from "../Pages/Dashboard";
+import Submissions from "../Pages/Submissions";
 
 function AllRoutes() {
   return (
@@ -22,6 +23,7 @@ function AllRoutes() {
       <Route path="/html" element={<HTMLCompiler />} />
       <Route path="/judger" element={<Judger />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/submissions" element={<Submissions />} />
       <Route path="contest/solve/:questionId" element={<Solve />} />
       {/* <Route to="/" element={<Home />} />
         <Route to="/" element={<Home />} /> */}

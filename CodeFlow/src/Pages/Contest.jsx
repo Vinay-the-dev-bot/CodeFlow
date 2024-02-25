@@ -17,7 +17,7 @@ function Contest() {
   return (
     <div>
       {/* <button onClick={getQuestion}>Get Question</button> */}
-      <div className="flex flex-col gap-4 p-10  rounded-xl ">
+      <div className="flex flex-col gap-10 p-10  rounded-xl ">
         {questions.map((question, index) => {
           return <QuestionCard key={index} question={question} />;
         })}
