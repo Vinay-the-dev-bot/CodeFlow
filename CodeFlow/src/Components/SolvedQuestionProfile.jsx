@@ -29,13 +29,24 @@ const SolvedQuestionProfile = (questionId) => {
   }, []);
   // console.log(question.question.title);
   // console.log(diff);
+  // box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   return (
     <>
-      <Box border={"2px solid orange"} p={3} width={"100%"} mb={2}>
+      <Box
+        boxShadow={
+          "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px"
+        }
+        borderRadius={"1rem"}
+        // border={"2px solid orange"}
+        p={3}
+        width={"100%"}
+        mb={5}
+      >
         <Box
           // border={"2px solid red"}
           display={"flex"}
           justifyContent={"space-between"}
+          p={"0rem 2rem"}
           alignItems={"center"}
         >
           <Box>

@@ -157,7 +157,7 @@ const Dashboard = () => {
   console.log(tc);
   return (
     <>
-      <Box>
+      <Box mb={"4rem"}>
         <Flex
           width={{ base: "97%", md: "85%" }}
           m={"auto"}
@@ -170,7 +170,16 @@ const Dashboard = () => {
             // border={"2px Solid black"}
             p={"1.3rem 0rem"}
           >
-            <Box w={"95%"} m={"auto"} border={"2px Solid black"}>
+            <Box
+              w={"95%"}
+              m={"auto"}
+              p={"1rem 0rem"}
+              // border={"2px Solid black"}
+              boxShadow={
+                "rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px"
+              }
+              borderRadius={"1rem"}
+            >
               {user.map((e) => {
                 return (
                   <>
@@ -242,14 +251,32 @@ const Dashboard = () => {
               </Box> */}
             </Box>
           </Box>
+
+          {/* box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px; */}
           <Box width={{ base: "100%", md: "70%" }}>
             <Box width={"100%"} m={"auto"} mb={2}>
-              <TableContainer mt={"1.5rem"} border={"2px solid red"}>
-                <Table>
+              <TableContainer
+                mt={{ base: "", md: "1.5rem" }}
+                // border={"2px solid red"}
+                // borderRadius={"2rem"}
+              >
+                <Table border={"2px solid black"} borderCollapse={"collapse"}>
                   <Thead textAlign={"center"}>
                     <Tr>
-                      <Th textAlign={"center"}>solved</Th>
-                      <Th textAlign={"center"}>Total</Th>
+                      <Th
+                        border={"2px solid black"}
+                        textAlign={"center"}
+                        fontSize={"1.5rem"}
+                      >
+                        solved
+                      </Th>
+                      <Th
+                        border={"2px solid black"}
+                        textAlign={"center"}
+                        fontSize={"1.5rem"}
+                      >
+                        Total
+                      </Th>
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -257,10 +284,20 @@ const Dashboard = () => {
                       return (
                         <>
                           <Tr>
-                            <Td textAlign={"center"}>
+                            <Td
+                              border={"2px solid black"}
+                              textAlign={"center"}
+                              fontSize={"1.3rem"}
+                            >
                               {e.solved_questions.length}
                             </Td>
-                            <Td textAlign={"center"}>100</Td>
+                            <Td
+                              textAlign={"center"}
+                              fontSize={"1.3rem"}
+                              border={"2px solid black"}
+                            >
+                              100
+                            </Td>
                           </Tr>
                         </>
                       );
@@ -269,8 +306,15 @@ const Dashboard = () => {
                 </Table>
               </TableContainer>
             </Box>
-            <Box border={"2px solid red"}>
-              <Box width={"90%"} m={"auto"} mt={"1.5rem"}>
+            <Box
+              //  border={"2px solid red"}
+              boxShadow={
+                "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px"
+              }
+              p={"2rem 0"}
+              borderRadius={"1rem"}
+            >
+              <Box width={"90%"} m={"auto"} mt={"1.5rem "} mb={"1.5rem"}>
                 {solved.map((e) => {
                   {
                     return <SolvedQuestionProfile key={e._id} questionId={e} />;

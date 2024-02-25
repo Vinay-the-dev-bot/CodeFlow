@@ -12,7 +12,7 @@ function App() {
         <BrowserRouter>
           <NavBar />
           <AllRoutes />
-          {/* <Footer /> */}
+          <Footer />
         </BrowserRouter>
       </ChakraProvider>
     </>

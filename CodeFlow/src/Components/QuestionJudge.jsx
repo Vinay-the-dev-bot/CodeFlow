@@ -96,12 +96,14 @@ function QuestionJudge({ questionId, question }) {
             out: atob(response.data.stdout),
           };
           setJudgeResult((prevState) => [...prevState, newObject]);
-          toast({
-            title: "Successfully Compiled.",
-            status: "success",
-            duration: 2000,
-            isClosable: true,
-          });
+          if (judgeResult.length == 4) {
+            toast({
+              title: "Successfully Compiled.",
+              status: "success",
+              duration: 2000,
+              isClosable: true,
+            });
+          }
           setPending(false);
           return;
         }

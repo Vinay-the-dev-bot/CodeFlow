@@ -14,7 +14,7 @@ const Footer = () => {
       className="n-footer px-6 flex flex-col items-center justify-center "
       bg={"#19212C"}
       color={"white"}
-      //   border={"1px solid #854CE6"}
+      //   border={"1px solid #92C7CF"}
       //   _hover={{ color: "#854CE6" }}
     >
       <Grid
@@ -40,23 +40,23 @@ const Footer = () => {
             fontSize={{ base: ".8rem", md: "1rem" }}
           >
             <Link to="/">
-              <Text mt={2} color={"white"} _hover={{ color: "#854CE6" }}>
+              <Text mt={2} color={"white"} _hover={{ color: "#92C7CF" }}>
                 Home
               </Text>
             </Link>
             <Link to="/about">
-              <Text color={"white"} _hover={{ color: "#854CE6" }}>
+              <Text color={"white"} _hover={{ color: "#92C7CF" }}>
                 About us
               </Text>
             </Link>
             <Link to="/html">
-              <Text color={"white"} _hover={{ color: "#854CE6" }}>
+              <Text color={"white"} _hover={{ color: "#92C7CF" }}>
                 {" "}
                 HTML Compiler
               </Text>
             </Link>
             <Link to="/judger">
-              <Text color={"white"} _hover={{ color: "#854CE6" }}>
+              <Text color={"white"} _hover={{ color: "#92C7CF" }}>
                 {" "}
                 Judger
               </Text>
@@ -66,7 +66,7 @@ const Footer = () => {
         <GridItem
           className=" flex flex-col justify-start  mt-8"
           w="100%"
-          //   border={"1px solid #854CE6"}
+          //   border={"1px solid #92C7CF"}
           gap={1}
           //   h={{ base: "40", lg: "60" }}
         >
@@ -78,18 +78,18 @@ const Footer = () => {
             fontSize={{ base: ".8rem", md: "1rem" }}
           >
             <Link to="#">
-              <Text color={"white"} _hover={{ color: "#854CE6" }} mt={2}>
+              <Text color={"white"} _hover={{ color: "#92C7CF" }} mt={2}>
                 Code Q&A's
               </Text>
             </Link>
             <Link to="https://www.termsfeed.com/blog/terms-conditions-url/">
-              <Text color={"white"} _hover={{ color: "#854CE6" }}>
+              <Text color={"white"} _hover={{ color: "#92C7CF" }}>
                 {" "}
                 Terms of use
               </Text>
             </Link>
             <Link to="https://www.termsfeed.com/blog/terms-conditions-url/">
-              <Text color={"white"} _hover={{ color: "#854CE6" }}>
+              <Text color={"white"} _hover={{ color: "#92C7CF" }}>
                 {" "}
                 Privacy Policy
               </Text>
@@ -99,7 +99,7 @@ const Footer = () => {
         <GridItem
           className="flex flex-col justify-start mt-8"
           w="100%"
-          //   border={"1px solid #854CE6"}
+          //   border={"1px solid #92C7CF"}
           gap={1}
           //   h={{ base: "40", sm: "60", md: "40", lg: "60" }}
         >
@@ -116,7 +116,7 @@ const Footer = () => {
         <GridItem
           className="flex flex-col justify-start mt-8"
           w="100%"
-          //   border={"1px solid #854CE6"}
+          //   border={"1px solid #92C7CF"}
           gap={1}
           //   h={{ base: "40", lg: "60" }}
         >

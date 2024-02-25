@@ -3,12 +3,12 @@ import { Box, Heading, Text } from "@chakra-ui/react";
 
 const About = () => {
   return (
-    <Box p={6}>
+    <Box p={"2rem 4rem"}>
       <Heading as="h3" size="lg" mb={4}>
         About CodeFlow
       </Heading>
 
-      <Box bg="gray.100" p={4} borderRadius="md" mb={4}>
+      <Box bg="gray.100" p={6} borderRadius="md" mb={4}>
         <Heading as="h2" size="xl" mb={4}>
           Our Story:
         </Heading>
@@ -22,7 +22,15 @@ const About = () => {
         </Text>
       </Box>
 
-      <Box bg="gray.100" p={4} borderRadius="md" mb={4}>
+      <Box
+        bg="gray.100"
+        p={4}
+        borderRadius="md"
+        mb={4}
+        display={"flex"}
+        flexDirection={"column"}
+        gap={4}
+      >
         <Heading as="h2" size="xl" mb={4}>
           Meet the Team:
         </Heading>

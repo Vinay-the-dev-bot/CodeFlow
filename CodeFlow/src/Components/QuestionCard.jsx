@@ -1,4 +1,4 @@
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 
 const QuestionCard = ({ question }) => {
@@ -18,20 +18,36 @@ const QuestionCard = ({ question }) => {
       flexDirection={{ base: "column", md: "row" }}
       gap={"1rem"}
     >
-      <Box
-        className=" flex flex-col justify-around "
-        width={{ base: "100%", md: "40%" }}
-      >
-        <p>Title : </p>
-        <span>{question.title}</span>
+      {/* <Box display={"flex"} flexDirection={"column"} gap={"1rem"}> */}
+      {/* <Box
+          className=" flex  justify-around "
+          width={{ base: "100%", md: "100%" }}
+        >
+          <p>Title : </p>
+          <Text>{question.title}</Text>
+        </Box>
+        <Box
+          className="  flex  justify-around "
+          width={{ base: "100%", md: "100%" }}
+        >
+          <p>Description</p>
+          <Text>{question.description}</Text>
+        </Box> */}
+
+      <Box className="flex flex-col justify-around  gap-3 w-3/5 " 
+         width={{ base: "100%", md: "60%" }}>
+        <Box className="w-full      ">
+          <p className="font-bold">
+            Title : <span className="font-normal">{question.title}</span>
+          </p>
+        </Box>
+        <Box className="w-full   flex flex-col  ">
+          <p className="font-bold">Description :</p>
+          <span>{question.description}</span>
+        </Box>
       </Box>
-      <Box
-        className="w-2/5   flex flex-col justify-around "
-        width={{ base: "100%", md: "40%" }}
-      >
-        <p>Description</p>
-        <span>{question.description}</span>
-      </Box>
+      {/* </Box> */}
+
       <Box
         className="flex flex-col  justify-around w-1/4 gap-5 "
         w={{ base: "100%", md: "40%" }}
