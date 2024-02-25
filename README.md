@@ -44,6 +44,7 @@ List your design desissions & assumptions
 Detailed instructions on how to install, configure, and get the project running. For BE/FS projects, guide the reviewer how to check mongodb schema etc.
 
 ```bash
+git clone https://github.com/Vinay-the-dev-bot/CodeFlow.git
 cd CodeFlow
 npm i
 npm run dev
