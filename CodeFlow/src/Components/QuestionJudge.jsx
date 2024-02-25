@@ -96,12 +96,14 @@ function QuestionJudge({ questionId, question }) {
             out: atob(response.data.stdout),
           };
           setJudgeResult((prevState) => [...prevState, newObject]);
-          toast({
-            title: "Successfully Compiled.",
-            status: "success",
-            duration: 2000,
-            isClosable: true,
-          });
+          if (judgeResult.length == 4) {
+            toast({
+              title: "Successfully Compiled.",
+              status: "success",
+              duration: 2000,
+              isClosable: true,
+            });
+          }
           setPending(false);
           return;
         }
@@ -448,7 +450,7 @@ function QuestionJudge({ questionId, question }) {
           </h1>
           <textarea
             className="w-full border-2 h-1/5 p-2 border-black rounded "
-            placeholder="Custom Inputs"
+            placeholder="Sample Input"
             value={customInput}
             onChange={(e) => setCustomInput(e.target.value)}
             type="text"

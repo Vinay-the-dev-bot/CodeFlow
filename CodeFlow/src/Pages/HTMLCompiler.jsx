@@ -3,6 +3,7 @@ import Button from "../Components/Button";
 import Editor, { useMonaco } from "@monaco-editor/react";
 import ThemeDropdown from "../Components/ThemeDropdown";
 import { themes } from "../assets/EditorThemes";
+import { Box } from "@chakra-ui/react";
 function HTMLCompiler() {
   const [openedEditor, setOpenedEditor] = useState("HTML");
   const [html, setHTML] = useState(
@@ -51,8 +52,17 @@ function HTMLCompiler() {
       <p className="text-5xl py-5 m-auto text-center">
         Welcome to CODEFLOW editor!
       </p>
-      <div className="flex w-1/1 items-center justify-center">
-        <div className="tab-button-container w-1/2 ml-20 mt-10  my-10 mx-auto flex gap-10 ">
+      <Box
+        className="flex w-1/1 items-center justify-center"
+        flexDirection={{ base: "column", md: "row" }}
+      >
+        <Box
+          className="tab-button-container w-1/2  mt-10  my-10 mx-auto flex gap-10 "
+          flexDirection={{ base: "column", md: "row" }}
+          justifyContent={"center"}
+          // border={"2px solid black"}
+          m={{ md: "auto" }}
+        >
           <Button
             title="HTML"
             onClick={() => {
@@ -74,8 +84,8 @@ function HTMLCompiler() {
             }}
             isActive={activeTab === "JavaScript"}
           />
-        </div>
-        <div className="w-1/2 ">
+        </Box>
+        <div className=" w-1/2">
           {/* <label className="m-auto" for="themeSelect">
             Select Theme:
           </label>
@@ -87,10 +97,13 @@ function HTMLCompiler() {
           </select> */}
           <ThemeDropdown handleThemeChange={handleThemeChange} />
         </div>
-      </div>
+      </Box>
 
-      <div className="editor-container flex  mx-auto m-1 h-full  ">
-        <div className="  flex flex-col w-1/2 ">
+      <Box
+        className="editor-container flex  mx-auto m-1 h-full  "
+        flexDirection={{ base: "column", md: "row" }}
+      >
+        <Box className="  flex flex-col  " w={{ base: "100%", md: "50%" }}>
           {openedEditor === "HTML" ? (
             <div className="HTML-Editor flex flex-col w-1/1 ">
               <Editor
@@ -127,7 +140,7 @@ function HTMLCompiler() {
               />
             </div>
           )}
-        </div>
+        </Box>
         <div className="w-1/2 h-full rounded-xl ">
           <iframe
             className=" mx-auto rounded-xl  "
@@ -139,7 +152,7 @@ function HTMLCompiler() {
             height="500px"
           />
         </div>
-      </div>
+      </Box>
     </div>
   );
 }

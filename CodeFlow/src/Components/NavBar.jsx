@@ -37,7 +37,7 @@ const Navbar = () => {
     <>
       <Box>
         <Flex
-          p={{ base: ".8rem 1.3rem", md: ".6rem 3rem" }}
+          p={{ base: ".8rem 1.3rem", md: "1rem 3rem" }}
           boxShadow="base"
           bg={"#19212C"}
           display={"flex"}
@@ -73,7 +73,7 @@ const Navbar = () => {
                   fontSize={"1.3rem"}
                   color={"white"}
                   bg={"transparent"}
-                  _hover={{ bg: "transparent", color: "#90ee90" }}
+                  _hover={{ bg: "transparent", color: "#AAD7D9" }}
                 >
                   Home
                 </Button>
@@ -83,7 +83,7 @@ const Navbar = () => {
                   fontSize={"1.3rem"}
                   color={"white"}
                   bg={"transparent"}
-                  _hover={{ bg: "transparent", color: "#90ee90" }}
+                  _hover={{ bg: "transparent", color: "#AAD7D9" }}
                 >
                   About
                 </Button>
@@ -93,7 +93,7 @@ const Navbar = () => {
                   fontSize={"1.3rem"}
                   color={"white"}
                   bg={"transparent"}
-                  _hover={{ bg: "transparent", color: "#90ee90" }}
+                  _hover={{ bg: "transparent", color: "#AAD7D9" }}
                 >
                   HTML Compiler
                 </Button>
@@ -103,7 +103,7 @@ const Navbar = () => {
                   fontSize={"1.3rem"}
                   color={"white"}
                   bg={"transparent"}
-                  _hover={{ bg: "transparent", color: "#90ee90" }}
+                  _hover={{ bg: "transparent", color: "#AAD7D9" }}
                 >
                   Contest
                 </Button>
@@ -116,7 +116,7 @@ const Navbar = () => {
                       fontSize={"1.3rem"}
                       color={"white"}
                       bg={"transparent"}
-                      _hover={{ bg: "transparent", color: "#90ee90" }}
+                      _hover={{ bg: "transparent", color: "#AAD7D9" }}
                     >
                       {name}
                     </Button>
@@ -126,7 +126,7 @@ const Navbar = () => {
                     fontSize={"1.3rem"}
                     color={"black"}
                     bg={"white"}
-                    _hover={{ bg: "", color: "black" }}
+                    _hover={{ bg: "#AAD7D9", color: "black" }}
                     onClick={() => {
                       setTimeout(() => {
                         localStorage.setItem("token", "");
@@ -152,7 +152,7 @@ const Navbar = () => {
                       fontSize={"1.3rem"}
                       color={"white"}
                       bg={"transparent"}
-                      _hover={{ bg: "transparent", color: "#90ee90" }}
+                      _hover={{ bg: "transparent", color: "#AAD7D9" }}
                     >
                       Login
                     </Button>
@@ -162,7 +162,7 @@ const Navbar = () => {
                       fontSize={"1.3rem"}
                       color={"white"}
                       bg={"transparent"}
-                      _hover={{ bg: "transparent", color: "#90ee90" }}
+                      _hover={{ bg: "transparent", color: "#AAD7D9" }}
                     >
                       Sign Up
                     </Button>
@@ -206,10 +206,10 @@ const Navbar = () => {
               <Link
                 className="hover:bg-primeGreen-600 block py-2"
                 color="#2f4e44"
-                to="/judger"
+                to="/contest"
                 onClick={onClose}
               >
-                Judger
+                Contest
               </Link>
 
               {auth ? (

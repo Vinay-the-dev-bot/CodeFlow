@@ -125,7 +125,7 @@ userRouter.get("/", auth, async (req, res) => {
   // console.log(req.body);
   try {
     const user = await UserModel.find({ _id: req.body.userID });
-    // console.log(user);
+    // console.log( user);
     if (user) {
       res.status(200).send(user);
     } else {
