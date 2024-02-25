@@ -1,16 +1,15 @@
 import {
   Box,
   Flex,
+  Grid,
   Heading,
   Image,
   Select,
   Table,
-  TableCaption,
   TableContainer,
   Tbody,
   Td,
   Text,
-  Tfoot,
   Th,
   Thead,
   Tr,
@@ -20,13 +19,14 @@ import { useEffect, useState } from "react";
 // import axios from "axios";
 // import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import SolvedQuestionProfile from "../Components/SolvedQuestionProfile";
 
 const Dashboard = () => {
   const name = useSelector((state) => state.auth.name);
   // const name = "Geetesh Mehuria";
 
   const [user, setUser] = useState([]);
-  const [email, setEmail] = useState([]);
+  const [solved, setSolved] = useState([]);
 
   useEffect(() => {
     const getUser = async () => {
@@ -40,6 +40,7 @@ const Dashboard = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(res.data);
+        setSolved(res.data[0].solved_questions);
         // console.log(res.data);x
       } catch (error) {
         console.log(error);
@@ -48,13 +49,27 @@ const Dashboard = () => {
     getUser();
   }, []);
   console.log(user);
+  console.log(solved);
 
-  // setEmail(user.map((e) => e.email));
+  // console.log(user[0].solved_questions);
+  // const { solved_questions } = user[0];
+  // setSolved(solved_questions);
+  // console.log(solved);
   return (
     <>
       <Box>
-        <Flex width={"85%"} m={"auto"} gap={6} mt={"2rem"}>
-          <Box width={"30%"} border={"2px Solid black"} p={"1.3rem 0rem"}>
+        <Flex
+          width={{ base: "97%", md: "85%" }}
+          m={"auto"}
+          gap={6}
+          mt={"2rem"}
+          flexDirection={{ base: "column", md: "row" }}
+        >
+          <Box
+            width={{ base: "100%", md: "30%" }}
+            // border={"2px Solid black"}
+            p={"1.3rem 0rem"}
+          >
             <Box w={"95%"} m={"auto"} border={"2px Solid black"}>
               {user.map((e) => {
                 return (
@@ -63,14 +78,14 @@ const Dashboard = () => {
                       display={"flex"}
                       justifyContent={"center"}
                       gap={4}
-                      border={"2px Solid black"}
+                      // border={"2px Solid black"}
                       // margin={"19px 19px 5px 19px"}
                       p={2}
                     >
                       <Image
                         src={`https://ui-avatars.com/api/?name=${e.name}&background=random&color=fff`}
                         width={"35%"}
-                        border={"2px Solid red"}
+                        // border={"2px Solid red"}
                         borderRadius={"50%"}
                       />
                     </Box>
@@ -84,7 +99,7 @@ const Dashboard = () => {
                 );
               })}
 
-              <Box display={"flex"} justifyContent={"center"} mt={5}>
+              {/* <Box display={"flex"} justifyContent={"center"} mt={5}>
                 <Select
                   bg=""
                   // borderColor="blue"
@@ -98,21 +113,26 @@ const Dashboard = () => {
                   <option value="option2">Medium</option>
                   <option value="option3">Beginner</option>
                 </Select>
-              </Box>
-
-              <Box border={"2px Solid black"} padding={4} mt={4}>
-                <Heading textAlign={"left"} fontSize={"1.5rem"}>
+              </Box> */}
+              <hr className="border border-black mt-5" />
+              <Box
+                // border={"2px Solid black"}
+                padding={4}
+                mt={4}
+              >
+                <Heading textAlign={"center"} fontSize={"1.5rem"}>
                   Skills
                 </Heading>
+                <Text>Java</Text>
               </Box>
             </Box>
           </Box>
-          <Box width={"70%"} border={"2px Solid black"}>
-            <Box width={"50%"}>
-              <TableContainer>
-                <Table variant="striped" colorScheme="teal">
+          <Box width={{ base: "100%", md: "70%" }}>
+            <Box width={"100%"} m={"auto"} mb={2}>
+              <TableContainer mt={"1.5rem"} border={"2px solid red"}>
+                <Table>
                   <Thead textAlign={"center"}>
-                    <Tr border={"2px solid black"}>
+                    <Tr>
                       <Th textAlign={"center"}>solved</Th>
                       <Th textAlign={"center"}>Total</Th>
                     </Tr>
@@ -133,6 +153,13 @@ const Dashboard = () => {
                   </Tbody>
                 </Table>
               </TableContainer>
+            </Box>
+            <Box border={"2px solid red"}>
+              <Box width={"90%"} m={"auto"} mt={"1.5rem"}>
+                {solved.map((e) => {
+                  return <SolvedQuestionProfile key={e._id} questionId={e} />;
+                })}
+              </Box>
             </Box>
           </Box>
         </Flex>
