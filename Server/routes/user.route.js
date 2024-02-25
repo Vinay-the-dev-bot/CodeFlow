@@ -3,15 +3,11 @@ const { UserModel } = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { blackListTokenModel } = require("../models/blacklist.model");
-const { AnswerModel } = require("../models/answer.model");
 const { auth } = require("../middleware/auth.middleware");
-const { access } = require("../middleware/access.middleware");
 const { submissionModel } = require("../models/submission.Model");
 const { QuestionModel } = require("../models/question.model");
 
 const userRouter = express.Router();
-
-// get all Users
 
 //registration
 userRouter.post("/register", (req, res) => {
@@ -74,10 +70,9 @@ userRouter.get("/logout", async (req, res) => {
 });
 
 // post question answer
-
 userRouter.post("/submissions", async (req, res) => {
-  const { questionID, userID, code, results } = req.body;
-  console.log(userID);
+  const { questionID, userID, code, title, results } = req.body;
+  // console.log(userID);
   try {
     if (!userID || !questionID) {
       return res
@@ -86,7 +81,7 @@ userRouter.post("/submissions", async (req, res) => {
     }
     const question = await QuestionModel.findOne({ _id: questionID });
     const solPoints = question.points;
-    console.log(solPoints);
+    // console.log(solPoints);
 
     const user = await UserModel.findById(userID);
     if (!user.solved_questions.includes(questionID)) {
@@ -99,6 +94,7 @@ userRouter.post("/submissions", async (req, res) => {
     const ans = new submissionModel({
       questionID,
       userID: userID,
+      title: title,
       results: [...results],
       code,
     });
@@ -106,7 +102,7 @@ userRouter.post("/submissions", async (req, res) => {
 
     res.status(200).send({ msg: "solution submitted." });
   } catch (err) {
-    console.log("Error:", err);
+    // console.log("Error:", err);
     res.status(500).send({ msg: "Internal Server Error." });
   }
 });
@@ -124,19 +120,23 @@ userRouter.get("/submissions", auth, async (req, res) => {
 });
 
 // route to get user profile picture
- 
+
 userRouter.get("/", auth, async (req, res) => {
   // console.log(req.body);
   try {
     const user = await UserModel.find({ _id: req.body.userID });
+<<<<<<< HEAD
     // console.log( user);
+=======
+    // console.log(user);
+>>>>>>> 9db48e3b25a2c3742c0ef6aac979de9287fe205f
     if (user) {
       res.status(200).send(user);
     } else {
       res.status(404).send({ Message: "User not found" });
     }
   } catch (error) {
-    console.log(`Error in getting user : ${error}`);
+    // console.log(`Error in getting user : ${error}`);
     res.status(401).send({ error: "Error in fetching data!" });
   }
 });

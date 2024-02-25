@@ -50,7 +50,7 @@ compileRouter.post("/solve", async (req, res) => {
                           return;
                         } else {
                           // res.send([{ language: "Java", output: stdout }]);
-                          console.log(stdout);
+                          // console.log(stdout);
                           if (customInput) {
                             testCaseOP.push({
                               language: "Java",
@@ -118,26 +118,26 @@ compileRouter.post("/solve", async (req, res) => {
       return;
     }
     case "javascript": {
-      console.log(req.body);
+      // console.log(req.body);
       try {
         const code = req.body.code;
         const inputs = customInput;
 
         let logOutput = "";
         const originalLog = console.log;
-        console.log = function (...args) {
-          logOutput += args.join(" ") + "\n";
-        };
+        // console.log = function (...args) {
+        //   logOutput += args.join(" ") + "\n";
+        // };
 
         const result = await eval(code, inputs);
-        console.log("RESULT : ", result);
-        console.log = originalLog;
+        // console.log("RESULT : ", result);
+        // console.log = originalLog;
 
         testCaseOP.push({
           input: inputs,
           log: logOutput,
         });
-        console.log("testcaesa OP ", testCaseOP);
+        // console.log("testcaesa OP ", testCaseOP);
         res.status(200).json(testCaseOP);
       } catch (err) {
         res.status(500).json({ error: "Execution error", stderr: err.message });

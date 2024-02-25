@@ -33,6 +33,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import SolvedQuestionProfile from "../Components/SolvedQuestionProfile";
 import { Link } from "react-router-dom";
+import { url } from "../assets/Extra";
 
 const Dashboard = () => {
   const name = useSelector((state) => state.auth.name);
@@ -63,7 +64,7 @@ const Dashboard = () => {
         return;
       }
       try {
-        const res = await axios.get("http://localhost:8080/users", {
+        const res = await axios.get(`${url}/users`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(res.data);
@@ -103,7 +104,7 @@ const Dashboard = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:8080/questions/add",
+        `${url}/questions/add`,
         {
           title,
           description,

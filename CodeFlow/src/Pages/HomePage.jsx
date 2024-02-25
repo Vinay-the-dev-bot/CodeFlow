@@ -185,7 +185,7 @@ function HomePage() {
           </Flex>
         </Box>
       </Box>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

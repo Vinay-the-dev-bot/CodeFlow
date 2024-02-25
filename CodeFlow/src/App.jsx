@@ -1,8 +1,9 @@
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
 import AllRoutes from "./MainRoute/AllRoutes";
-import NavBar from "./Pages/NavBar";
+import NavBar from "./Components/NavBar";
 import { ChakraProvider } from "@chakra-ui/react";
+import Footer from "./Components/Footer";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <BrowserRouter>
           <NavBar />
           <AllRoutes />
+          {/* <Footer /> */}
         </BrowserRouter>
       </ChakraProvider>
     </>

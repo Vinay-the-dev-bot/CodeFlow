@@ -28,6 +28,7 @@ import { authLinLout } from "../redux/authSlice";
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const auth = useSelector((state) => state.auth.auth);
   const name = useSelector((state) => state.auth.name);
   const toast = useToast();
@@ -128,6 +129,8 @@ const Navbar = () => {
                     _hover={{ bg: "", color: "black" }}
                     onClick={() => {
                       setTimeout(() => {
+                        localStorage.setItem("token", "");
+                        localStorage.setItem("name", "");
                         dispatch(authLinLout(false));
                       }, 1000);
                       toast({

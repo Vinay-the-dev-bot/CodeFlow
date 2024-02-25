@@ -419,6 +419,13 @@ function QuestionJudge({ questionId, question }) {
         <div className="px-4 py-2">
           <LanguageDropdown onSelectChange={onSelectChange} />
         </div>
+        <Select
+          placeholder={`Select Key`}
+          options={keys}
+          styles={customStyles}
+          defaultValue={keys[0]}
+          onChange={(selectedOption) => setAPIKey(selectedOption.value)}
+        />
         <div className="px-4 py-2">
           <ThemeDropdown handleThemeChange={handleThemeChange} />
         </div>
@@ -471,13 +478,7 @@ function QuestionJudge({ questionId, question }) {
         </div>
       </div>
       {/* {JSON.stringify(keys)} */}
-      <Select
-        placeholder={`Select Key`}
-        options={keys}
-        styles={customStyles}
-        defaultValue={keys[0]}
-        onChange={(selectedOption) => setAPIKey(selectedOption.value)}
-      />
+
       {submitted && output.output && output.output.length > 0 && (
         <TestCaseResults
           questionId={questionId}

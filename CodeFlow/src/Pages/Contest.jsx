@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import Judger from "./Judger";
 import QuestionCard from "../Components/QuestionCard";
+import { url } from "../assets/Extra";
 
 function Contest() {
   const [questions, setQuestions] = useState([]);
   useEffect(() => {
     const getQuestion = async () => {
-      const res = await fetch("http://localhost:8080/questions/");
+      const res = await fetch(`${url}/questions/`);
       const data = await res.json();
       console.log(data.questions);
       setQuestions(data.questions);

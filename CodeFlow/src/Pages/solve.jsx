@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import QuestionJudge from "../Components/QuestionJudge";
+import { url } from "../assets/Extra";
 
 function Solve() {
   const { questionId } = useParams();
@@ -8,9 +9,7 @@ function Solve() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(
-          `http://localhost:4500/questions/${questionId}`
-        );
+        const res = await fetch(`${url}/questions/${questionId}`);
         const data = await res.json();
         setQuestion(data.question);
       } catch (error) {

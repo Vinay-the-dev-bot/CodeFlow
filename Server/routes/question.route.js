@@ -12,21 +12,21 @@ questionRouter.post("/add", auth, access(["admin"]), async (req, res) => {
     await note.save();
     res.status(200).send({ msg: "New Question Added." });
   } catch (err) {
-    console.log("Error:", err);
+    // console.log("Error:", err);
     res.status(400).send({ msg: "Bad Request." });
   }
 });
 
 questionRouter.get("/:questionId", async (req, res) => {
   const { questionId } = req.params;
-  console.log("questionId", questionId);
+  // console.log("questionId", questionId);
   try {
     const question = await QuestionModel.findOne({
       _id: questionId,
     });
     res.status(200).send({ question });
   } catch (err) {
-    console.log("Error:", err);
+    // console.log("Error:", err);
     res.status(400).send({ msg: "Bad Request." });
   }
 });
@@ -36,7 +36,7 @@ questionRouter.get("/", async (req, res) => {
     const questions = await QuestionModel.find();
     res.status(200).send({ questions });
   } catch (err) {
-    console.log("Error:", err);
+    // console.log("Error:", err);
     res.status(400).send({ msg: "Bad Request." });
   }
 });

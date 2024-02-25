@@ -1,6 +1,7 @@
 import { Box, Heading, Text } from "@chakra-ui/layout";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { url } from "../assets/Extra";
 
 const SolvedQuestionProfile = (questionId) => {
   // console.log(questionId);
@@ -15,7 +16,7 @@ const SolvedQuestionProfile = (questionId) => {
       }
       try {
         const res = await axios.get(
-          `http://localhost:8080/questions/${questionId.questionId}`
+          `${url}/questions/${questionId.questionId}`
         );
         setQuestion(res.data.question);
         console.log(res.data);
