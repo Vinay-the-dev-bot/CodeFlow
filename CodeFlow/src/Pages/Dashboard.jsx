@@ -22,57 +22,68 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const Dashboard = () => {
-  // const name = useSelector((state) => state.auth.name);
-  const name = "Geetesh Mehuria";
-  const email = "bWqFP@example.com";
-  // const [user, setUser] = useState();
+  const name = useSelector((state) => state.auth.name);
+  // const name = "Geetesh Mehuria";
 
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     const token = localStorage.getItem("token");
-  //     if (!token) {
-  //       console.log("no token found!");
-  //       return;
-  //     }
-  //     try {
-  //       const res = await axios.get("https:// http://localhost:8080/users", {
-  //         headers: { Authorization: `Bearer ${token}` },
-  //       });
-  //       setUser(res.data);
-  //       console.log(res.data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   getUser();
-  // }, []);
+  const [user, setUser] = useState([]);
+  const [email, setEmail] = useState([]);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.log("no token found!");
+        return;
+      }
+      try {
+        const res = await axios.get("http://localhost:8080/users", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setUser(res.data);
+        // console.log(res.data);x
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUser();
+  }, []);
+  console.log(user);
+
+  // setEmail(user.map((e) => e.email));
   return (
     <>
       <Box>
-        <Flex width={"90%"} m={"auto"} gap={6} mt={"2rem"}>
-          <Box width={"35%"} border={"2px Solid black"} p={"1.3rem 0rem"}>
+        <Flex width={"85%"} m={"auto"} gap={6} mt={"2rem"}>
+          <Box width={"30%"} border={"2px Solid black"} p={"1.3rem 0rem"}>
             <Box w={"95%"} m={"auto"} border={"2px Solid black"}>
-              <Box
-                display={"flex"}
-                justifyContent={"center"}
-                gap={4}
-                border={"2px Solid black"}
-                // margin={"19px 19px 5px 19px"}
-                p={2}
-              >
-                <Image
-                  src="https://firebasestorage.googleapis.com/v0/b/coinsquare-8dc2e.appspot.com/o/default.jpg?alt=media&token=fa163076-3ed8-48b2-875b-3b370c66f251"
-                  width={"45%"}
-                  border={"2px Solid red"}
-                  borderRadius={"50%"}
-                />
-              </Box>
-              <Box textAlign={"center"}>
-                <Text fontSize={"2rem"} fontWeight={"bold"}>
-                  {name}
-                </Text>
-                <Text fontSize={"1.3rem"}>{email}</Text>
-              </Box>
+              {user.map((e) => {
+                return (
+                  <>
+                    <Box
+                      display={"flex"}
+                      justifyContent={"center"}
+                      gap={4}
+                      border={"2px Solid black"}
+                      // margin={"19px 19px 5px 19px"}
+                      p={2}
+                    >
+                      <Image
+                        src={`https://ui-avatars.com/api/?name=${e.name}&background=random&color=fff`}
+                        width={"35%"}
+                        border={"2px Solid red"}
+                        borderRadius={"50%"}
+                      />
+                    </Box>
+                    <Box textAlign={"center"}>
+                      <Text fontSize={"2rem"} fontWeight={"bold"}>
+                        {name}
+                      </Text>
+                      <Text fontSize={"1.3rem"}>{e.email}</Text>
+                    </Box>
+                  </>
+                );
+              })}
+
               <Box display={"flex"} justifyContent={"center"} mt={5}>
                 <Select
                   bg=""
@@ -96,23 +107,29 @@ const Dashboard = () => {
               </Box>
             </Box>
           </Box>
-          <Box width={"60%"} border={"2px Solid black"}>
+          <Box width={"70%"} border={"2px Solid black"}>
             <Box width={"50%"}>
               <TableContainer>
                 <Table variant="striped" colorScheme="teal">
-                  <Thead>
-                    <Tr>
-                      <Th>Easy</Th>
-                      <Th>Medium</Th>
-                      <Th>Hard</Th>
+                  <Thead textAlign={"center"}>
+                    <Tr border={"2px solid black"}>
+                      <Th textAlign={"center"}>solved</Th>
+                      <Th textAlign={"center"}>Total</Th>
                     </Tr>
                   </Thead>
                   <Tbody>
-                    <Tr>
-                      <Td></Td>
-                      <Td></Td>
-                      <Td></Td>
-                    </Tr>
+                    {user.map((e) => {
+                      return (
+                        <>
+                          <Tr>
+                            <Td textAlign={"center"}>
+                              {e.solved_questions.length}
+                            </Td>
+                            <Td textAlign={"center"}>100</Td>
+                          </Tr>
+                        </>
+                      );
+                    })}
                   </Tbody>
                 </Table>
               </TableContainer>

@@ -13,21 +13,24 @@ import {
   Text,
   Image,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 // import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import { authLinLout } from "../redux/authSlice";
 // import axios from "axios";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import image from "../assets/logo2.png";
+import { useDispatch, useSelector } from "react-redux";
+import { authLinLout } from "../redux/authSlice";
 // import React from "react";
 
 const Navbar = () => {
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-  // const auth = useSelector((state) => state.auth.auth);
-  const auth = false;
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const auth = useSelector((state) => state.auth.auth);
+  const name = useSelector((state) => state.auth.name);
+  const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
@@ -114,7 +117,7 @@ const Navbar = () => {
                       bg={"transparent"}
                       _hover={{ bg: "transparent", color: "#90ee90" }}
                     >
-                      User
+                      {name}
                     </Button>
                   </Link>
 
@@ -123,6 +126,18 @@ const Navbar = () => {
                     color={"black"}
                     bg={"white"}
                     _hover={{ bg: "", color: "black" }}
+                    onClick={() => {
+                      setTimeout(() => {
+                        dispatch(authLinLout(false));
+                      }, 1000);
+                      toast({
+                        title: "Logout successful ",
+                        status: "success",
+                        duration: 2000,
+                        isClosable: true,
+                      });
+                      navigate("/");
+                    }}
                   >
                     Logout
                   </Button>
@@ -202,7 +217,7 @@ const Navbar = () => {
                     color="#2f4e44"
                     onClick={onClose}
                   >
-                    User
+                    {name}
                   </Link>
 
                   <Text
