@@ -8,8 +8,11 @@ import CodeEditor from "./CodeEditor";
 import OutputWindow from "./OutputWindow";
 import { languageOptions } from "../assets/LanguageOptions";
 import TestCaseResults from "../Components/TestCaseResults";
+import axios from "axios";
+import TestCaseJudge0Results from "./TestCaseJudge0Results";
+import LoadingToast from "./LoadingToast";
 
-function QuestionJudge({ questionId }) {
+function QuestionJudge({ questionId, question }) {
   const [javaCode, setJavaCode] = useState(`public class main {
     public static void main(String[] args) {
         // Your code goes here
@@ -22,7 +25,6 @@ function QuestionJudge({ questionId }) {
     `//Write Your Code Here`
   );
   const [langFocus, setLangFocus] = useState("java");
-  const [question, setQuestion] = useState();
   const [customInput, setCustomInput] = useState("");
   const [theme, setTheme] = useState(themes[0]);
   const [language, setLanguage] = useState(languageOptions[0]);
@@ -30,6 +32,7 @@ function QuestionJudge({ questionId }) {
   const [code, setCode] = useState(javaCode);
   const [pending, setPending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [judgeResult, setJudgeResult] = useState({});
   const toast = useToast();
 
   const langCode = {
@@ -40,6 +43,129 @@ function QuestionJudge({ questionId }) {
   function handleThemeChange(th) {
     setTheme(th);
   }
+  const checkStatus = async (token, judgeInput) => {
+    console.log("judgeInputjudgeInput : ", judgeInput);
+    const options = {
+      method: "GET",
+      url: "https://judge0-ce.p.rapidapi.com/submissions" + "/" + token,
+      params: { base64_encoded: "true", fields: "*" },
+      headers: {
+        "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
+        "X-RapidAPI-Key": "a158f9dc72msh71a3aa6d6fbbdebp1e4846jsn43b522b4bb6d",
+      },
+    };
+    try {
+      let response = await axios.request(options);
+      let statusId = response.data.status?.id;
+      if (statusId === 1 || statusId === 2) {
+        setTimeout(() => {
+          checkStatus(token, judgeInput);
+        }, 7000);
+        return;
+      } else {
+        console.log("-------------------------", atob(response.data.stdout));
+        if (judgeInput) {
+          const newObject = {
+            inp: `${judgeInput}`,
+            out: atob(response.data.stdout),
+          };
+          setJudgeResult((prevState) => [...prevState, newObject]);
+        }
+
+        console.log("response.data", atob(response.data.stdout));
+        setOutPut(atob(response.data.stdout));
+        setPending(false);
+        return;
+      }
+    } catch (err) {
+      console.log("err", err);
+    }
+  };
+  const handleCompile = () => {
+    const formData = {
+      language_id: language.id,
+      source_code: btoa(code),
+      stdin: btoa(customInput),
+    };
+    const options = {
+      method: "POST",
+      url: "https://judge0-ce.p.rapidapi.com/submissions",
+      params: { base64_encoded: "true", fields: "*" },
+      headers: {
+        "content-type": "application/json",
+        "Content-Type": "application/json",
+        "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
+        "X-RapidAPI-Key": "a158f9dc72msh71a3aa6d6fbbdebp1e4846jsn43b522b4bb6d",
+      },
+      data: formData,
+    };
+
+    axios
+      .request(options)
+      .then(function (response) {
+        console.log("res.data", response.data);
+        const token = response.data.token;
+        checkStatus(token, customInput);
+      })
+      .catch((err) => {
+        let error = err.response ? err.response.data : err;
+        console.log(error);
+      });
+  };
+
+  const handleSubmitCompile = (judgeInput) => {
+    console.log("1111111111", judgeInput);
+    const formData = {
+      language_id: language.id,
+      source_code: btoa(code),
+      stdin: btoa(judgeInput),
+    };
+    const options = {
+      method: "POST",
+      url: "https://judge0-ce.p.rapidapi.com/submissions",
+      params: { base64_encoded: "true", fields: "*" },
+      headers: {
+        "content-type": "application/json",
+        "Content-Type": "application/json",
+        "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
+        "X-RapidAPI-Key": "a158f9dc72msh71a3aa6d6fbbdebp1e4846jsn43b522b4bb6d",
+      },
+      data: formData,
+    };
+    // checkStatus("dksldsdl", judgeInput);
+    axios
+      .request(options)
+      .then(function (response) {
+        console.log("res.data", response.data);
+        const token = response.data.token;
+        checkStatus(token, judgeInput);
+      })
+      .catch((err) => {
+        let error = err.response ? err.response.data : err;
+        console.log(error);
+      });
+  };
+
+  const submitCodeJudge = async () => {
+    setSubmitted(false);
+    setPending(true);
+    if (!code) {
+      toast({
+        title: "Please Provide Code",
+        status: "warning",
+        duration: 1000,
+        isClosable: true,
+      });
+      return;
+    }
+    setJudgeResult([]);
+
+    for (let i = 0; i < question.testCases.length; i++) {
+      // handleSubmitCompile(question.testCases[i].inp);
+      setSubmitted(true);
+    }
+  };
+
   const submitCode = async () => {
     setSubmitted(false);
     setPending(true);
@@ -90,6 +216,7 @@ function QuestionJudge({ questionId }) {
   };
 
   const solveCode = async () => {
+    setSubmitted(false);
     if (!code) {
       toast({
         title: "Please Provide Code",
@@ -143,20 +270,20 @@ function QuestionJudge({ questionId }) {
       setOutPut(data);
     }
   };
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(
-          `http://localhost:4500/questions/${questionId}`
-        );
-        const data = await res.json();
-        setQuestion(data.question);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const res = await fetch(
+  //         `http://localhost:4500/questions/${questionId}`
+  //       );
+  //       const data = await res.json();
+  //       setQuestion(data.question);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
   const onSelectChange = (sl) => {
     setCode(langCode[`${sl.value}`]);
     setLangFocus(sl.value);
@@ -198,6 +325,7 @@ function QuestionJudge({ questionId }) {
         {/* <button onClick={solveCode}>Solve</button> */}
       </div>
       {/* {JSON.stringify(output)} */}
+      {/* {loading && <LoadingToast />} */}
       <div className="flex ">
         <CodeEditor
           code={langCode[langFocus]}
@@ -205,6 +333,7 @@ function QuestionJudge({ questionId }) {
           language={langFocus}
           theme={theme.value}
         />
+        {/* {JSON.stringify(language)} */}
         <div className="w-1/2 px-10 border-2 flex flex-col align-baseline ">
           <h1 className="font-bold text-xl w-fit p-5 m-auto   bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 mb-2">
             Output
@@ -219,13 +348,16 @@ function QuestionJudge({ questionId }) {
           <div className="flex justify-around p-2 ">
             <button
               className=" compileButton w-1/4 border-2 p-9 my-2 "
-              onClick={submitCode}
+              // onClick={submitCode}
+              onClick={submitCodeJudge}
             >
               Submit
             </button>
+
             <button
               className=" compileButton w-1/4 border-2 p-9 my-2 "
-              onClick={solveCode}
+              // onClick={solveCode}
+              onClick={handleCompile}
             >
               Solve
             </button>
@@ -233,7 +365,27 @@ function QuestionJudge({ questionId }) {
           <OutputWindow outputDetails={output} />
         </div>
       </div>
-      {submitted && <TestCaseResults results={output.output} />}
+      {submitted && output.output && output.output.length > 0 && (
+        <TestCaseResults
+          questionId={questionId}
+          code={code}
+          results={output.output}
+        />
+      )}
+      {/* {submitted && judgeResult.length == question.testCases.length && (
+        <TestCaseJudge0Results
+          code={code}
+          question={question}
+          results={judgeResult}
+        />
+      )} */}
+      {submitted && judgeResult.length == 4 && (
+        <TestCaseJudge0Results
+          code={code}
+          question={question}
+          results={judgeResult}
+        />
+      )}
     </div>
   );
 }
