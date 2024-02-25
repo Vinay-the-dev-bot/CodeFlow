@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Button from "../Components/Button";
 import Editor, { useMonaco } from "@monaco-editor/react";
 import ThemeDropdown from "../Components/ThemeDropdown";
+import { themes } from "../assets/EditorThemes";
 function HTMLCompiler() {
   const [openedEditor, setOpenedEditor] = useState("HTML");
   const [html, setHTML] = useState(
@@ -11,7 +12,7 @@ function HTMLCompiler() {
   const [javascript, setJS] = useState(
     `document.getElementById("btn").addEventListener("click",()=>{\n    document.getElementById("para").style.color = "black"\n})`
   );
-  const [theme, setTheme] = useState("vs-dark");
+  const [theme, setTheme] = useState(themes[0]);
 
   const [srcDoc, setSrcDoc] = useState(` `);
   const [activeTab, setActiveTab] = useState("HTML");
@@ -19,7 +20,6 @@ function HTMLCompiler() {
     setOpenedEditor(editorName);
     setActiveTab(editorName);
   };
-
   function handleHTMLChange(value, event) {
     setHTML(value);
   }

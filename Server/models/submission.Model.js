@@ -4,8 +4,17 @@ const submissionSchema = mongoose.Schema(
   {
     questionID: { type: String },
     code: { type: String },
-    results: [],
+    userID: { type: String },
+    title: { type: String },
+    results: [{ testcase: String, expe: String, out: String, pass: Boolean }],
   },
+  //  {
+  //   testcase: 'AAAAAAAA',
+  //   expe: 'AAAAAAAA',
+  //   out: 'AAAAAAAA\n',
+  //   pass: true
+  // }
+
   {
     versionKey: false,
   }
