@@ -72,7 +72,7 @@ userRouter.get("/logout", async (req, res) => {
 // post question answer
 userRouter.post("/submissions", async (req, res) => {
   const { questionID, userID, code, title, results } = req.body;
-  console.log(userID);
+  // console.log(userID);
   try {
     if (!userID || !questionID) {
       return res
@@ -81,7 +81,7 @@ userRouter.post("/submissions", async (req, res) => {
     }
     const question = await QuestionModel.findOne({ _id: questionID });
     const solPoints = question.points;
-    console.log(solPoints);
+    // console.log(solPoints);
 
     const user = await UserModel.findById(userID);
     if (!user.solved_questions.includes(questionID)) {
@@ -102,7 +102,7 @@ userRouter.post("/submissions", async (req, res) => {
 
     res.status(200).send({ msg: "solution submitted." });
   } catch (err) {
-    console.log("Error:", err);
+    // console.log("Error:", err);
     res.status(500).send({ msg: "Internal Server Error." });
   }
 });
@@ -125,14 +125,14 @@ userRouter.get("/", auth, async (req, res) => {
   // console.log(req.body);
   try {
     const user = await UserModel.find({ _id: req.body.userID });
-    console.log(user);
+    // console.log(user);
     if (user) {
       res.status(200).send(user);
     } else {
       res.status(404).send({ Message: "User not found" });
     }
   } catch (error) {
-    console.log(`Error in getting user : ${error}`);
+    // console.log(`Error in getting user : ${error}`);
     res.status(401).send({ error: "Error in fetching data!" });
   }
 });
