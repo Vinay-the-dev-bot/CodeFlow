@@ -10,10 +10,6 @@ const { access } = require("../middleware/access.middleware");
 const userRouter = express.Router();
 
 // get all Users
-userRouter.get("/all", async (req, res) => {
-  const users = await UserModel.find();
-  res.status(200).send({ users });
-});
 
 //registration
 userRouter.post("/register", (req, res) => {
@@ -48,7 +44,9 @@ userRouter.post("/login", async (req, res) => {
           const token = jwt.sign({ userID: user._id }, "codeflow", {
             expiresIn: "7d",
           });
-          res.status(200).send({ msg: "Login Successfull!", token });
+          res
+            .status(200)
+            .send({ msg: "Login Successfull!", token: token, name: user.name });
         } else {
           res
             .status(400)
@@ -119,15 +117,13 @@ userRouter.get("/submissions", auth, async (req, res) => {
 });
 
 
-
-// route to get user profile picture
 userRouter.get("/", auth, async (req, res) => {
   // console.log(req.body);
   try {
     const user = await UserModel.find({ _id: req.body.userID });
-    // console.log("user", user);
+    console.log( user);
     if (user) {
-      res.status(200).send({ user });
+      res.status(200).send(user);
     } else {
       res.status(404).send({ Message: "User not found" });
     }
