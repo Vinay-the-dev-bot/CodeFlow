@@ -5,9 +5,15 @@ const app = express();
 const fs = require("fs");
 app.use(bodyParser.json());
 const path = require("path");
+const readline = require("readline");
+
 const { QuestionModel } = require("../models/question.model");
 const compileRouter = express.Router();
 
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 compileRouter.post("/solve", async (req, res) => {
   let { language, code, customInput } = req.body;
   // console.log(language);
@@ -116,27 +122,55 @@ compileRouter.post("/solve", async (req, res) => {
       return;
     }
     case "javascript": {
+      console.log(req.body);
       try {
-        const result = await eval(code);
+        const code = req.body.code;
+        const inputs = customInput;
+
+        let logOutput = "";
+        const originalLog = console.log;
+        console.log = function (...args) {
+          logOutput += args.join(" ") + "\n";
+        };
+
+        const result = await eval(code, inputs);
+        console.log("RESULT : ", result);
+        console.log = originalLog;
+
         testCaseOP.push({
-          language: "javascript",
-          output: stdout,
+          input: inputs,
+          log: logOutput,
         });
-        res.send({
-          language: "javascript",
-          output: testCaseOP,
-        });
-        return;
-        // res.send([{ language: "JavaScript", output: result }]);
+        console.log("testcaesa OP ", testCaseOP);
+        res.status(200).json(testCaseOP);
       } catch (err) {
-        //console.error(err);
         res.status(500).json({ error: "Execution error", stderr: err.message });
       }
-      return;
-    }
-    default: {
-      res.send({ msg: "Please select language" });
-      return;
+
+      //   try {
+      //     const result = await eval(code);
+      //     testCaseOP.push({
+      //       language: "javascript",
+      //       result,
+      //       // log: originalLog,
+      //     });
+      //     res.send({
+      //       language: "javascript",
+      //       output: testCaseOP,
+      //     });
+      //     return;
+      //     // res.send([{ language: "JavaScript", output: result }]);
+      //   } catch (err) {
+      //     //console.error(err);
+      //     res
+      //       .status(500)
+      //       .json({ error: "Execution  sdad error", stderr: err.message });
+      //   }
+      //   return;
+      // }
+      // default: {
+      //   res.send({ msg: "Please select language" });
+      //   return;
     }
   }
 });

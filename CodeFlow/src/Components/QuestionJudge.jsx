@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { themes } from "../assets/EditorThemes";
 import { useToast } from "@chakra-ui/react";
+import Select from "react-select";
 import PromisePending from "./PromisePending";
 import LanguageDropdown from "./LanguageDropdown";
 import ThemeDropdown from "./ThemeDropdown";
@@ -11,8 +12,13 @@ import TestCaseResults from "../Components/TestCaseResults";
 import axios from "axios";
 import TestCaseJudge0Results from "./TestCaseJudge0Results";
 import LoadingToast from "./LoadingToast";
+import { Vinaygouda_meti16, keys, mdmeti, metigouda21 } from "../assets/Extra";
+import { customStyles } from "../assets/CustomStyles";
 
 function QuestionJudge({ questionId, question }) {
+  // console.log("ENV", metigouda21);
+  // console.log("ENV", Vinaygouda_meti16);
+  // console.log("ENV", mdmeti);
   const [javaCode, setJavaCode] = useState(`public class main {
     public static void main(String[] args) {
         // Your code goes here
@@ -31,6 +37,7 @@ function QuestionJudge({ questionId, question }) {
   const [output, setOutPut] = useState([]);
   const [code, setCode] = useState(javaCode);
   const [pending, setPending] = useState(false);
+  const [apiKey, setAPIKey] = useState(mdmeti);
   const [submitted, setSubmitted] = useState(false);
   const [judgeResult, setJudgeResult] = useState({});
   const toast = useToast();
@@ -43,6 +50,24 @@ function QuestionJudge({ questionId, question }) {
   function handleThemeChange(th) {
     setTheme(th);
   }
+
+  // const clickedOnSolve = () => {
+  //   console.log(language);
+  //   if (language.value == "javascript") {
+  //     solveJavaScriptCode();
+  //   } else {
+  //     console.log("CALL Judge ");
+  //   }
+  // };
+
+  // const clickedOnSubmit = () => {
+  //   if (language.value == "javascript") {
+  //     console.log("CALL LOCAL SERVER");
+  //   } else {
+  //     console.log("CALL Judge ");
+  //   }
+  // };
+  // a158f9dc72msh71a3aa6d6fbbdebp1e4846jsn43b522b4bb6d;
   const checkStatus = async (token, judgeInput) => {
     console.log("judgeInputjudgeInput : ", judgeInput);
     const options = {
@@ -51,16 +76,16 @@ function QuestionJudge({ questionId, question }) {
       params: { base64_encoded: "true", fields: "*" },
       headers: {
         "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
-        "X-RapidAPI-Key": "a158f9dc72msh71a3aa6d6fbbdebp1e4846jsn43b522b4bb6d",
+        "X-RapidAPI-Key": `${apiKey}`,
       },
     };
     try {
       let response = await axios.request(options);
       let statusId = response.data.status?.id;
-      if (statusId === 1 || statusId === 2) {
+      if (judgeInput && (statusId === 1 || statusId === 2)) {
         setTimeout(() => {
           checkStatus(token, judgeInput);
-        }, 7000);
+        }, 3000);
         return;
       } else {
         console.log("-------------------------", atob(response.data.stdout));
@@ -70,10 +95,11 @@ function QuestionJudge({ questionId, question }) {
             out: atob(response.data.stdout),
           };
           setJudgeResult((prevState) => [...prevState, newObject]);
+          return;
         }
 
         console.log("response.data", atob(response.data.stdout));
-        setOutPut(atob(response.data.stdout));
+        setOutPut([atob(response.data.stdout)]);
         setPending(false);
         return;
       }
@@ -81,7 +107,8 @@ function QuestionJudge({ questionId, question }) {
       console.log("err", err);
     }
   };
-  const handleCompile = () => {
+
+  const handleSolveJudge = () => {
     const formData = {
       language_id: language.id,
       source_code: btoa(code),
@@ -95,7 +122,7 @@ function QuestionJudge({ questionId, question }) {
         "content-type": "application/json",
         "Content-Type": "application/json",
         "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
-        "X-RapidAPI-Key": "a158f9dc72msh71a3aa6d6fbbdebp1e4846jsn43b522b4bb6d",
+        "X-RapidAPI-Key": `${apiKey}`,
       },
       data: formData,
     };
@@ -105,7 +132,9 @@ function QuestionJudge({ questionId, question }) {
       .then(function (response) {
         console.log("res.data", response.data);
         const token = response.data.token;
-        checkStatus(token, customInput);
+        setTimeout(() => {
+          checkStatus(token);
+        }, 1000);
       })
       .catch((err) => {
         let error = err.response ? err.response.data : err;
@@ -113,7 +142,7 @@ function QuestionJudge({ questionId, question }) {
       });
   };
 
-  const handleSubmitCompile = (judgeInput) => {
+  const handleSubmitJudge = (judgeInput) => {
     console.log("1111111111", judgeInput);
     const formData = {
       language_id: language.id,
@@ -128,7 +157,7 @@ function QuestionJudge({ questionId, question }) {
         "content-type": "application/json",
         "Content-Type": "application/json",
         "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
-        "X-RapidAPI-Key": "a158f9dc72msh71a3aa6d6fbbdebp1e4846jsn43b522b4bb6d",
+        "X-RapidAPI-Key": `${apiKey}`,
       },
       data: formData,
     };
@@ -161,115 +190,173 @@ function QuestionJudge({ questionId, question }) {
     setJudgeResult([]);
 
     for (let i = 0; i < question.testCases.length; i++) {
-      // handleSubmitCompile(question.testCases[i].inp);
+      handleSubmitJudge(question.testCases[i].inp);
       setSubmitted(true);
     }
   };
 
-  const submitCode = async () => {
-    setSubmitted(false);
-    setPending(true);
-    if (!code) {
-      toast({
-        title: "Please Provide Code",
-        status: "warning",
-        duration: 1000,
-        isClosable: true,
-      });
-      return;
-    }
-    const res = await fetch("http://localhost:4500/compile/submit222222222", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        language: langFocus,
-        code,
-        customInput,
-        questionId,
-      }),
-    });
-    const data = await res.json();
-    setSubmitted(true);
-    setPending(false);
-    console.log(data);
-    if (data.error) {
-      console.log("EEEE");
-      toast({
-        title: "Error",
-        description: "Check Output for more details",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-      });
-      setOutPut(data);
-    } else {
-      toast({
-        title: "Successfully Compiled.",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-      });
-      setOutPut(data);
-    }
-  };
+  // const submitCode = async () => {
+  //   setSubmitted(false);
+  //   setPending(true);
+  //   if (!code) {
+  //     toast({
+  //       title: "Please Provide Code",
+  //       status: "warning",
+  //       duration: 1000,
+  //       isClosable: true,
+  //     });
+  //     return;
+  //   }
+  //   const res = await fetch("http://localhost:4500/compile/submit222222222", {
+  //     method: "POST",
+  //     headers: {
+  //       "content-type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       language: langFocus,
+  //       code,
+  //       customInput,
+  //       questionId,
+  //     }),
+  //   });
+  //   const data = await res.json();
+  //   setSubmitted(true);
+  //   setPending(false);
+  //   console.log(data);
+  //   if (data.error) {
+  //     console.log("EEEE");
+  //     toast({
+  //       title: "Error",
+  //       description: "Check Output for more details",
+  //       status: "error",
+  //       duration: 2000,
+  //       isClosable: true,
+  //     });
+  //     setOutPut(data);
+  //   } else {
+  //     toast({
+  //       title: "Successfully Compiled.",
+  //       status: "success",
+  //       duration: 2000,
+  //       isClosable: true,
+  //     });
+  //     setOutPut(data);
+  //   }
+  // };
 
-  const solveCode = async () => {
-    setSubmitted(false);
-    if (!code) {
-      toast({
-        title: "Please Provide Code",
-        status: "warning",
-        duration: 1000,
-        isClosable: true,
-      });
-      return;
-    }
-    if (!customInput) {
-      toast({
-        title: "Please Provide Input if needed",
-        status: "warning",
-        duration: 1000,
-        isClosable: true,
-      });
-    }
-    const res = await fetch("http://localhost:4500/compile/solve", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        language: langFocus,
-        code,
-        customInput,
-        questionId,
-      }),
-    });
-    setPending(true);
-    const data = await res.json();
-    setPending(false);
-    console.log(data);
-    if (data.error) {
-      console.log("EEEE");
-      toast({
-        title: "Error",
-        description: "Check Output for more details",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-      });
-      setOutPut(data);
-    } else {
-      toast({
-        title: "Successfully Compiled.",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-      });
-      setOutPut(data);
-    }
-  };
+  // const solveCode = async () => {
+  //   setSubmitted(false);
+  //   if (!code) {
+  //     toast({
+  //       title: "Please Provide Code",
+  //       status: "warning",
+  //       duration: 1000,
+  //       isClosable: true,
+  //     });
+  //     return;
+  //   }
+  //   if (!customInput) {
+  //     toast({
+  //       title: "Please Provide Input if needed",
+  //       status: "warning",
+  //       duration: 1000,
+  //       isClosable: true,
+  //     });
+  //   }
+  //   const res = await fetch("http://localhost:4500/compile/solve", {
+  //     method: "POST",
+  //     headers: {
+  //       "content-type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       language: langFocus,
+  //       code,
+  //       customInput,
+  //       questionId,
+  //     }),
+  //   });
+  //   setPending(true);
+  //   const data = await res.json();
+  //   setPending(false);
+  //   console.log(data);
+  //   if (data.error) {
+  //     console.log("EEEE");
+  //     toast({
+  //       title: "Error",
+  //       description: "Check Output for more details",
+  //       status: "error",
+  //       duration: 2000,
+  //       isClosable: true,
+  //     });
+  //     setOutPut(data);
+  //   } else {
+  //     toast({
+  //       title: "Successfully Compiled.",
+  //       status: "success",
+  //       duration: 2000,
+  //       isClosable: true,
+  //     });
+  //     setOutPut(data);
+  //   }
+  // };
+
+  // const solveJavaScriptCode = async () => {
+  //   setSubmitted(false);
+  //   if (!code) {
+  //     toast({
+  //       title: "Please Provide Code",
+  //       status: "warning",
+  //       duration: 1000,
+  //       isClosable: true,
+  //     });
+  //     return;
+  //   }
+  //   if (!customInput) {
+  //     toast({
+  //       title: "Please Provide Input if needed",
+  //       status: "warning",
+  //       duration: 1000,
+  //       isClosable: true,
+  //     });
+  //     return;
+  //   }
+  //   const res = await fetch("http://localhost:4500/compile/solve", {
+  //     method: "POST",
+  //     headers: {
+  //       "content-type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       language: langFocus,
+  //       code,
+  //       customInput,
+  //       questionId,
+  //     }),
+  //   });
+  //   setPending(true);
+  //   const data = await res.json();
+  //   setPending(false);
+  //   console.log(data);
+  //   if (data.error) {
+  //     console.log("EEEE");
+  //     toast({
+  //       title: "Error",
+  //       description: "Check Output for more details",
+  //       status: "error",
+  //       duration: 2000,
+  //       isClosable: true,
+  //     });
+  //     setOutPut(data);
+  //   } else {
+  //     toast({
+  //       title: "Successfully Compiled.",
+  //       status: "success",
+  //       duration: 2000,
+  //       isClosable: true,
+  //     });
+  //     setOutPut(data);
+  //   }
+  // };
+
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -349,7 +436,9 @@ function QuestionJudge({ questionId, question }) {
             <button
               className=" compileButton w-1/4 border-2 p-9 my-2 "
               // onClick={submitCode}
+              // onClick={submitCodeJudge}
               onClick={submitCodeJudge}
+              // onClick={clickedOnSubmit}
             >
               Submit
             </button>
@@ -357,7 +446,9 @@ function QuestionJudge({ questionId, question }) {
             <button
               className=" compileButton w-1/4 border-2 p-9 my-2 "
               // onClick={solveCode}
-              onClick={handleCompile}
+              // onClick={clickedOnSolve}
+              onClick={handleSolveJudge}
+              // onClick={handleCompile}
             >
               Solve
             </button>
@@ -365,6 +456,14 @@ function QuestionJudge({ questionId, question }) {
           <OutputWindow outputDetails={output} />
         </div>
       </div>
+      {/* {JSON.stringify(keys)} */}
+      <Select
+        placeholder={`Select Key`}
+        options={keys}
+        styles={customStyles}
+        defaultValue={keys[0]}
+        onChange={(selectedOption) => onSelectChange(selectedOption)}
+      />
       {submitted && output.output && output.output.length > 0 && (
         <TestCaseResults
           questionId={questionId}

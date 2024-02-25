@@ -34,6 +34,7 @@ function Solve() {
               {question.difficulty}
             </span> */}
           </p>
+
           <h1 className="text-2xl font-bold "> Description</h1>
           <p>{question.description}</p>
           <h1 className="text-2xl font-bold"> Constraints</h1>
