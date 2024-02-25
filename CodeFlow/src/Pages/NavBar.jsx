@@ -203,10 +203,10 @@ const Navbar = () => {
               <Link
                 className="hover:bg-primeGreen-600 block py-2"
                 color="#2f4e44"
-                to="/judger"
+                to="/contest"
                 onClick={onClose}
               >
-                Judger
+                Contest
               </Link>
 
               {auth ? (

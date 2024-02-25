@@ -1,12 +1,11 @@
 import { Box, Heading, Text } from "@chakra-ui/layout";
 import axios from "axios";
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const SolvedQuestionProfile = (questionId) => {
-  // console.log(questionId.questionId);
+  // console.log(questionId);
   const [question, setQuestion] = useState([]);
-  // const [dificult, setDeficult] = useState([]);
-  // const diff = [];
+
   useEffect(() => {
     const getQuestion = async () => {
       const token = localStorage.getItem("token");
@@ -19,6 +18,7 @@ const SolvedQuestionProfile = (questionId) => {
           `http://localhost:8080/questions/${questionId.questionId}`
         );
         setQuestion(res.data.question);
+        console.log(res.data);
         // diff.push(res.data.question.difficulty);
       } catch (error) {
         console.log(error);
@@ -26,7 +26,7 @@ const SolvedQuestionProfile = (questionId) => {
     };
     getQuestion();
   }, []);
-  console.log(question);
+  // console.log(question.question.title);
   // console.log(diff);
   return (
     <>

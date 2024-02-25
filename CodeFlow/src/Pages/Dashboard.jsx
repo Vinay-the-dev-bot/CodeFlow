@@ -1,18 +1,30 @@
 import {
   Box,
+  Button,
   Flex,
-  Grid,
+  FormControl,
+  FormLabel,
   Heading,
   Image,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Select,
   Table,
   TableContainer,
   Tbody,
   Td,
   Text,
+  Textarea,
   Th,
   Thead,
   Tr,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -20,6 +32,7 @@ import { useEffect, useState } from "react";
 // import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import SolvedQuestionProfile from "../Components/SolvedQuestionProfile";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const name = useSelector((state) => state.auth.name);
@@ -27,6 +40,20 @@ const Dashboard = () => {
 
   const [user, setUser] = useState([]);
   const [solved, setSolved] = useState([]);
+  const [role, setRole] = useState();
+  const [showModal, setShowModal] = useState(false);
+  const toast = useToast();
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [testCases, setTestCases] = useState([]);
+  const [difficulty, setDifficulty] = useState();
+  const [points, setPoint] = useState();
+  const [topics, setTopics] = useState();
+  const [constraints, setConstraints] = useState();
+
+  const [inp, setInp] = useState();
+  const [oup, setOup] = useState();
+  const [tc, setTc] = useState([]);
 
   useEffect(() => {
     const getUser = async () => {
@@ -41,6 +68,8 @@ const Dashboard = () => {
         });
         setUser(res.data);
         setSolved(res.data[0].solved_questions);
+        setRole(res.data[0].role);
+        // console.log();
         // console.log(res.data);x
       } catch (error) {
         console.log(error);
@@ -49,12 +78,82 @@ const Dashboard = () => {
     getUser();
   }, []);
   console.log(user);
-  console.log(solved);
+  // console.log(solved);
+  console.log(role);
 
   // console.log(user[0].solved_questions);
   // const { solved_questions } = user[0];
   // setSolved(solved_questions);
   // console.log(solved);
+
+  // title: { type: String },
+  //   description: { type: String },
+  //   testCases: [
+  //     {
+  //       inp: { type: String },
+  //       oup: { type: String },
+  //     },
+  //   ],
+  //   points: { type: Number, default: 0 },
+  //   difficulty: { type: String, enum: ["Easy", "Medium", "Hard"] },
+  //   topics: [{ type: String }],
+  //   constraints: [{ type: String }],
+
+  const handleAddQuestion = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        "http://localhost:8080/questions/add",
+        {
+          title,
+          description,
+          testCases: tc,
+          points,
+          difficulty,
+          topics,
+          constraints,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (res.status == 200) {
+        toast({
+          title: "Question created.",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "server error",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+      }
+
+      // setTitle("");
+      // setBody("");
+      setShowModal(false);
+    } catch (error) {
+      toast({
+        title: "Something went wrong! Please try again later.",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      console.log(error);
+      setShowModal(false);
+    }
+  };
+
+  const handleAddTestCase = () => {
+    setTc([...tc, { inp, oup }]);
+  };
+  console.log(tc);
   return (
     <>
       <Box>
@@ -98,6 +197,21 @@ const Dashboard = () => {
                   </>
                 );
               })}
+              <Box display={"flex"} justifyContent={"center"} m={"2rem 0rem"}>
+                {role === "admin" ? (
+                  <Button
+                    onClick={() => {
+                      setShowModal(true);
+                    }}
+                  >
+                    Add Question
+                  </Button>
+                ) : (
+                  <Link to="/submissions">
+                    <Button>Submission</Button>
+                  </Link>
+                )}
+              </Box>
 
               {/* <Box display={"flex"} justifyContent={"center"} mt={5}>
                 <Select
@@ -114,8 +228,8 @@ const Dashboard = () => {
                   <option value="option3">Beginner</option>
                 </Select>
               </Box> */}
-              <hr className="border border-black mt-5" />
-              <Box
+              {/* <hr className="border border-black mt-5" /> */}
+              {/* <Box
                 // border={"2px Solid black"}
                 padding={4}
                 mt={4}
@@ -124,7 +238,7 @@ const Dashboard = () => {
                   Skills
                 </Heading>
                 <Text>Java</Text>
-              </Box>
+              </Box> */}
             </Box>
           </Box>
           <Box width={{ base: "100%", md: "70%" }}>
@@ -157,12 +271,103 @@ const Dashboard = () => {
             <Box border={"2px solid red"}>
               <Box width={"90%"} m={"auto"} mt={"1.5rem"}>
                 {solved.map((e) => {
-                  return <SolvedQuestionProfile key={e._id} questionId={e} />;
+                  {
+                    return <SolvedQuestionProfile key={e._id} questionId={e} />;
+                  }
                 })}
               </Box>
             </Box>
           </Box>
         </Flex>
+
+        {/* model  */}
+        <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Create Notes</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <FormControl>
+                <FormLabel>Title:</FormLabel>
+                <Input
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </FormControl>
+              <FormControl mt={4}>
+                <FormLabel>Description:</FormLabel>
+                <Textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  resize={"none"}
+                />
+              </FormControl>
+              <FormControl mt={4}>
+                <FormLabel>Points:</FormLabel>
+                <Input
+                  type="number"
+                  value={points}
+                  onChange={(e) => setPoint(e.target.value)}
+                />
+              </FormControl>
+              <FormControl mt={4}>
+                <FormLabel>Difficulty:</FormLabel>
+
+                <Select
+                  value={difficulty}
+                  onChange={(e) => setDifficulty(e.target.value)}
+                  placeholder="Select option"
+                >
+                  <option value="Easy">Easy</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Hard">Hard</option>
+                </Select>
+              </FormControl>
+              <FormControl mt={4}>
+                <FormLabel>Topics:</FormLabel>
+                <Input
+                  value={topics}
+                  onChange={(e) => setTopics(e.target.value)}
+                />
+              </FormControl>
+              <FormControl mt={4}>
+                <FormLabel>Test Case:</FormLabel>
+                {tc.map((e) => {
+                  return (
+                    <>
+                      <Text>
+                        {" "}
+                        Inp: {e.inp} | Out : {e.oup}{" "}
+                      </Text>
+                    </>
+                  );
+                })}
+                <Input
+                  type="text"
+                  value={inp}
+                  onChange={(e) => {
+                    setInp(e.target.value);
+                  }}
+                />
+                <Input
+                  type="text"
+                  value={oup}
+                  onChange={(e) => {
+                    setOup(e.target.value);
+                  }}
+                />
+                <Button onClick={handleAddTestCase}>Add</Button>
+              </FormControl>
+            </ModalBody>
+
+            <ModalFooter>
+              <Button colorScheme="green" mr={3} onClick={handleAddQuestion}>
+                Submit
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
       </Box>
     </>
   );
@@ -179,3 +384,24 @@ export default Dashboard;
 //   "solved_questions": [],
 //   "role": "user"
 // }
+
+{
+  /* <input
+            type="text"
+            value={inp}
+            onChange={(e) => {
+              setInp(e.target.value);
+            }}
+          />
+          Oup
+          <input
+            type="text"
+            value={oup}
+            onChange={(e) => {
+              setOup(e.target.value);
+            }}
+          />
+          <button>Add</button>
+const [inp, setInp] = useState();
+  const [oup, setOup] = useState(); */
+}

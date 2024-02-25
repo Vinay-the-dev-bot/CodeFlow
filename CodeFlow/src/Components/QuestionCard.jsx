@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 
 const QuestionCard = ({ question }) => {
@@ -12,41 +12,57 @@ const QuestionCard = ({ question }) => {
     navigate(`solve/${question._id}`);
   };
   return (
-    <div className="flex qstcard border-2 w-4/5 m-auto px-5 py-4 justify-around rounded-md ">
-      <div className="w-1/5 flex flex-col justify-around ">
+    <Box
+      className="flex qstcard border-2 m-auto px-5 py-4 justify-around rounded-md "
+      w={{ base: "100%", md: "80%" }}
+      flexDirection={{ base: "column", md: "row" }}
+      gap={"1rem"}
+    >
+      <Box
+        className=" flex flex-col justify-around "
+        width={{ base: "100%", md: "40%" }}
+      >
         <p>Title : </p>
         <span>{question.title}</span>
-      </div>
-      <div className="w-2/5   flex flex-col justify-around ">
+      </Box>
+      <Box
+        className="w-2/5   flex flex-col justify-around "
+        width={{ base: "100%", md: "40%" }}
+      >
         <p>Description</p>
         <span>{question.description}</span>
-      </div>
-      <div className="flex flex-col  justify-around w-1/4 gap-5 ">
+      </Box>
+      <Box
+        className="flex flex-col  justify-around w-1/4 gap-5 "
+        w={{ base: "100%", md: "40%" }}
+      >
         {/* <div className="w-full text-center text-black    m-auto    py-2  rounded-md ">
           {question.difficulty}
         </div> */}
-        <div className="w-2=full flex justify-between ">
-          <div
-            className={`w-2/5 text-center text-white  ${
+        <Box className=" flex justify-between " w={{ base: "100%", md: "80%" }}>
+          <Box
+            className={` text-center text-white  ${
               difficultyColors[question.difficulty]
             }       py-2  rounded-md `}
+            w={{ base: "100%", md: "40%" }}
           >
             {question.difficulty}
-          </div>
+          </Box>
           <div className="w-2/5 text-center qstcarddiv rounded-md py-2 px-1 bg-teal-300   block ">
             {question.points} Points{" "}
           </div>
-        </div>
+        </Box>
         <Button
-          className="qstcarddiv w-full "
+          className="qstcarddiv "
           onClick={solveQuestion}
           backgroundColor="  rgb(5 150 105);"
           coloe="white"
+          w={{ base: "100%", md: "80%" }}
         >
           Solve
         </Button>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 export default QuestionCard;
