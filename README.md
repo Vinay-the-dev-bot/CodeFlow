@@ -8,7 +8,7 @@ With features tailored to skilled coders, CodeFlow aims to foster creativity, fa
 ## Project Type
  Fullstack
 
-## Deplolyed App
+## Deployed App
 Frontend: https://deployed-site.whatever
 Backend: https://deployed-site.whatever
 Database: https://deployed-site.whatever
