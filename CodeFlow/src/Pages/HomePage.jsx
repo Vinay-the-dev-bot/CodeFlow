@@ -2,11 +2,12 @@ import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import heroImg from "../assets/heroImage2.png";
 import Footer from "../Components/Footer";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // background: rgb(127,199,217);
 // background: linear-gradient(122deg, rgba(127,199,217,1) 0%, rgba(54,84,134,1) 75%);
 function HomePage() {
-  const auth = false;
+  const auth = useSelector((state) => state.auth.auth);
   return (
     <>
       <Box
@@ -72,14 +73,14 @@ function HomePage() {
                   <Button
                     mt={"2rem"}
                     fontSize={"1.3rem"}
-                    color={"white"}
+                    color={"black"}
                     // #a576f5
-                    bg={"#134232"}
+                    bg={"#92C7CF"}
                     p={"1.3rem 3rem"}
                     // filter={"drop-shadow(0 0 0.85rem #854CE6)"}
                     // border={".2px solid white"}
                     _hover={{
-                      bg: "#90ee90",
+                      bg: "#AAD7D9",
                       color: "#134232",
                       // border: ".2px solid #a576f5",
                     }}
