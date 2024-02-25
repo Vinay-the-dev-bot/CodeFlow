@@ -14,7 +14,7 @@ const QuestionCard = ({ submission, slNo }) => {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <div className="w-3/5">
+    <div className="w-3/5 mx-auto">
       <div className="flex items-center  border-2 text-center w-full   px-5 py-4 justify-around rounded-md ">
         <p className="w-9/10 text-center">{slNo + 1}</p>
         <p className="w-9/10  text-center ">{submission.title}</p>
@@ -38,10 +38,16 @@ const QuestionCard = ({ submission, slNo }) => {
           <ModalHeader>Submission Results</ModalHeader>
           <ModalCloseButton />
           <ModalBody className="flex flex-col gap-5">
-            <p>ID : {submission._id}</p>
-            <p>Title : {submission.title}</p>
             <p>
-              Submission Code :<pre> {submission.code}</pre>
+              <strong>ID : </strong>
+              {submission._id}
+            </p>
+            <p>
+              <strong>Title : </strong>
+              {submission.title}
+            </p>
+            <p>
+              <strong>Submission Code</strong> :<pre> {submission.code}</pre>
             </p>
             <table className="w-full border border-orange-950 ">
               <tr className="w-full  border ">

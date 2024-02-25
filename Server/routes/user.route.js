@@ -3,15 +3,11 @@ const { UserModel } = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { blackListTokenModel } = require("../models/blacklist.model");
-const { AnswerModel } = require("../models/answer.model");
 const { auth } = require("../middleware/auth.middleware");
-const { access } = require("../middleware/access.middleware");
 const { submissionModel } = require("../models/submission.Model");
 const { QuestionModel } = require("../models/question.model");
 
 const userRouter = express.Router();
-
-// get all Users
 
 //registration
 userRouter.post("/register", (req, res) => {
@@ -74,9 +70,8 @@ userRouter.get("/logout", async (req, res) => {
 });
 
 // post question answer
-
 userRouter.post("/submissions", async (req, res) => {
-  const { questionID, userID, code, results } = req.body;
+  const { questionID, userID, code, title, results } = req.body;
   console.log(userID);
   try {
     if (!userID || !questionID) {
@@ -99,6 +94,7 @@ userRouter.post("/submissions", async (req, res) => {
     const ans = new submissionModel({
       questionID,
       userID: userID,
+      title: title,
       results: [...results],
       code,
     });
@@ -124,12 +120,12 @@ userRouter.get("/submissions", auth, async (req, res) => {
 });
 
 // route to get user profile picture
- 
+
 userRouter.get("/", auth, async (req, res) => {
   // console.log(req.body);
   try {
     const user = await UserModel.find({ _id: req.body.userID });
-    console.log( user);
+    console.log(user);
     if (user) {
       res.status(200).send(user);
     } else {

@@ -12,16 +12,19 @@ const QuestionCard = ({ question }) => {
     navigate(`solve/${question._id}`);
   };
   return (
-    <div className="flex qstcard border-2 w-4/5 m-auto px-5 py-4 justify-around rounded-md ">
-      <div className="w-1/5 flex flex-col justify-around ">
-        <p>Title : </p>
-        <span>{question.title}</span>
+    <div className="flex qstcard  border-2 w-4/5 m-auto px-5 py-3 justify-around rounded-md ">
+      <div className="flex flex-col justify-around  gap-3 w-3/5 ">
+        <div className="w-full      ">
+          <p className="font-bold">
+            Title : <span className="font-normal">{question.title}</span>
+          </p>
+        </div>
+        <div className="w-full   flex flex-col  ">
+          <p className="font-bold">Description :</p>
+          <span>{question.description}</span>
+        </div>
       </div>
-      <div className="w-2/5   flex flex-col justify-around ">
-        <p>Description</p>
-        <span>{question.description}</span>
-      </div>
-      <div className="flex flex-col  justify-around w-1/4 gap-5 ">
+      <div className="flex flex-col  justify-around w-1/4 gap-3">
         {/* <div className="w-full text-center text-black    m-auto    py-2  rounded-md ">
           {question.difficulty}
         </div> */}

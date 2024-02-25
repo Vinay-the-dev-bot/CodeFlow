@@ -1,6 +1,7 @@
 import { useToast } from "@chakra-ui/react";
 import { useState } from "react";
 
+import { url } from "../assets/Extra";
 const TestCaseJudge0Results = ({ code, question, results }) => {
   const [Vinay, setVinay] = useState("d");
   console.log("SADSALD+++++++++++++++++++", results);
@@ -24,8 +25,9 @@ const TestCaseJudge0Results = ({ code, question, results }) => {
     },
   ];
   let count = 0;
-  const ressss = [];
   console.log(question);
+  const ressss = [];
+  console.log(question.title);
   for (let i = 0; i < question.testCases.length; i++) {
     for (let j = 0; j < results.length; j++) {
       console.log("DATA");
@@ -49,7 +51,7 @@ const TestCaseJudge0Results = ({ code, question, results }) => {
   const percPassed = (count / question.testCases.length) * 100;
   const saveResults = async () => {
     console.log(ressss);
-    const res = await fetch(`http://localhost:4500/users/submissions`, {
+    const res = await fetch(`${url}/users/submissions`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

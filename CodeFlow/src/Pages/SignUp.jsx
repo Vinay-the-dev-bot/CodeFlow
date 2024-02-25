@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { url } from "../assets/Extra";
 
 const Signup = () => {
   const [name, setUsername] = useState("");
@@ -35,24 +36,19 @@ const Signup = () => {
   const handlePassword = (e) => {
     setPassword(e.target.value);
   };
-  
- 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/users/register",
-        {
-          name,
-          email,
-          pass
-        }
-      );
+      console.log(`${url}/users/register`);
+      const response = await axios.post(`${url}/users/register`, {
+        name,
+        email,
+        pass,
+      });
       setShowModal(true);
       setModalMessage("Registration successful");
-      
     } catch (error) {
       setShowModal(true);
       if (error.response && error.response.status === 400) {
@@ -66,7 +62,7 @@ const Signup = () => {
   const closeModal = () => {
     setShowModal(false);
     if (modalMessage === "Registration successful") {
-      navigate("/login"); 
+      navigate("/login");
     }
   };
 
@@ -119,8 +115,7 @@ const Signup = () => {
             />
           </FormControl>
 
-
-          <Button type="submit"  width="full">
+          <Button type="submit" width="full">
             Sign Up
           </Button>
         </form>

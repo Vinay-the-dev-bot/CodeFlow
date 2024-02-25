@@ -17,6 +17,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authLinLout, setName } from "../redux/authSlice";
+import { url } from "../assets/Extra";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ const Login = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:8080/users/login", {
+      const response = await axios.post(`${url}/users/login`, {
         email,
         pass,
       });
@@ -39,6 +40,7 @@ const Login = () => {
       if (response.status === 200) {
         const token = response.data.token;
         localStorage.setItem("token", token);
+        localStorage.setItem("name", response.data.name);
         await Promise.all([
           dispatch(authLinLout(true)),
           dispatch(setName(response.data.name)),

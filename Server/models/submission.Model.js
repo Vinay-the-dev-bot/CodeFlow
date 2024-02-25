@@ -8,12 +8,6 @@ const submissionSchema = mongoose.Schema(
     title: { type: String },
     results: [{ testcase: String, expe: String, out: String, pass: Boolean }],
   },
-  //  {
-  //   testcase: 'AAAAAAAA',
-  //   expe: 'AAAAAAAA',
-  //   out: 'AAAAAAAA\n',
-  //   pass: true
-  // }
 
   {
     versionKey: false,

@@ -36,7 +36,7 @@ const Dashboard = () => {
         return;
       }
       try {
-        const res = await axios.get("http://localhost:8080/users", {
+        const res = await axios.get(`${url}/users`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(res.data);

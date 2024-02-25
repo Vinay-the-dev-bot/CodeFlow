@@ -20,7 +20,7 @@ const TestCaseResults = ({ code, questionId, results }) => {
   const percPassed = (testCasePassed / results.length) * 100;
 
   const saveResults = async () => {
-    const res = await fetch(`http://localhost:4500/users/submission2`, {
+    const res = await fetch(`${url}/users/submission`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
