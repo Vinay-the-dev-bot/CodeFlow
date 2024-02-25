@@ -114,13 +114,11 @@ userRouter.post("/submissions", async (req, res) => {
 });
 
 // get submissions
-
-userRouter.get("/submissions", async (req, res) => {
+userRouter.get("/submissions", auth, async (req, res) => {
   try {
     const submissions = await submissionModel.find({
-      userID: "65dacfbf3264a92caeb63a48",
+      userID: req.body.userID,
     });
-    // console.log("SUBS", submissions);
     res.status(200).send({ submissions });
   } catch (err) {
     res.status(400).send({ error: err });

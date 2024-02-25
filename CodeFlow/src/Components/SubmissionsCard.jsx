@@ -56,7 +56,11 @@ const QuestionCard = ({ submission, slNo }) => {
                     <td className="py-1 border  text-center">{sub.testcase}</td>
                     <td className="border text-center">{sub.expe}</td>
                     <td className="border text-center">{sub.out}</td>
-                    <td className="border text-center">
+                    <td
+                      className={`${
+                        sub.pass ? "text-green-500" : "text-red-600"
+                      } border text-center `}
+                    >
                       {sub.pass ? "Pass" : "Fail"}
                     </td>
                   </tr>

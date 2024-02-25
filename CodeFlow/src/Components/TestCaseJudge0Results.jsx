@@ -56,6 +56,7 @@ const TestCaseJudge0Results = ({ code, question, results }) => {
       },
       body: JSON.stringify({
         questionID: question._id,
+        title: question.title,
         code,
         results: ressss,
         userID: "65dacfbf3264a92caeb63a48",
@@ -76,7 +77,7 @@ const TestCaseJudge0Results = ({ code, question, results }) => {
   return (
     <div className="testCaseResults w-4/5  my-10 m-auto border-2 py-10 h-fit ">
       {/* TestCaseJudge0Results. */}
-      {JSON.stringify(ressss)}
+      {/* {JSON.stringify(ressss)} */}
       <div className="w-4/5 mx-auto my-2 text-center text-5xl ">Results</div>
       {/* <div className="flex flex-col gap-5">
         {res.length > 0 &&
@@ -102,7 +103,7 @@ const TestCaseJudge0Results = ({ code, question, results }) => {
               {JSON.stringify(percPassed)} % testcases passed
             </p>
           }
-          {percPassed == 100 && (
+          {true && (
             <button
               className="px-5  rounded-xl h-fit p-1    bg-emerald-500 "
               onClick={saveResults}
