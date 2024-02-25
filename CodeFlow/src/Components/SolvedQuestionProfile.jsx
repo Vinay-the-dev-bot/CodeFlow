@@ -1,6 +1,6 @@
 import { Box, Heading, Text } from "@chakra-ui/layout";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 
 const SolvedQuestionProfile = (questionId) => {
   // console.log(questionId.questionId);
