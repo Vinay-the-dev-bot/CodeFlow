@@ -19,7 +19,6 @@
 // import { useNavigate } from 'react-router-dom';
 // // import { url } from '../api';
 
-
 // function Copyright(props) {
 //   return (
 //     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -34,13 +33,13 @@
 // const defaultTheme = createTheme();
 
 // export default function Login() {
-  
+
 //   const [email, setEmail] = React.useState(''); // State variable for email
 //   const [password, setPassword] = React.useState(''); // State variable for password
 //   const [alertMessage, setAlertMessage] = React.useState('');
 //   const [alertSeverity, setAlertSeverity] = React.useState('success');
-//   const [showAlert, setShowAlert] = React.useState(false); 
-  
+//   const [showAlert, setShowAlert] = React.useState(false);
+
 //   const handleSubmit = (event) => {
 //     event.preventDefault();
 //     // console.log({
@@ -62,7 +61,7 @@
 //         }
 //         setAlertSeverity('success');
 //         setAlertMessage('Logged Successfully');
-//       } 
+//       }
 //       else {
 //         setAlertSeverity('error');
 //         setAlertMessage(res.data.message);
@@ -162,8 +161,8 @@
 //           sx={{
 //             width: ["48%", "20%"],
 //             position: 'fixed',
-//             top: ['90%'], 
-//             right: '0.1%', 
+//             top: ['90%'],
+//             right: '0.1%',
 //             transform: 'translate(-30%, -30%)',
 //           }}
 //           spacing={2}
@@ -195,8 +194,12 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { authLinLout, setName } from "../redux/authSlice";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth.auth);
   const [email, setEmail] = useState("");
   const [pass, setPassword] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -207,18 +210,20 @@ const Login = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/users/login",
-        {
-          email,
-          pass,
-        }
-      );
+      const response = await axios.post("http://localhost:8080/users/login", {
+        email,
+        pass,
+      });
       console.log(response.data.token);
+      console.log(response.data);
 
       if (response.status === 200) {
         const token = response.data.token;
         localStorage.setItem("token", token);
+        await Promise.all([
+          dispatch(authLinLout(true)),
+          dispatch(setName(response.data.name)),
+        ]);
         setModalMessage("Login successful");
         setShowModal(true);
         // navigate("/");
@@ -241,7 +246,6 @@ const Login = () => {
 
   return (
     <Flex
-    
       color="black"
       height="100vh"
       alignItems="center"
@@ -271,7 +275,7 @@ const Login = () => {
             />
           </FormControl>
 
-          <Button  width="full" type="submit">
+          <Button width="full" type="submit">
             Log In
           </Button>
         </form>
@@ -290,7 +294,6 @@ const Login = () => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-    
     </Flex>
   );
 };
