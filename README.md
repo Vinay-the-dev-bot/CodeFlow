@@ -37,7 +37,7 @@ List out the key features of your application.
 - Gamification with badges, points
 
 
-## design decisions or assumptions
+## Design Decisions or Assumptions
 List your design desissions & assumptions
 
 ## Installation & Getting started
