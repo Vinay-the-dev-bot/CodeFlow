@@ -19,6 +19,11 @@ export const keys = [
     label: "MDM",
     value: "a158f9dc72msh71a3aa6d6fbbdebp1e4846jsn43b522b4bb6d",
   },
+  {
+    name: "MDM2",
+    label: "MDM2",
+    value: "d7e53348e1msh43f2a696373232ep122589jsn9a094f36149a",
+  },
 ];
 
 //   id: 62,

@@ -33,7 +33,7 @@ const QuestionCard = ({ question }) => {
           >
             {question.difficulty}
           </div>
-          <div className="w-2/5 text-center qstcarddiv rounded-md py-2 px-1 bg-pink-500   block ">
+          <div className="w-2/5 text-center qstcarddiv rounded-md py-2 px-1 bg-teal-300   block ">
             {question.points} Points{" "}
           </div>
         </div>

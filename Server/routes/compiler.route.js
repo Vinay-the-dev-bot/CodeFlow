@@ -10,10 +10,6 @@ const readline = require("readline");
 const { QuestionModel } = require("../models/question.model");
 const compileRouter = express.Router();
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
 compileRouter.post("/solve", async (req, res) => {
   let { language, code, customInput } = req.body;
   // console.log(language);
