@@ -218,7 +218,7 @@ const Dashboard = () => {
                   </Button>
                 ) : (
                   <Link to="/submissions">
-                    <Button>Submission</Button>
+                    <Button>My Submissions</Button>
                   </Link>
                 )}
               </Box>

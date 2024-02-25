@@ -450,7 +450,7 @@ function QuestionJudge({ questionId, question }) {
           </h1>
           <textarea
             className="w-full border-2 h-1/5 p-2 border-black rounded "
-            placeholder="Custom Inputs"
+            placeholder="Sample Input"
             value={customInput}
             onChange={(e) => setCustomInput(e.target.value)}
             type="text"
