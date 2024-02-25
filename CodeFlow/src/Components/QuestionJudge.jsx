@@ -12,14 +12,14 @@ import TestCaseResults from "../Components/TestCaseResults";
 import axios from "axios";
 import TestCaseJudge0Results from "./TestCaseJudge0Results";
 import LoadingToast from "./LoadingToast";
-import { Vinaygouda_meti16, keys, mdmeti, metigouda21 } from "../assets/Extra";
+import { keys } from "../assets/Extra";
 import { customStyles } from "../assets/CustomStyles";
 
 function QuestionJudge({ questionId, question }) {
   // console.log("ENV", metigouda21);
   // console.log("ENV", Vinaygouda_meti16);
   // console.log("ENV", mdmeti);
-  const [javaCode, setJavaCode] = useState(`public class main {
+  const [javaCode, setJavaCode] = useState(`public class Main {
     public static void main(String[] args) {
         // Your code goes here
         System.out.println("Hello, world!");
@@ -37,9 +37,10 @@ function QuestionJudge({ questionId, question }) {
   const [output, setOutPut] = useState([]);
   const [code, setCode] = useState(javaCode);
   const [pending, setPending] = useState(false);
-  const [apiKey, setAPIKey] = useState(mdmeti);
+  const [apiKey, setAPIKey] = useState(keys[0].value);
   const [submitted, setSubmitted] = useState(false);
   const [judgeResult, setJudgeResult] = useState({});
+  const [errorJudge, setErrorJudge] = useState();
   const toast = useToast();
 
   const langCode = {
@@ -95,6 +96,13 @@ function QuestionJudge({ questionId, question }) {
             out: atob(response.data.stdout),
           };
           setJudgeResult((prevState) => [...prevState, newObject]);
+          toast({
+            title: "Successfully Compiled.",
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+          });
+          setPending(false);
           return;
         }
 
@@ -109,6 +117,7 @@ function QuestionJudge({ questionId, question }) {
   };
 
   const handleSolveJudge = () => {
+    setErrorJudge("");
     const formData = {
       language_id: language.id,
       source_code: btoa(code),
@@ -138,12 +147,13 @@ function QuestionJudge({ questionId, question }) {
       })
       .catch((err) => {
         let error = err.response ? err.response.data : err;
+        setErrorJudge(error);
         console.log(error);
+        setPending(false);
       });
   };
 
   const handleSubmitJudge = (judgeInput) => {
-    console.log("1111111111", judgeInput);
     const formData = {
       language_id: language.id,
       source_code: btoa(code),
@@ -161,7 +171,7 @@ function QuestionJudge({ questionId, question }) {
       },
       data: formData,
     };
-    // checkStatus("dksldsdl", judgeInput);
+
     axios
       .request(options)
       .then(function (response) {
@@ -171,6 +181,8 @@ function QuestionJudge({ questionId, question }) {
       })
       .catch((err) => {
         let error = err.response ? err.response.data : err;
+        setErrorJudge(error);
+        setPending(false);
         console.log(error);
       });
   };
@@ -190,6 +202,7 @@ function QuestionJudge({ questionId, question }) {
     setJudgeResult([]);
 
     for (let i = 0; i < question.testCases.length; i++) {
+      setErrorJudge("");
       handleSubmitJudge(question.testCases[i].inp);
       setSubmitted(true);
     }
@@ -413,6 +426,7 @@ function QuestionJudge({ questionId, question }) {
       </div>
       {/* {JSON.stringify(output)} */}
       {/* {loading && <LoadingToast />} */}
+      {JSON.stringify(apiKey)}
       <div className="flex ">
         <CodeEditor
           code={langCode[langFocus]}
@@ -453,7 +467,7 @@ function QuestionJudge({ questionId, question }) {
               Solve
             </button>
           </div>
-          <OutputWindow outputDetails={output} />
+          <OutputWindow error={errorJudge} outputDetails={output} />
         </div>
       </div>
       {/* {JSON.stringify(keys)} */}
@@ -462,7 +476,7 @@ function QuestionJudge({ questionId, question }) {
         options={keys}
         styles={customStyles}
         defaultValue={keys[0]}
-        onChange={(selectedOption) => onSelectChange(selectedOption)}
+        onChange={(selectedOption) => setAPIKey(selectedOption.value)}
       />
       {submitted && output.output && output.output.length > 0 && (
         <TestCaseResults

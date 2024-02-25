@@ -12,7 +12,7 @@ const QuestionCard = ({ question }) => {
     navigate(`solve/${question._id}`);
   };
   return (
-    <div className="flex border-2 w-4/5 m-auto px-5 py-4 justify-around rounded-md ">
+    <div className="flex qstcard border-2 w-4/5 m-auto px-5 py-4 justify-around rounded-md ">
       <div className="w-1/5 flex flex-col justify-around ">
         <p>Title : </p>
         <span>{question.title}</span>
@@ -21,22 +21,24 @@ const QuestionCard = ({ question }) => {
         <p>Description</p>
         <span>{question.description}</span>
       </div>
-      <div className="flex flex-col  justify-around w-1/5 gap-5 ">
+      <div className="flex flex-col  justify-around w-1/4 gap-5 ">
         {/* <div className="w-full text-center text-black    m-auto    py-2  rounded-md ">
           {question.difficulty}
         </div> */}
-        <div
-          className={`w-full text-center text-white  ${
-            difficultyColors[question.difficulty]
-          }  m-auto    py-2  rounded-md `}
-        >
-          {question.difficulty}
-        </div>
-        <div className="w-full text-center qstcard rounded-md py-2 bg-pink-500 m-auto block ">
-          {question.points} Points{" "}
+        <div className="w-2=full flex justify-between ">
+          <div
+            className={`w-2/5 text-center text-white  ${
+              difficultyColors[question.difficulty]
+            }       py-2  rounded-md `}
+          >
+            {question.difficulty}
+          </div>
+          <div className="w-2/5 text-center qstcarddiv rounded-md py-2 px-1 bg-pink-500   block ">
+            {question.points} Points{" "}
+          </div>
         </div>
         <Button
-          className="qstcard w-full "
+          className="qstcarddiv w-full "
           onClick={solveQuestion}
           backgroundColor="  rgb(5 150 105);"
           coloe="white"
