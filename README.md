@@ -60,13 +60,21 @@ If your application relies on external APIs, document them and include any neces
 
 ## API Endpoints
 In case of Backend Applications provide a list of your API endpoints, methods, brief descriptions, and examples of request/response.
+<br/>
 post /users/register - register User
+<br/>
 post /users/login - login user
+<br/>
 get /users - retrive all users
+<br/>
 post /questions/add - add new question
+<br/>
 get/questions/:questionId - retrive perticular question using id
+<br/>
 patch/questions/:questionId - update question
+<br/>
 delete/questions/:questionId - delete question
+<br/>
 
 
 
