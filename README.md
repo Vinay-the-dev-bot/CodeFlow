@@ -7,11 +7,13 @@ CodeFlow is the brainchild of a team of passionate developers who came together 
  Fullstack
 
 ## Deployed App
- Frontend: https://codeflow-cdf.netlify.app/
+ Frontend: <a href="https://codeflow-cdf.netlify.app/"  target="_blank" > Codeflow </a>
 <br/>
-Backend: https://codeflow-174q.onrender.com/
+Backend:  <a href="https://codeflow-174q.onrender.com/"  target="_blank" > Codeflow Sever </a> 
 <br/>
-Database: https://github.com/Vinay-the-dev-bot/CodeFlow/
+Database:  <a href="https://github.com/Vinay-the-dev-bot/CodeFlow/"  target="_blank" > Codeflow Sever </a> 
+<br/>
+
 <br/>
 
 ## Directory Structure
@@ -23,6 +25,10 @@ CodeFlow/
 <br>
 ├─ ReadMe.md
 
+CodeFlow/
+├─ CodeFloew/
+├─ Server/
+│  ├─ ...
 
 ## Features
 
@@ -61,15 +67,18 @@ Include screenshots as necessary.
 
 ## Credentials
 Admin Access :
+<br/>
 Email : geetesh@gmail.com
 Password : geetesh
 
 User Access : 
+<br/>
 Email : Vinay@gmail.com
+<br/>
 123456
 
 ## APIs Used
-Judge0 Compiler hosted on RapidAPI <a href="https://rapidapi.com/judge0-official/api/judge0-ce" >Judge</a>
+Judge0 Compiler hosted on RapidAPI <a href="https://rapidapi.com/judge0-official/api/judge0-ce" target="_blank">Judge</a>
  
 ## Technology Stack
 - Frontend: React, Chakra UI, React-Reduc, M-UI, Tailwind
