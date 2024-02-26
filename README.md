@@ -85,6 +85,14 @@ npm run server
 - **My Submission:**
 ![my Submmision](https://github.com/Vinay-the-dev-bot/CodeFlow/assets/70647591/94009f32-ecec-4fff-abc6-c5d5fe27b77b)
 
+- **Admin:**
+![Admin)](https://github.com/Vinay-the-dev-bot/CodeFlow/assets/70647591/c99a30d5-d50b-46bc-8402-d24822d78d08)
+
+- **Add Questions:**
+![Add Questions](https://github.com/Vinay-the-dev-bot/CodeFlow/assets/70647591/ae1e17a3-9a81-48a5-a977-45638f3791f4)
+
+
+
 ## Credentials
 Admin Access :
 <br/>
