@@ -7,11 +7,11 @@ CodeFlow is the brainchild of a team of passionate developers who came together 
  Fullstack
 
 ## Deployed App
- Frontend: <a href="https://codeflow-cdf.netlify.app/"  target="_blank" > Codeflow </a>
+ Frontend: <a href="https://codeflow-cdf.netlify.app/"  target="_blank" > Codeflow App </a>
 <br/>
 Backend:  <a href="https://codeflow-174q.onrender.com/"  target="_blank" > Codeflow Sever </a> 
 <br/>
-Database:  <a href="https://github.com/Vinay-the-dev-bot/CodeFlow/"  target="_blank" > Codeflow Sever </a> 
+Database:  <a href="https://github.com/Vinay-the-dev-bot/CodeFlow/"  target="_blank" > Codeflow </a> 
 <br/>
 
 <br/>
