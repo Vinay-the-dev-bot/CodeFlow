@@ -155,6 +155,7 @@ const Dashboard = () => {
     setTc([...tc, { inp, oup }]);
   };
   console.log(tc);
+  console.log(user);
   return (
     <>
       <Box mb={"4rem"}>
@@ -207,20 +208,29 @@ const Dashboard = () => {
                   </>
                 );
               })}
-              <Box display={"flex"} justifyContent={"center"} m={"2rem 0rem"}>
-                {role === "admin" ? (
+              <Box
+                alignItems={"center"}
+                display={"flex"}
+                gap={"15px"}
+                flexDirection={"column"}
+                justifyContent={"center"}
+                m={"2rem 0rem"}
+              >
+                {role === "admin" && (
                   <Button
+                    backgroundColor="#EDF2F7"
+                    width={"60%"}
+                    margin={"auto"}
                     onClick={() => {
                       setShowModal(true);
                     }}
                   >
                     Add Question
                   </Button>
-                ) : (
-                  <Link to="/submissions">
-                    <Button>My Submissions</Button>
-                  </Link>
                 )}
+                <Button width={"60%"} backgroundColor="#EDF2F7">
+                  <Link to="/submissions">My Submissions</Link>
+                </Button>
               </Box>
 
               {/* <Box display={"flex"} justifyContent={"center"} mt={5}>
@@ -296,7 +306,8 @@ const Dashboard = () => {
                               fontSize={"1.3rem"}
                               border={"2px solid black"}
                             >
-                              100
+                              {/* 100 */}
+                              {user[0].points}
                             </Td>
                           </Tr>
                         </>
@@ -312,8 +323,11 @@ const Dashboard = () => {
                 "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px"
               }
               p={"2rem 0"}
-              borderRadius={"1rem"}
+              borderRadius={"10px"}
             >
+              <Text textAlign={"center"} fontSize={"2rem"} fontWeight={"bold"}>
+                Solved Questions
+              </Text>
               <Box width={"90%"} m={"auto"} mt={"1.5rem "} mb={"1.5rem"}>
                 {solved.map((e) => {
                   {

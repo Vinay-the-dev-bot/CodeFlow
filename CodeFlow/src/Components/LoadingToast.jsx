@@ -19,7 +19,7 @@ const LoadingToast = () => {
     toastIdRef.current = toast({
       title: "Loading",
       status: "loading",
-      position: "top",
+      position: "bottom",
       duration: null,
     });
     return () => {

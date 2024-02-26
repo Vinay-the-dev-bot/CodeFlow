@@ -51,6 +51,14 @@ function QuestionJudge({ questionId, question }) {
   function handleThemeChange(th) {
     setTheme(th);
   }
+  // if (judgeResult.length == 4) {
+  //   toast({
+  //     title: "Successfully Compiled.",
+  //     status: "success",
+  //     duration: 2000,
+  //     isClosable: true,
+  //   });
+  // }
 
   // const clickedOnSolve = () => {
   //   console.log(language);
@@ -96,14 +104,7 @@ function QuestionJudge({ questionId, question }) {
             out: atob(response.data.stdout),
           };
           setJudgeResult((prevState) => [...prevState, newObject]);
-          if (judgeResult.length == 4) {
-            toast({
-              title: "Successfully Compiled.",
-              status: "success",
-              duration: 2000,
-              isClosable: true,
-            });
-          }
+
           setPending(false);
           return;
         }
@@ -421,13 +422,7 @@ function QuestionJudge({ questionId, question }) {
         <div className="px-4 py-2">
           <LanguageDropdown onSelectChange={onSelectChange} />
         </div>
-        <Select
-          placeholder={`Select Key`}
-          options={keys}
-          styles={customStyles}
-          defaultValue={keys[0]}
-          onChange={(selectedOption) => setAPIKey(selectedOption.value)}
-        />
+
         <div className="px-4 py-2">
           <ThemeDropdown handleThemeChange={handleThemeChange} />
         </div>
@@ -502,6 +497,19 @@ function QuestionJudge({ questionId, question }) {
           results={judgeResult}
         />
       )}
+      <div>
+        <p>
+          If you are getting Daily Limit Reached in output, please select
+          different key in dropdown
+        </p>
+        <Select
+          placeholder={`Select Key`}
+          options={keys}
+          styles={customStyles}
+          defaultValue={keys[0]}
+          onChange={(selectedOption) => setAPIKey(selectedOption.value)}
+        />
+      </div>
     </div>
   );
 }

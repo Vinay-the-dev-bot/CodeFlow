@@ -11,12 +11,12 @@ function HomePage() {
   return (
     <>
       <Box
-        // className="bg-gradient-to-br #DCF2F1 from-slate-500 via-gray-700 "
-        // bg={"rgb(127,199,217);"}
+      // className="bg-gradient-to-br #DCF2F1 from-slate-500 via-gray-700 "
+      // bg={"rgb(127,199,217);"}
 
-        // bgGradient="linear-gradient(122deg, rgba(127,199,217,1) 0%, rgba(54,84,134,1) 75%)"
-        pb={{ base: "", md: "2.3rem" }}
-        // clipPath="polygon(0 0, 100% 0, 100% 100%, 30% 98%, 0 100%)"
+      // bgGradient="linear-gradient(122deg, rgba(127,199,217,1) 0%, rgba(54,84,134,1) 75%)"
+      // pb={{ base: "", md: "2.3rem" }}
+      // clipPath="polygon(0 0, 100% 0, 100% 100%, 30% 98%, 0 100%)"
       >
         <Box
           w={{ base: "100%", md: "90%" }}

@@ -80,6 +80,7 @@ const Signup = () => {
         borderRadius={8}
         boxShadow="lg"
         mt={-10}
+        backgroundColor="#EDF2F7"
       >
         <form onSubmit={handleSubmit}>
           <Box textAlign="center" mb={4}>
@@ -90,6 +91,7 @@ const Signup = () => {
             <FormLabel>Username</FormLabel>
             <Input
               type="text"
+              backgroundColor="white"
               placeholder="Enter your username"
               value={name}
               onChange={handleUsername}
@@ -101,6 +103,7 @@ const Signup = () => {
               type="email"
               placeholder="Enter your email"
               value={email}
+              backgroundColor="white"
               onChange={handleEmail}
             />
           </FormControl>
@@ -111,11 +114,12 @@ const Signup = () => {
               type="password"
               placeholder="Enter your password"
               value={pass}
+              backgroundColor="white"
               onChange={handlePassword}
             />
           </FormControl>
 
-          <Button type="submit" width="full">
+          <Button type="submit" width="full" backgroundColor="#92C7CF">
             Sign Up
           </Button>
         </form>

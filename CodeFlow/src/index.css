@@ -11,11 +11,15 @@
   text-transform: uppercase;
   color: #000;
   cursor: pointer;
-  border: 3px solid;
+  border: 1px solid;
   padding: 0.25em 0.5em;
-  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px,
-    5px 5px 0px 0px;
+  /* border: none; */
+  /* border: 1px solid #5eead4; */
+  /* box-shadow: 5px 5px 0px 0px rgba(0, 0, 0); */
+  /* box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px,
+    5px 5px 0px 0px; */
   position: relative;
+  border-radius: 5px;
 }
 
 .compileButton:active,
@@ -55,6 +59,9 @@
   margin-left: 5px;
 }
 .qstcard {
-  /* border: none; */
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px; */
   /* box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px; */
 }

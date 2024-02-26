@@ -10,16 +10,27 @@ import {
   useDisclosure,
   Button,
 } from "@chakra-ui/react";
+import { useState } from "react";
 const QuestionCard = ({ submission, slNo }) => {
   const navigate = useNavigate();
+  let [count, setCount] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  for (let i = 0; i < submission.results.length; i++) {
+    console.log(submission.results[i].pass);
+    if (submission.results[i].pass) {
+      // (count) => count + 1;
+      count++;
+    }
+  }
+  console.log(count);
   return (
     <div className="w-3/5 mx-auto">
       <div className="flex items-center  border-2 text-center w-full   px-5 py-4 justify-around rounded-md ">
         <p className="w-9/10 text-center">{slNo + 1}</p>
         <p className="w-9/10  text-center ">{submission.title}</p>
         <p className="w-1/10 text-center">{submission.results.length}</p>
-        <p className="w-1/5 text-center">100%</p>
+        <p className="w-1/5 text-center">{(count / 4) * 100}%</p>
         <button
           className="bg-sky-500 px-10 text-2xl py-1 rounded-md "
           onClick={onOpen}

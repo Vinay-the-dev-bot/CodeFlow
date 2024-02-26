@@ -56,11 +56,11 @@ const Navbar = () => {
           <Spacer />
           <Box>
             <IconButton
-              icon={<HamburgerIcon color="white" fontSize={"1.6rem"} />}
+              icon={<HamburgerIcon color="black" fontSize={"1.6rem"} />}
               aria-label="Open navigation"
               onClick={onOpen}
               display={{ base: "flex", md: "none" }}
-              bgColor="#854CE6"
+              bgColor="#5EEAD4"
             />
 
             <Flex

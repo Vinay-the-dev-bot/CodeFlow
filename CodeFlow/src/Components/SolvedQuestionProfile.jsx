@@ -50,7 +50,7 @@ const SolvedQuestionProfile = (questionId) => {
           alignItems={"center"}
         >
           <Box>
-            <Heading fontSize={{ base: "1.4rem", md: "1.8rem" }} mb={2}>
+            <Heading fontSize={{ base: "1.4rem", md: "1.5rem" }} mb={2}>
               {question.title}
             </Heading>
             <Text w={{ base: "85%", md: "100%" }}>{question.description}</Text>

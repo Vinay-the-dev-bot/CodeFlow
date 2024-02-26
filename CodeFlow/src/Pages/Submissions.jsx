@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import SubmissionsCard from "../Components/SubmissionsCard";
 import { url } from "../assets/Extra";
 import Footer from "../Components/Footer";
+import LoadingToast from "../Components/LoadingToast";
 
 const Submissions = () => {
   const [submissions, setSubmissions] = useState([]);
   const token = localStorage.getItem("token");
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const getSubmissions = async () => {
       const res = await fetch(`${url}/users/submissions`, {
@@ -15,13 +18,14 @@ const Submissions = () => {
       });
       const data = await res.json();
       console.log(data.questions);
+      setIsLoading(false);
       setSubmissions(data.submissions);
     };
     getSubmissions();
   }, []);
   return (
     <>
-      {" "}
+      {isLoading && <LoadingToast />}
       <div className="w-full p-10 mx-auto ">
         <h1 className="w-4/5 m-auto text-5xl font-bold  text-center ">
           My Submissions

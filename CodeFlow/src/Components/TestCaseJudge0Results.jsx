@@ -48,6 +48,8 @@ const TestCaseJudge0Results = ({ code, question, results }) => {
       }
     }
   }
+  const token = localStorage.getItem("token");
+  console.log(token);
   const percPassed = (count / question.testCases.length) * 100;
   const saveResults = async () => {
     console.log(ressss);
@@ -55,13 +57,14 @@ const TestCaseJudge0Results = ({ code, question, results }) => {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        Authorizations: `Bearer ${token}`,
       },
       body: JSON.stringify({
         questionID: question._id,
         title: question.title,
         code,
         results: ressss,
-        userID: "65dacfbf3264a92caeb63a48",
+        // userID: "65dacfbf3264a92caeb63a48",
       }),
     });
     const data = await res.json();

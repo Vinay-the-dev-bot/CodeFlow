@@ -3,11 +3,11 @@ import Button from "../Components/Button";
 import Editor, { useMonaco } from "@monaco-editor/react";
 import ThemeDropdown from "../Components/ThemeDropdown";
 import { themes } from "../assets/EditorThemes";
-import { Box } from "@chakra-ui/react";
+import { Box, border } from "@chakra-ui/react";
 function HTMLCompiler() {
   const [openedEditor, setOpenedEditor] = useState("HTML");
   const [html, setHTML] = useState(
-    `<h1>Heading</h1>\n<p id="para" >Paragraph</p>\n<button id="btn" >Click Me</button>`
+    `<div>\n    <h1>Heading</h1>\n    <p id="para" >Paragraph</p>\n    <button id="btn" >Click Me</button>\n</div>`
   );
   const [css, setCSS] = useState("p{\ncolor:red\n}\nh1{\ncolor:blue\n}");
   const [javascript, setJS] = useState(
@@ -61,7 +61,7 @@ function HTMLCompiler() {
           flexDirection={{ base: "column", md: "row" }}
           justifyContent={"center"}
           // border={"2px solid black"}
-          m={{ md: "auto" }}
+          // m={{ md: "auto" }}
         >
           <Button
             title="HTML"
@@ -103,7 +103,12 @@ function HTMLCompiler() {
         className="editor-container flex  mx-auto m-1 h-full  "
         flexDirection={{ base: "column", md: "row" }}
       >
-        <Box className="  flex flex-col  " w={{ base: "100%", md: "50%" }}>
+        <Box
+          className="  flex flex-col  "
+          w={{ base: "100%", md: "50%" }}
+          border={{ md: "1px solid black" }}
+          padding={"30px 0"}
+        >
           {openedEditor === "HTML" ? (
             <div className="HTML-Editor flex flex-col w-1/1 ">
               <Editor
@@ -141,9 +146,13 @@ function HTMLCompiler() {
             </div>
           )}
         </Box>
-        <div className="w-1/2 h-full rounded-xl ">
+        <Box
+          className="w-1/2 h-full    "
+          border={{ md: "1px solid black" }}
+          padding={"0 10px"}
+        >
           <iframe
-            className=" mx-auto rounded-xl  "
+            className=" mx-auto   "
             srcDoc={srcDoc}
             title="output"
             sandbox="allow-scripts"
@@ -151,7 +160,7 @@ function HTMLCompiler() {
             width="99%"
             height="500px"
           />
-        </div>
+        </Box>
       </Box>
     </div>
   );

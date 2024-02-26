@@ -78,6 +78,7 @@ const Login = () => {
         borderWidth={1}
         borderRadius={8}
         boxShadow="lg"
+        backgroundColor="#EDF2F7"
       >
         <Box textAlign="center" mb={4}>
           <h1 style={{ fontSize: "40px", fontWeight: "700" }}>Login</h1>
@@ -87,6 +88,7 @@ const Login = () => {
             <FormLabel>Email address</FormLabel>
             <Input
               type="email"
+              backgroundColor="white"
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -96,13 +98,14 @@ const Login = () => {
             <FormLabel>Password</FormLabel>
             <Input
               type="password"
+              backgroundColor="white"
               placeholder="Enter your password"
               value={pass}
               onChange={(e) => setPassword(e.target.value)}
             />
           </FormControl>
 
-          <Button width="full" type="submit">
+          <Button width="full" type="submit" backgroundColor="#92C7CF">
             Log In
           </Button>
         </form>
