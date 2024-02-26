@@ -70,7 +70,7 @@ userRouter.get("/logout", async (req, res) => {
 });
 
 // post question answer
-userRouter.post("/submissions", async (req, res) => {
+userRouter.post("/submissions", auth, async (req, res) => {
   const { questionID, userID, code, title, results } = req.body;
   // console.log(userID);
   try {
