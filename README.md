@@ -1,48 +1,47 @@
 # CodeFlow
 
 ## Introduction
-CodeFlow is an advanced collaborative code editor designed to support real-time code writing, sharing, and previewing among users. 
-It serves as a platform for users to collaboratively work on coding projects, share their work with a community, and engage in real-time debugging and optimization challenges. 
-With features tailored to skilled coders, CodeFlow aims to foster creativity, facilitate peer learning, and enhance coding skills.
+CodeFlow is the brainchild of a team of passionate developers who came together during a Construct Week, a dedicated period for intensive collaboration and innovation. Fueled by a shared vision to create a cutting-edge  coding platform, our journey began with a commitment to push the boundaries of what's possible in the world of coding.
 
 ## Project Type
  Fullstack
 
 ## Deployed App
-Frontend: https://deployed-site.whatever
+ Frontend: https://codeflow-cdf.netlify.app/
 <br/>
-Backend: https://deployed-site.whatever
+Backend: https://codeflow-174q.onrender.com/
 <br/>
-Database: https://deployed-site.whatever
+Database: https://github.com/Vinay-the-dev-bot/CodeFlow/
 <br/>
 
 ## Directory Structure
 CodeFlow/
 <br>
-├─ Server/
-<br>
 ├─ CodeFlow/
 <br>
-│  ├─ ...
+├─ Server/
+<br>
+├─ ReadMe.md
 
 
 ## Features
-List out the key features of your application.
 
-- Real-time code collaboration
+- Real-time code compiler for HTML, CSS, Javascript
 - Live preview of code changes
-- Version control integration
-- Commenting and code review
-- Code challenges and competitions
-- Gamification with badges, points
+- Solving coding challenges in multiple languages
+- Coding challenges and competitions
+- Code submissions, points.
 
 
-## Design Decisions or Assumptions
-List your design desissions & assumptions
+## Video Walkthrough of the project
+Attach a very short video walkthough of all of the features [ 1 - 3 minutes ]
+
+
 
 ## Installation & Getting started
 Detailed instructions on how to install, configure, and get the project running. For BE/FS projects, guide the reviewer how to check mongodb schema etc.
 
+Application
 ```bash
 git clone https://github.com/Vinay-the-dev-bot/CodeFlow.git
 cd CodeFlow
@@ -50,44 +49,31 @@ npm i
 npm run dev
 ```
 
-## Usage
-Provide instructions and examples on how to use your project.
-
+Run Server Locally
 ```bash
-# Example
-```
+git clone https://github.com/Vinay-the-dev-bot/CodeFlow.git
+cd Server
+npm i
+npm run server
+``` 
 
 Include screenshots as necessary.
 
 ## Credentials
-Provide user credentials for autheticated pages
+Admin Access :
+Email : geetesh@gmail.com
+Password : geetesh
+
+User Access : 
+Email : Vinay@gmail.com
+123456
 
 ## APIs Used
-If your application relies on external APIs, document them and include any necessary links or references.
-
-## API Endpoints
-In case of Backend Applications provide a list of your API endpoints, methods, brief descriptions, and examples of request/response.
-<br/>
-post /users/register - register User
-<br/>
-post /users/login - login user
-<br/>
-get /users - retrive all users
-<br/>
-post /questions/add - add new question
-<br/>
-get/questions/:questionId - retrive perticular question using id
-<br/>
-patch/questions/:questionId - update question
-<br/>
-delete/questions/:questionId - delete question
-<br/>
-
-
-
+Judge0 Compiler hosted on RapidAPI <a href="https://rapidapi.com/judge0-official/api/judge0-ce" >Judge</a>
+ 
 ## Technology Stack
-- Frontend: React, Chakra UI
-- Backend: Node.js, Express.js
+- Frontend: React, Chakra UI, React-Reduc, M-UI, Tailwind
+- Backend: Node.js, Express.js, Mongoose
 - Database: MongoDB
 - Authentication: JWT
 - Deployment: render and vercel for frontend and backend
