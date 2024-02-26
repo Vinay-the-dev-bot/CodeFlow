@@ -71,7 +71,7 @@ User Access :
 <br/>
 Email : Vinay@gmail.com
 <br/>
-123456
+Password : 123456
 
 ## APIs Used
 Judge0 Compiler hosted on RapidAPI <a href="https://rapidapi.com/judge0-official/api/judge0-ce" target="_blank">Judge</a>
