@@ -59,7 +59,31 @@ npm i
 npm run server
 ``` 
 
-Include screenshots as necessary.
+
+## Project Screenshots 
+- **Home:**
+  ![Home](https://github.com/Vinay-the-dev-bot/CodeFlow/assets/70647591/85dd0521-eba8-4c84-9cc1-0f70dd0fa931)
+
+- **Sign Up:**
+  ![Sign Up](https://github.com/Vinay-the-dev-bot/CodeFlow/assets/70647591/ab645d6f-a2a7-4c8a-a5ee-a292e5ef59eb)
+
+- **Log In:**
+  ![Log In](https://github.com/Vinay-the-dev-bot/CodeFlow/assets/70647591/5f1dad45-5397-43d3-90c3-37223823c7c0)
+
+- **HTML Compiler:**
+![HTML Compiler](https://github.com/Vinay-the-dev-bot/CodeFlow/assets/70647591/ff334b88-dca6-47b0-afcc-bc93aaf03aab)
+
+- **Contest:**
+![Contest](https://github.com/Vinay-the-dev-bot/CodeFlow/assets/70647591/20823c09-9cb3-4f73-8421-a255c8eafd76)
+
+- **Solve:**
+![Solve](https://github.com/Vinay-the-dev-bot/CodeFlow/assets/70647591/45a7c06d-81ec-41f9-b2d8-5c12d78700eb)
+
+- **Dashboard:**
+![Dashboard](https://github.com/Vinay-the-dev-bot/CodeFlow/assets/70647591/847d1ece-f84d-490f-92a0-d1d639d48173)
+
+- **My Submission:**
+![my Submmision](https://github.com/Vinay-the-dev-bot/CodeFlow/assets/70647591/94009f32-ecec-4fff-abc6-c5d5fe27b77b)
 
 ## Credentials
 Admin Access :
