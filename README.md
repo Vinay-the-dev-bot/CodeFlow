@@ -106,8 +106,7 @@ Email : Vinay@gmail.com
 <br/>
 Password : 123456
 
-## APIs Used
- OpenAI API <a href="https://api.openai.com/v1/chat/completions" target="_blank">Judge</a>
+
  
 ## Technology Stack
 - Frontend: React, Chakra UI, React-Reduc, M-UI, Tailwind
