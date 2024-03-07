@@ -59,6 +59,8 @@ npm i
 npm run server
 ``` 
 
+## APIs Used
+Judge0 Compiler hosted on RapidAPI <a href="https://rapidapi.com/judge0-official/api/judge0-ce" target="_blank">Judge</a>
 
 ## Project Screenshots 
 - **Home:**
@@ -106,8 +108,7 @@ Email : Vinay@gmail.com
 <br/>
 Password : 123456
 
-## APIs Used
-Judge0 Compiler hosted on RapidAPI <a href="https://rapidapi.com/judge0-official/api/judge0-ce" target="_blank">Judge</a>
+
  
 ## Technology Stack
 - Frontend: React, Chakra UI, React-Reduc, M-UI, Tailwind
