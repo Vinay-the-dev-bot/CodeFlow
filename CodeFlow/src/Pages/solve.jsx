@@ -28,7 +28,7 @@ function Solve() {
   return (
     <div>
       {/* <p>{JSON.stringify(question)}</p> */}
-      {isLoading && <LoadingToast />}
+      {isLoading && <LoadingToast message={"geting question"} />}
       <Box className="flex m-10 p-5  " border={"1px solid black"}>
         <div className="w-3/5 px-10    flex flex-col gap-5">
           <h1 className="text-2xl font-bold "> Statement</h1>

@@ -25,7 +25,7 @@ const Submissions = () => {
   }, []);
   return (
     <>
-      {isLoading && <LoadingToast />}
+      {isLoading && <LoadingToast message={"getting submissions"} />}
       <div className="w-full p-10 mx-auto ">
         <h1 className="w-4/5 m-auto text-5xl font-bold  text-center ">
           My Submissions

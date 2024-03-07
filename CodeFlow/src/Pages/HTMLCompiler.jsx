@@ -53,17 +53,18 @@ function HTMLCompiler() {
         Welcome to CODEFLOW editor!
       </p>
       <Box
-        className="flex w-1/1 items-center justify-center"
+        className="flex  items-center justify-center"
         flexDirection={{ base: "column", md: "row" }}
       >
         <Box
-          className="tab-button-container w-1/2  mt-10  my-10 mx-auto flex gap-10 "
+          className="tab-button-container w-1/2  my-10    flex gap-10 "
           flexDirection={{ base: "column", md: "row" }}
           justifyContent={"center"}
           // border={"2px solid black"}
           // m={{ md: "auto" }}
         >
           <Button
+            bg={"red"}
             title="HTML"
             onClick={() => {
               onTabClick("HTML");
@@ -85,7 +86,7 @@ function HTMLCompiler() {
             isActive={activeTab === "JavaScript"}
           />
         </Box>
-        <div className=" w-1/2">
+        <div className=" mx-auto block  ">
           {/* <label className="m-auto" for="themeSelect">
             Select Theme:
           </label>

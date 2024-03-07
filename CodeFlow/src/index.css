@@ -4,30 +4,33 @@
 
 .compileButton,
 .tabButton {
-  font-family: "Open Sans", sans-serif;
   font-size: 16px;
   letter-spacing: 2px;
   text-decoration: none;
   text-transform: uppercase;
-  color: #000;
+  color: #19212c;
   cursor: pointer;
-  border: 1px solid;
+  border: 2px solid;
   padding: 0.25em 0.5em;
-  /* border: none; */
-  /* border: 1px solid #5eead4; */
-  /* box-shadow: 5px 5px 0px 0px rgba(0, 0, 0); */
-  /* box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px,
-    5px 5px 0px 0px; */
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px,
+    5px 5px 0px 0px;
   position: relative;
   border-radius: 5px;
+  transition: 0.1s;
+  /* background-color: white; */
 }
 
-.compileButton:active,
+.compileButton:hover,
+.tabButton:hover {
+  box-shadow: 0px 0px 0px 0px;
+}
+
+/* .compileButton:active,
 .tabButton:active {
   box-shadow: 0px 0px 0px 0px;
   top: 5px;
   left: 5px;
-}
+} */
 
 @media (min-width: 768px) {
   .compileButton,
@@ -41,6 +44,11 @@
   background-color: blue;
   border-radius: 5px;
   margin-left: 5px;
+}
+.HTMLEditors {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
 }
 .Medium {
   color: white;

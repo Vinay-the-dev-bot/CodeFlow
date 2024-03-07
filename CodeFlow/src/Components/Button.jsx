@@ -3,7 +3,7 @@ const Button = ({ title, onClick, isActive }) => {
   return (
     <button
       className={`tabButton py-1 px-5 h-30  rounded-md ${
-        isActive ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"
+        isActive ? "bg-#19212C  text-white" : " text-white"
       } `}
       onClick={onClick}
     >

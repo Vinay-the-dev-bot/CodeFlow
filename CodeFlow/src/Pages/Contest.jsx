@@ -21,7 +21,7 @@ function Contest() {
 
   return (
     <div>
-      {isLoading && <LoadingToast />}
+      {isLoading && <LoadingToast message={"getting problems"} />}
       {/* <button onClick={getQuestion}>Get Question</button> */}
       <div className="flex flex-col gap-10 p-10  rounded-xl ">
         {questions.map((question, index) => {

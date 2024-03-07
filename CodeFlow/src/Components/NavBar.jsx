@@ -95,7 +95,7 @@ const Navbar = () => {
                   bg={"transparent"}
                   _hover={{ bg: "transparent", color: "#AAD7D9" }}
                 >
-                  HTML Compiler
+                  HTML
                 </Button>
               </Link>
               <Link to="/contest">
