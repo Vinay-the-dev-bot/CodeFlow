@@ -16,7 +16,7 @@ import {
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { authLinLout, setName } from "../redux/authSlice";
+import { authLinLout, setName, setUser } from "../redux/authSlice";
 import { url } from "../assets/Extra";
 
 const Login = () => {
@@ -36,14 +36,16 @@ const Login = () => {
         email,
         pass,
       });
-
+      console.log(response.data.user);
       if (response.status === 200) {
         const token = response.data.token;
         localStorage.setItem("token", token);
         localStorage.setItem("name", response.data.name);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
         await Promise.all([
           dispatch(authLinLout(true)),
           dispatch(setName(response.data.name)),
+          dispatch(setUser(response.data.user)),
         ]);
         setModalMessage("Login successful");
         setShowModal(true);

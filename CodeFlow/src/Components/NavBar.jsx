@@ -98,7 +98,7 @@ const Navbar = () => {
                   HTML
                 </Button>
               </Link>
-              <Link to="/contest">
+              {/* <Link to="/contest">
                 <Button
                   fontSize={"1.3rem"}
                   color={"white"}
@@ -106,6 +106,16 @@ const Navbar = () => {
                   _hover={{ bg: "transparent", color: "#AAD7D9" }}
                 >
                   Contest
+                </Button>
+              </Link> */}
+              <Link to="/contests">
+                <Button
+                  fontSize={"1.3rem"}
+                  color={"white"}
+                  bg={"transparent"}
+                  _hover={{ bg: "transparent", color: "#AAD7D9" }}
+                >
+                  Contests
                 </Button>
               </Link>
 

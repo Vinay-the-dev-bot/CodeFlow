@@ -36,6 +36,7 @@ function QuestionJudge({ questionId, question }) {
   const [language, setLanguage] = useState(languageOptions[0]);
   const [output, setOutPut] = useState([]);
   const [code, setCode] = useState(javaCode);
+  const [statusId, setStatusId] = useState(null);
   const [pending, setPending] = useState(false);
   const [apiKey, setAPIKey] = useState(keys[0].value);
   const [submitted, setSubmitted] = useState(false);
@@ -90,14 +91,16 @@ function QuestionJudge({ questionId, question }) {
     };
     try {
       let response = await axios.request(options);
-      let statusId = response.data.status?.id;
-      if (judgeInput && (statusId === 1 || statusId === 2)) {
+      let statusID = response.data.status?.id;
+      console.log("ID  : ", statusID);
+      setStatusId(statusID);
+      if (judgeInput && (statusID === 1 || statusID === 2)) {
         setTimeout(() => {
           checkStatus(token, judgeInput);
         }, 3000);
         return;
       } else {
-        console.log("-------------------------", atob(response.data.stdout));
+        // console.log("-------------------------", atob(response.data.stdout));
         if (judgeInput) {
           const newObject = {
             inp: `${judgeInput}`,
@@ -108,7 +111,6 @@ function QuestionJudge({ questionId, question }) {
           setPending(false);
           return;
         }
-
         console.log("response.data", atob(response.data.stdout));
         setOutPut([atob(response.data.stdout)]);
         setPending(false);
@@ -121,6 +123,17 @@ function QuestionJudge({ questionId, question }) {
 
   const handleSolveJudge = () => {
     setErrorJudge("");
+    setStatusId(null);
+    setOutPut("");
+    if (!customInput) {
+      toast({
+        title: "Please Provide Input to Solve",
+        status: "warning",
+        duration: 1000,
+        isClosable: true,
+      });
+      return;
+    }
     const formData = {
       language_id: language.id,
       source_code: btoa(code),
@@ -150,7 +163,9 @@ function QuestionJudge({ questionId, question }) {
       })
       .catch((err) => {
         let error = err.response ? err.response.data : err;
-        setErrorJudge(error);
+        console.log(error);
+        setErrorJudge(error.message ? error.message : error);
+        // setErrorJudge(error);
         console.log(error);
         setPending(false);
       });
@@ -184,15 +199,17 @@ function QuestionJudge({ questionId, question }) {
       })
       .catch((err) => {
         let error = err.response ? err.response.data : err;
-        setErrorJudge(error);
+        console.log(err);
+        setErrorJudge(error.message ? error.message : error);
         setPending(false);
-        console.log(error);
+        console.log("djfjsd", error.message);
       });
   };
 
   const submitCodeJudge = async () => {
     setSubmitted(false);
     setPending(true);
+    setStatusId(null);
     if (!code) {
       toast({
         title: "Please Provide Code",
@@ -471,7 +488,11 @@ function QuestionJudge({ questionId, question }) {
               Solve
             </button>
           </div>
-          <OutputWindow error={errorJudge} outputDetails={output} />
+          <OutputWindow
+            error={errorJudge}
+            statusID={statusId}
+            outputDetails={output}
+          />
         </div>
       </div>
       {/* {JSON.stringify(keys)} */}

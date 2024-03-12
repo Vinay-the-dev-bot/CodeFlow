@@ -49,9 +49,9 @@ function HTMLCompiler() {
   }, [html, css, javascript]);
   return (
     <div>
-      <p className="text-5xl py-5 m-auto text-center">
+      {/* <p className="text-5xl py-5 m-auto text-center">
         Welcome to CODEFLOW editor!
-      </p>
+      </p> */}
       <Box
         className="flex  items-center justify-center"
         flexDirection={{ base: "column", md: "row" }}
@@ -101,7 +101,7 @@ function HTMLCompiler() {
       </Box>
 
       <Box
-        className="editor-container flex  mx-auto m-1 h-full  "
+        className="editor-container flex  mx-auto mb-10 h-full  "
         flexDirection={{ base: "column", md: "row" }}
       >
         <Box
@@ -148,7 +148,7 @@ function HTMLCompiler() {
           )}
         </Box>
         <Box
-          className="w-1/2 h-full    "
+          className="w-1/2      "
           border={{ md: "1px solid black" }}
           padding={"0 10px"}
         >
