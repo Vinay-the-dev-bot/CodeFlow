@@ -2,7 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const name = localStorage.getItem("name");
 const token = localStorage.getItem("token");
-const initialState = { auth: token ? true : false, name: name };
+const user = JSON.parse(localStorage.getItem("user"));
+console.log("UUSERjdjdf", user);
+const initialState = { auth: token ? true : false, name: name, user };
 
 export const authSlice = createSlice({
   name: "auth",
@@ -17,8 +19,12 @@ export const authSlice = createSlice({
       state.name = action.payload;
       console.log(">>>>>>>>>>>>>>>", state.name);
     },
+    setUser: (state, action) => {
+      state.user = action.payload;
+      console.log(">>>>>>>>>>>>>>>", state.name);
+    },
   },
 });
 
-export const { authLinLout, setName } = authSlice.actions;
+export const { authLinLout, setName, setUser } = authSlice.actions;
 export default authSlice.reducer;

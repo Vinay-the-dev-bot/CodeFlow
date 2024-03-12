@@ -1,40 +1,40 @@
 const express = require("express");
-const { QuestionModel } = require("../models/question.model");
 const { access } = require("../middleware/access.middleware");
 const { auth } = require("../middleware/auth.middleware");
+const { ContestsModel } = require("../models/contests.model");
 
-const questionRouter = express.Router();
+const contestsRouter = express.Router();
 
 // Add Question
-questionRouter.post("/add", auth, access(["admin"]), async (req, res) => {
+contestsRouter.post("/add", auth, access(["admin"]), async (req, res) => {
   try {
-    const note = new QuestionModel(req.body);
-    await note.save();
-    res.status(200).send({ msg: "New Question Added." });
+    const contest = new ContestsModel(req.body);
+    await contest.save();
+    res.status(200).send({ msg: "New Contest Added." });
   } catch (err) {
     // console.log("Error:", err);
     res.status(400).send({ msg: "Bad Request." });
   }
 });
 
-questionRouter.get("/:questionId", async (req, res) => {
-  const { questionId } = req.params;
-  console.log("questionId", questionId);
+contestsRouter.get("/:contestId", async (req, res) => {
+  const { contestId } = req.params;
+  // console.log("contestID", contestID);
   try {
-    const question = await QuestionModel.findOne({
-      _id: questionId,
+    const contest = await ContestsModel.findOne({
+      _id: contestId,
     });
-    res.status(200).send({ question });
+    res.status(200).send({ contest });
   } catch (err) {
     // console.log("Error:", err);
     res.status(400).send({ msg: "Bad Request." });
   }
 });
 
-questionRouter.get("/", async (req, res) => {
+contestsRouter.get("/", async (req, res) => {
   try {
-    const questions = await QuestionModel.find();
-    res.status(200).send({ questions });
+    const contests = await ContestsModel.find();
+    res.status(200).send({ contests });
   } catch (err) {
     // console.log("Error:", err);
     res.status(400).send({ msg: "Bad Request." });
@@ -42,19 +42,19 @@ questionRouter.get("/", async (req, res) => {
 });
 
 // Update Question
-questionRouter.patch(
-  "/:questionID",
+contestsRouter.patch(
+  "/:contestId",
   auth,
   access(["admin"]),
   async (req, res) => {
-    const { questionID } = req.params;
+    const { contestId } = req.params;
     try {
-      const question = await QuestionModel.findOne({ _id: questionID });
-      if (question.userID === req.body.userID) {
-        await QuestionModel.findByIdAndUpdate({ _id: questionID }, req.body);
+      const contest = await ContestsModel.findOne({ _id: contestId });
+      if (contest.userID === req.body.userID) {
+        await ContestsModel.findByIdAndUpdate({ _id: contestId }, req.body);
         res
           .status(200)
-          .send({ msg: `The note with ID:${questionID} has been updated.` });
+          .send({ msg: `The note with ID:${contestId} has been updated.` });
       } else {
         res.status(400).send({ msg: "You are not authorised." });
       }
@@ -65,19 +65,19 @@ questionRouter.patch(
 );
 
 // Delete Question
-questionRouter.delete(
-  "/:questionID",
+contestsRouter.delete(
+  "/:contestID",
   auth,
   access(["admin"]),
   async (req, res) => {
-    const { questionID } = req.params;
+    const { contestID } = req.params;
     try {
-      const question = await QuestionModel.findOne({ _id: questionID });
-      if (question.userID === req.body.userID) {
-        await QuestionModel.findByIdAndDelete({ _id: questionID }, req.body);
+      const contest = await ContestsModel.findOne({ _id: contestID });
+      if (contest.userID === req.body.userID) {
+        await ContestsModel.findByIdAndDelete({ _id: contestID }, req.body);
         res
           .status(200)
-          .send({ msg: `The note with ID:${questionID} has been deleted.` });
+          .send({ msg: `The note with ID:${contestID} has been deleted.` });
       } else {
         res.status(400).send({ msg: "You are not authorised." });
       }
@@ -88,7 +88,7 @@ questionRouter.delete(
 );
 
 module.exports = {
-  questionRouter,
+  contestsRouter,
 };
 
 // {

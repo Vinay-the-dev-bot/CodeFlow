@@ -7,12 +7,13 @@ const { QuestionModel } = require("./models/question.model");
 const { auth } = require("./middleware/auth.middleware");
 const cors = require("cors");
 const { compileRouter } = require("./routes/compiler.route");
+const { contestsRouter } = require("./routes/contests.route");
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
-
+app.use("/contests", contestsRouter);
 app.use("/users", userRouter);
 app.use("/questions", questionRouter);
 app.use("/compile", compileRouter);
