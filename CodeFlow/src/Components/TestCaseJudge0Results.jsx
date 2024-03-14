@@ -2,8 +2,12 @@ import { useToast } from "@chakra-ui/react";
 import { useState } from "react";
 
 import { url } from "../assets/Extra";
+import { useDispatch, useSelector } from "react-redux";
+import { qstnSolved } from "../redux/authSlice";
 const TestCaseJudge0Results = ({ code, question, results }) => {
   const [Vinay, setVinay] = useState("d");
+  let user = useSelector((state) => state.auth.user);
+  let dispatch = useDispatch();
   console.log("SADSALD+++++++++++++++++++", results);
   const toast = useToast();
   const resultsssss = [
@@ -52,12 +56,12 @@ const TestCaseJudge0Results = ({ code, question, results }) => {
   console.log(token);
   const percPassed = (count / question.testCases.length) * 100;
   const saveResults = async () => {
-    console.log(ressss);
+    console.log(token);
     const res = await fetch(`${url}/users/submissions`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
-        Authorizations: `Bearer ${token}`,
+        authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         questionID: question._id,
@@ -75,6 +79,7 @@ const TestCaseJudge0Results = ({ code, question, results }) => {
         duration: 1000,
         isClosable: true,
       });
+      dispatch(qstnSolved(question._id));
     }
     console.log(data);
   };
@@ -83,6 +88,7 @@ const TestCaseJudge0Results = ({ code, question, results }) => {
     <div className="testCaseResults w-4/5  my-10 m-auto border-2 py-10 h-fit ">
       {/* TestCaseJudge0Results. */}
       {/* {JSON.stringify(ressss)} */}
+      {/* <p>{JSON.stringify(user)}</p> */}
       <div className="w-4/5 mx-auto my-2 text-center text-5xl ">Results</div>
       {/* <div className="flex flex-col gap-5">
         {res.length > 0 &&

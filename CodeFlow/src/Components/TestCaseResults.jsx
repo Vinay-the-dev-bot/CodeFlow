@@ -19,11 +19,15 @@ const TestCaseResults = ({ code, questionId, results }) => {
 
   const percPassed = (testCasePassed / results.length) * 100;
 
+  const token = localStorage.getItem("token");
+
   const saveResults = async () => {
+    console.log("TOKEN", token);
     const res = await fetch(`${url}/users/submission`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         questionID: questionId,

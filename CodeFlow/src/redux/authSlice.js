@@ -4,7 +4,7 @@ const name = localStorage.getItem("name");
 const token = localStorage.getItem("token");
 const user = JSON.parse(localStorage.getItem("user"));
 const initialState = { auth: token ? true : false, name: name, user };
-
+// qstnSolved;
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -22,8 +22,16 @@ export const authSlice = createSlice({
       state.user = action.payload;
       console.log(">>>>>>>>>>>>>>>", state.name);
     },
+    qstnSolved: (state, action) => {
+      console.log(action.payload);
+      state.user.solved_questions = [
+        ...state.user.solved_questions,
+        action.payload,
+      ];
+      console.log(">>>>>>>>>>>>>>>", state.name);
+    },
   },
 });
 
-export const { authLinLout, setName, setUser } = authSlice.actions;
+export const { authLinLout, setName, setUser, qstnSolved } = authSlice.actions;
 export default authSlice.reducer;
