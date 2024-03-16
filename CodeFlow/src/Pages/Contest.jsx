@@ -49,9 +49,6 @@ function Contest() {
         <div className="flex h-fit flex-col w-2/3 gap-5 ">
           {contest.questions &&
             contest.questions.map((question, index) => {
-              console.log(state);
-              console.log(state.solved_questions?.includes(question.qstId));
-
               return (
                 <Box className=" contest w-4/5  flex px-5 rounded-md py-2 items-center justify-between m-auto  ">
                   <Box className=" flex  items-center w-1/2">
@@ -69,6 +66,7 @@ function Contest() {
                     </Box>
                     <Button
                       bg={`${
+                        state &&
                         state.solved_questions?.includes(question.qstId)
                           ? "#4ccd99"
                           : "#92C7CF"
@@ -78,7 +76,7 @@ function Contest() {
                       className={`w-2/5 `}
                       onClick={() => solveQuestion(question.qstId)}
                     >
-                      {state.solved_questions?.includes(question.qstId)
+                      {state && state.solved_questions?.includes(question.qstId)
                         ? "Solved"
                         : "Solve"}
                     </Button>
