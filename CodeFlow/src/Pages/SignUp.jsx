@@ -47,9 +47,16 @@ const Signup = () => {
         email,
         pass,
       });
-      setShowModal(true);
-      setModalMessage("Registration successful");
+      console.log(response);
+      if (response.data.msg == "Already Registered") {
+        setShowModal(true);
+        setModalMessage("Already Registrered. Please Login");
+      } else {
+        setShowModal(true);
+        setModalMessage("Registration successful");
+      }
     } catch (error) {
+      console.log(error);
       setShowModal(true);
       if (error.response && error.response.status === 400) {
         setModalMessage("Email already exists. Please try with another email.");

@@ -16,14 +16,24 @@ userRouter.post("/register", (req, res) => {
   try {
     bcrypt.hash(pass, 5, async (err, hash) => {
       if (err) {
+        console.log(err);
         res.status(200).send({ error: err });
       } else {
-        const user = new UserModel({ name, email, pass: hash, role });
-        await user.save();
-        console.log(user);
-        res
-          .status(200)
-          .send({ msg: "Hey! user You are successfully Register" });
+        try {
+          const user = new UserModel({ name, email, pass: hash, role });
+          try {
+            await user.save();
+            console.log(user);
+            res
+              .status(200)
+              .send({ msg: "Hey! user You are successfully Register" });
+          } catch (error) {
+            res.status(200).send({ msg: "Already Registered", error });
+          }
+        } catch (error) {
+          console.log(error);
+          res.status(200).send({ msg: "Already Registered", error });
+        }
       }
     });
   } catch (err) {
@@ -42,14 +52,12 @@ userRouter.post("/login", async (req, res) => {
           const token = jwt.sign({ userID: user._id }, "codeflow", {
             expiresIn: "7d",
           });
-          res
-            .status(200)
-            .send({
-              msg: "Login Successful!",
-              token: token,
-              name: user.name,
-              user,
-            });
+          res.status(200).send({
+            msg: "Login Successful!",
+            token: token,
+            name: user.name,
+            user,
+          });
         } else {
           res
             .status(400)
