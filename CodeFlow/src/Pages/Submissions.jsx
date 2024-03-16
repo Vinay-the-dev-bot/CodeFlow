@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import SubmissionsCard from "../Components/SubmissionsCard";
 import { url } from "../assets/Extra";
-import Footer from "../Components/Footer";
 import LoadingToast from "../Components/LoadingToast";
 
 const Submissions = () => {
@@ -44,7 +43,6 @@ const Submissions = () => {
           })}
         </div>
       </div>
-      {/* <Footer /> */}
     </>
   );
 };

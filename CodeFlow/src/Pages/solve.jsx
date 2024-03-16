@@ -27,23 +27,14 @@ function Solve() {
 
   return (
     <div>
-      {/* <p>{JSON.stringify(question)}</p> */}
       {isLoading && <LoadingToast message={"geting question"} />}
       <Box className="flex m-10 p-5  " border={"1px solid black"}>
         <div className="w-3/5 px-10    flex flex-col gap-5">
           <h1 className="text-2xl font-bold "> Statement</h1>
-          <p className="text-2xl ">
-            {question.title}
-            {/* |
-            <span className={`px-2 ${question.difficulty}`}>
-              {question.difficulty}
-            </span> */}
-          </p>
+          <p className="text-2xl ">{question.title}</p>
 
           <h1 className="text-2xl font-bold "> Description</h1>
           <p>{question.description}</p>
-          {/* <h1 className="text-2xl font-bold"> Constraints</h1>
-          <p>{question.constraints}</p> */}
         </div>
         <div className="w-1/5 mx-auto flex flex-col gap-5 justify-evenly">
           <p

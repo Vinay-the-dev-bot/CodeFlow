@@ -23,10 +23,10 @@ function Contests() {
   return (
     <div>
       {isLoading && <LoadingToast message={"getting contests"} />}
-      {/* <button onClick={getQuestion}>Get Question</button> */}
+
       <div className="flex flex-col gap-10 p-10  rounded-xl ">
-        {contests.map((contest, index) => {
-          return <ContestCard contest={contest} />;
+        {contests.map((contest) => {
+          return <ContestCard key={contest._id} contest={contest} />;
         })}
       </div>
     </div>

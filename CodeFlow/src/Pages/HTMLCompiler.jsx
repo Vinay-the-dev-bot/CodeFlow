@@ -49,9 +49,6 @@ function HTMLCompiler() {
   }, [html, css, javascript]);
   return (
     <div>
-      {/* <p className="text-5xl py-5 m-auto text-center">
-        Welcome to CODEFLOW editor!
-      </p> */}
       <Box
         className="flex  items-center justify-center"
         flexDirection={{ base: "column", md: "row" }}
@@ -60,8 +57,6 @@ function HTMLCompiler() {
           className="tab-button-container w-1/2  my-10    flex gap-10 "
           flexDirection={{ base: "column", md: "row" }}
           justifyContent={"center"}
-          // border={"2px solid black"}
-          // m={{ md: "auto" }}
         >
           <Button
             bg={"red"}
@@ -87,15 +82,6 @@ function HTMLCompiler() {
           />
         </Box>
         <div className=" mx-auto block  ">
-          {/* <label className="m-auto" for="themeSelect">
-            Select Theme:
-          </label>
-          <select id="themeSelect" onChange={handleThemeChange}>
-            <option selected value="light">
-              Light
-            </option>
-            <option value="vs-dark">Dark</option>
-          </select> */}
           <ThemeDropdown handleThemeChange={handleThemeChange} />
         </div>
       </Box>

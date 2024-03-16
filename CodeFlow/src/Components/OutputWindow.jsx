@@ -54,8 +54,6 @@ const OutputWindow = ({ error, outputDetails, statusID }) => {
   return (
     <>
       <div className="w-full h-1/2 bg-[#1e293b] p-5 rounded-md text-white font-normal text-sm overflow-y-auto">
-        {/* {outputDetails ? <pre>{`${outputDetails}`}</pre> : null} */}
-        {/* {outputDetails ? <>{getOutput()}</> : null} */}
         {error && JSON.stringify(error)}
         {statusID >= 3 &&
           statuses.filter((stat) => stat.id === statusID)[0].description}

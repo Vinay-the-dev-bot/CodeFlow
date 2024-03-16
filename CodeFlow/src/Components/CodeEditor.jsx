@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Editor, { loader } from "@monaco-editor/react";
-// loader.config({ paths: { vs: "/monaco-editor/min/vs" } });
 const CodeEditor = ({ onChange, language, code, theme }) => {
   const [value, setValue] = useState(code || "");
 

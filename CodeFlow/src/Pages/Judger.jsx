@@ -1,14 +1,12 @@
 import { useToast } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CodeEditor from "../Components/CodeEditor";
-// import Languages from "../assets/Languages";
 import LanguageDropdown from "../Components/LanguageDropdown";
 import ThemeDropdown from "../Components/ThemeDropdown";
 import { languageOptions } from "../assets/LanguageOptions";
 import OutputWindow from "../Components/OutputWindow";
 import PromisePending from "../Components/PromisePending";
 import { themes } from "../assets/EditorThemes";
-import Button from "../Components/Button";
 
 function Judger() {
   const [javaCode, setJavaCode] = useState(`
@@ -39,13 +37,10 @@ let c = 8;
  add(5,8)`);
   const [langFocus, setLangFocus] = useState("java");
   const [customInput, setCustomInput] = useState("");
-  const [outputDetails, setOutputDetails] = useState(null);
-  const [processing, setProcessing] = useState(null);
   const [theme, setTheme] = useState(themes[0]);
   const [language, setLanguage] = useState(languageOptions[0]);
   const [output, setOutPut] = useState("OUTPUT");
   const [code, setCode] = useState(javaCode);
-  const [errors, setErrors] = useState("");
   const [pending, setPending] = useState(false);
   const toast = useToast();
 
@@ -61,7 +56,6 @@ let c = 8;
     if (!code) {
       toast({
         title: "Please Provide Code",
-        // description: "Please Write the code",
         status: "warning",
         duration: 1000,
         isClosable: true,
@@ -71,7 +65,6 @@ let c = 8;
     if (!customInput) {
       toast({
         title: "Please Provide Input",
-        // description: "Please provide input values",
         status: "warning",
         duration: 1000,
         isClosable: true,
@@ -110,8 +103,6 @@ let c = 8;
     }
   };
   const onSelectChange = (sl) => {
-    // console.log("selected Option...", sl);
-    // console.log(langCode[`${sl.value}`]);
     setCode(langCode[`${sl.value}`]);
     setLangFocus(sl.value);
     setLanguage(sl);
@@ -138,15 +129,8 @@ let c = 8;
       }
     }
   };
-  // useEffect(() => {
-  //   setLangFocus("java");
-  // }, []);
   return (
     <div>
-      {/* <p>{JSON.stringify(javaCode)}</p>
-      <p>{JSON.stringify(pythonCode)}</p>
-      <p>{JSON.stringify(javaScriptCode)}</p>
-      <p>{JSON.stringify(code)}</p> */}
       {pending && <PromisePending />}
       <p>{JSON.stringify(customInput)}</p>
 
@@ -191,16 +175,3 @@ let c = 8;
 }
 
 export default Judger;
-
-//   import java.util.Scanner;
-//   public class main {
-//     public static void main(String[] args) {
-//         int num1 = 5;
-//         int num2 = 7;
-//         Scanner sc = new Scanner(System.in);
-//         int x = sc.nextInt();
-//         int y = sc.nextInt();
-//         int sum = x + y;
-//         System.out.println("The sum of " + x + " and " + y + " is: " + sum);
-//     }
-// }

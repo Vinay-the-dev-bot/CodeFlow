@@ -70,35 +70,12 @@ const Dashboard = () => {
         setUser(res.data);
         setSolved(res.data[0].solved_questions);
         setRole(res.data[0].role);
-        // console.log();
-        // console.log(res.data);x
       } catch (error) {
         console.log(error);
       }
     };
     getUser();
   }, []);
-  console.log(user);
-  // console.log(solved);
-  console.log(role);
-
-  // console.log(user[0].solved_questions);
-  // const { solved_questions } = user[0];
-  // setSolved(solved_questions);
-  // console.log(solved);
-
-  // title: { type: String },
-  //   description: { type: String },
-  //   testCases: [
-  //     {
-  //       inp: { type: String },
-  //       oup: { type: String },
-  //     },
-  //   ],
-  //   points: { type: Number, default: 0 },
-  //   difficulty: { type: String, enum: ["Easy", "Medium", "Hard"] },
-  //   topics: [{ type: String }],
-  //   constraints: [{ type: String }],
 
   const handleAddQuestion = async (e) => {
     e.preventDefault();
@@ -136,8 +113,6 @@ const Dashboard = () => {
         });
       }
 
-      // setTitle("");
-      // setBody("");
       setShowModal(false);
     } catch (error) {
       toast({
@@ -175,7 +150,6 @@ const Dashboard = () => {
               w={"95%"}
               m={"auto"}
               p={"1rem 0rem"}
-              // border={"2px Solid black"}
               boxShadow={
                 "rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px"
               }
@@ -188,14 +162,11 @@ const Dashboard = () => {
                       display={"flex"}
                       justifyContent={"center"}
                       gap={4}
-                      // border={"2px Solid black"}
-                      // margin={"19px 19px 5px 19px"}
                       p={2}
                     >
                       <Image
                         src={`https://ui-avatars.com/api/?name=${e.name}&background=random&color=fff`}
                         width={"35%"}
-                        // border={"2px Solid red"}
                         borderRadius={"50%"}
                       />
                     </Box>
@@ -232,44 +203,12 @@ const Dashboard = () => {
                   <Link to="/submissions">My Submissions</Link>
                 </Button>
               </Box>
-
-              {/* <Box display={"flex"} justifyContent={"center"} mt={5}>
-                <Select
-                  bg=""
-                  // borderColor="blue"
-                  color="black"
-                  placeholder="Select option"
-                  w={"50%"}
-                  textAlign={"center"}
-                  fontSize={"1.3rem"}
-                >
-                  <option value="option1">Professional</option>
-                  <option value="option2">Medium</option>
-                  <option value="option3">Beginner</option>
-                </Select>
-              </Box> */}
-              {/* <hr className="border border-black mt-5" /> */}
-              {/* <Box
-                // border={"2px Solid black"}
-                padding={4}
-                mt={4}
-              >
-                <Heading textAlign={"center"} fontSize={"1.5rem"}>
-                  Skills
-                </Heading>
-                <Text>Java</Text>
-              </Box> */}
             </Box>
           </Box>
 
-          {/* box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px; */}
           <Box width={{ base: "100%", md: "70%" }}>
             <Box width={"100%"} m={"auto"} mb={2}>
-              <TableContainer
-                mt={{ base: "", md: "1.5rem" }}
-                // border={"2px solid red"}
-                // borderRadius={"2rem"}
-              >
+              <TableContainer mt={{ base: "", md: "1.5rem" }}>
                 <Table border={"2px solid black"} borderCollapse={"collapse"}>
                   <Thead textAlign={"center"}>
                     <Tr>
@@ -318,7 +257,6 @@ const Dashboard = () => {
               </TableContainer>
             </Box>
             <Box
-              //  border={"2px solid red"}
               boxShadow={
                 "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px"
               }
@@ -433,34 +371,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-// {
-//   "_id": "65d9bfef6705eef75e8db94c",
-//   "name": "raja",
-//   "email": "raja@gmail.com",
-//   "pass": "$2b$05$4AJ4RYE05Eti/n5IhH17AOCpELb6foXatugVUBNgHQ7rYaLAvFHcG",
-//   "image": "https://firebasestorage.googleapis.com/v0/b/coinsquare-8dc2e.appspot.com/o/default.jpg?alt=media&token=fa163076-3ed8-48b2-875b-3b370c66f251",
-//   "solved_questions": [],
-//   "role": "user"
-// }
-
-{
-  /* <input
-            type="text"
-            value={inp}
-            onChange={(e) => {
-              setInp(e.target.value);
-            }}
-          />
-          Oup
-          <input
-            type="text"
-            value={oup}
-            onChange={(e) => {
-              setOup(e.target.value);
-            }}
-          />
-          <button>Add</button>
-const [inp, setInp] = useState();
-  const [oup, setOup] = useState(); */
-}

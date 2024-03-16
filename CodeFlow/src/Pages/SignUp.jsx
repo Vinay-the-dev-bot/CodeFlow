@@ -125,7 +125,6 @@ const Signup = () => {
         </form>
       </Box>
 
-      {/* Modal */}
       <Modal isOpen={showModal} onClose={closeModal}>
         <ModalOverlay />
         <ModalContent>

@@ -41,7 +41,6 @@ function Contest() {
     <>
       {isLoading && <LoadingToast message={"getting contests"} />}
 
-      {/* <div>{JSON.stringify(contest)}</div> */}
       <div className="w-full flex mx-auto py-10 ">
         <div className="w-1/3">
           <p className="text-5xl">{contest.title}</p>
@@ -60,7 +59,6 @@ function Contest() {
                     <p className="w-full">{question.qstTitle} </p>
                   </Box>
                   <Box className="flex w-2/5 items-center  justify-between text-left ">
-                    {/* <p>{question.difficulty}</p> */}
                     <Box
                       className={` text-center text-white   ${
                         difficultyColors[question.difficulty]

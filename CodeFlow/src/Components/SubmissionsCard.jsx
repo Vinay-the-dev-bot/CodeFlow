@@ -19,7 +19,6 @@ const QuestionCard = ({ submission, slNo }) => {
   for (let i = 0; i < submission.results.length; i++) {
     console.log(submission.results[i].pass);
     if (submission.results[i].pass) {
-      // (count) => count + 1;
       count++;
     }
   }

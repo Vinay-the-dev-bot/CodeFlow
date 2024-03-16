@@ -22,7 +22,6 @@ function AllQuestions() {
   return (
     <div>
       {isLoading && <LoadingToast message={"getting contests"} />}
-      {/* <button onClick={getQuestion}>Get Question</button> */}
       <div className="flex flex-col gap-10 p-10  rounded-xl ">
         {questions.map((question, index) => {
           return <QuestionCard key={index} question={question} />;

@@ -17,10 +17,3 @@ const ThemeDropdown = ({ handleThemeChange }) => {
 };
 
 export default ThemeDropdown;
-// options={themes.map((theme) => {
-//         console.log("**************", theme);
-//     return <option>{theme.value}</option>;
-// })
-// }
-
-// export const themes = [{ value: "light" }, { value: "vs-dark" }];
