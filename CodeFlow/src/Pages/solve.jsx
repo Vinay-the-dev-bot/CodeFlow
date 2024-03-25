@@ -28,27 +28,39 @@ function Solve() {
   return (
     <div>
       {isLoading && <LoadingToast message={"geting question"} />}
-      <Box className="flex m-10 p-5  " border={"1px solid black"}>
-        <div className="w-3/5 px-10    flex flex-col gap-5">
+      <Box
+        flexDirection={{ md: "row", base: "column" }}
+        className="flex m-10 p-5  "
+        border={"1px solid black"}
+      >
+        <Box
+          w={{ md: "60%", base: "95%" }}
+          className="w-3/5     flex flex-col gap-5"
+        >
           <h1 className="text-2xl font-bold "> Statement</h1>
           <p className="text-2xl ">{question.title}</p>
 
           <h1 className="text-2xl font-bold "> Description</h1>
           <p>{question.description}</p>
-        </div>
-        <div className="w-1/5 mx-auto flex flex-col gap-5 justify-evenly">
-          <p
-            className={`p-2 text-2xl text-center w-4/5 ${question.difficulty}`}
+        </Box>
+        <Box
+          w={{ md: "20%", base: "95%" }}
+          className="w-1/5 mx-auto flex pt-10 flex-col gap-5 justify-evenly"
+        >
+          <Text
+            w={{ md: "80%", base: "100%" }}
+            className={`p-2 text-2xl text-center   ${question.difficulty}`}
           >
             {question.difficulty}
-          </p>
+          </Text>
           <Text
+            w={{ md: "80%", base: "100%" }}
             className={`p-2 w-4/5 text-2xl text-center rounded-md 0 points points-${question.points}`}
             bg={"#5EEAD4"}
           >
             {question.points} Points
           </Text>
-        </div>
+        </Box>
       </Box>
       <QuestionJudge question={question} questionId={questionId} />
     </div>

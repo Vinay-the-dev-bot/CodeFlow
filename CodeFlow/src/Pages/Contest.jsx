@@ -41,26 +41,41 @@ function Contest() {
     <>
       {isLoading && <LoadingToast message={"getting contests"} />}
 
-      <div className="w-full flex mx-auto py-10 ">
-        <div className="w-1/3">
+      <Box
+        flexDirection={{ md: "row", base: "column" }}
+        className="w-full flex mx-auto py-10 "
+      >
+        <Box w={{ md: "33.3%", base: "100%" }} className=" px-5 w-1/3">
           <p className="text-5xl">{contest.title}</p>
-          <p className="text-3xl">{contest.description}</p>
-        </div>
-        <div className="flex h-fit flex-col w-2/3 gap-5 ">
+          <p className="text-3xl px-5">{contest.description}</p>
+        </Box>
+        <Box
+          w={{ base: "100%", md: "66.7%" }}
+          className="flex h-fit flex-col   gap-5 "
+        >
           {contest.questions &&
             contest.questions.map((question, index) => {
               return (
-                <Box className=" contest w-4/5  flex px-5 rounded-md py-2 items-center justify-between m-auto  ">
-                  <Box className=" flex  items-center w-1/2">
+                <Box
+                  w={{ base: "95%", md: "80%" }}
+                  flexDirection={{ base: "column", md: "row" }}
+                  className=" contest w-4/5  flex px-5 rounded-md py-2 items-center justify-between m-auto  "
+                >
+                  <Box
+                    w={{ base: "95%", md: "80%" }}
+                    className=" flex  items-center  "
+                  >
                     <p className="w-5">{index + 1}.</p>
                     <p className="w-full">{question.qstTitle} </p>
                   </Box>
-                  <Box className="flex w-2/5 items-center  justify-between text-left ">
+                  <Box
+                    w={{ base: "95%", md: "80%" }}
+                    className="flex w-2/5 items-center py-5 justify-between text-left "
+                  >
                     <Box
-                      className={` text-center text-white   ${
+                      className={` w-2/5 text-center text-white   ${
                         difficultyColors[question.difficulty]
                       }       py-2  rounded-md `}
-                      w={{ base: "100%", md: "40%" }}
                     >
                       {question.difficulty}
                     </Box>
@@ -84,8 +99,8 @@ function Contest() {
                 </Box>
               );
             })}
-        </div>
-      </div>
+        </Box>
+      </Box>
     </>
   );
 }

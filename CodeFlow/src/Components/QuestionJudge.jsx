@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { themes } from "../assets/EditorThemes";
-import { useToast } from "@chakra-ui/react";
+import { Box, useToast } from "@chakra-ui/react";
 import Select from "react-select";
 import PromisePending from "./PromisePending";
 import LanguageDropdown from "./LanguageDropdown";
@@ -229,24 +229,36 @@ function QuestionJudge({ questionId, question }) {
     <div>
       {pending && <PromisePending />}
       {/* <p>{JSON.stringify(customInput)}</p> */}
-      <div className="flex flex-row px-5 justify-around">
-        <div className="px-4 py-2">
+      <Box
+        flexDirection={{ md: "row", base: "column" }}
+        // w={{ base: "95%" }}
+        className="flex flex-row px-5 items-center justify-around"
+      >
+        <Box className="px-4 py-2">
           <LanguageDropdown onSelectChange={onSelectChange} />
-        </div>
+        </Box>
 
         <div className="px-4 py-2">
           <ThemeDropdown handleThemeChange={handleThemeChange} />
         </div>
-      </div>
-      <div className="flex ">
+      </Box>
+      <Box
+        // className="flex "
+        display={"flex"}
+        flexDirection={{ md: "row", base: "column" }}
+      >
         <CodeEditor
+          w={{ md: "row", base: "column" }}
           code={langCode[langFocus]}
           onChange={onChange}
           language={langFocus}
           theme={theme.value}
         />
 
-        <div className="w-1/2 px-10 border-2 flex flex-col align-baseline ">
+        <Box
+          w={{ md: "50%", base: "90%" }}
+          className="w-1/2 px-10 border-2 flex flex-col align-baseline "
+        >
           <h1 className="font-bold text-xl w-fit p-5 m-auto   bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 mb-2">
             Output
           </h1>
@@ -259,14 +271,16 @@ function QuestionJudge({ questionId, question }) {
           />
           <div className="flex justify-around p-2 ">
             <button
-              className=" compileButton w-1/4 border-2 p-9 my-2 "
+              w={{ md: "25%", base: "50%" }}
+              className=" compileButton  border-2 p-9 my-2 "
               onClick={submitCodeJudge}
             >
               Submit
             </button>
 
             <button
-              className=" compileButton w-1/4 border-2 p-9 my-2 "
+              w={{ md: "25%", base: "50%" }}
+              className=" compileButton   border-2 p-9 my-2 "
               onClick={handleSolveJudge}
             >
               Solve
@@ -277,16 +291,16 @@ function QuestionJudge({ questionId, question }) {
             statusID={statusId}
             outputDetails={output}
           />
-        </div>
-      </div>
+        </Box>
+      </Box>
 
-      {submitted && output.output && output.output.length > 0 && (
+      {/* {submitted && output.output && output.output.length > 0 && (
         <TestCaseResults
           questionId={questionId}
           code={code}
           results={output.output}
         />
-      )}
+      )} */}
 
       {submitted && judgeResult.length == 4 && (
         <TestCaseJudge0Results

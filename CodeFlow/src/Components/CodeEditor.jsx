@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Editor, { loader } from "@monaco-editor/react";
+import { Box } from "@chakra-ui/react";
 const CodeEditor = ({ onChange, language, code, theme }) => {
   const [value, setValue] = useState(code || "");
 
@@ -9,7 +10,10 @@ const CodeEditor = ({ onChange, language, code, theme }) => {
   };
 
   return (
-    <div className="overlay w-1/2 rounded-md overflow-hidden h-full shadow-4xl">
+    <Box
+      w={{ md: "50%", base: "90%" }}
+      className="overlay w-1/2 rounded-md overflow-hidden h-full m-auto shadow-4xl"
+    >
       <h1 className="font-bold text-xl w-fit p-5 m-auto bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 mb-2">
         Input
       </h1>
@@ -21,7 +25,7 @@ const CodeEditor = ({ onChange, language, code, theme }) => {
         theme={theme}
         onChange={handleEditorChange}
       />
-    </div>
+    </Box>
   );
 };
 export default CodeEditor;

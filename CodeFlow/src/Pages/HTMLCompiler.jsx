@@ -55,7 +55,7 @@ function HTMLCompiler() {
       >
         <Box
           className="tab-button-container w-1/2  my-10    flex gap-10 "
-          flexDirection={{ base: "column", md: "row" }}
+          // flexDirection={{ base: "column", md: "row" }}
           justifyContent={"center"}
         >
           <Button
