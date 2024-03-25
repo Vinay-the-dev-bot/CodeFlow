@@ -202,7 +202,7 @@ const Navbar = () => {
                 to="/html"
                 onClick={onClose}
               >
-                HTML Compiler
+                HTML
               </Link>
               <Link
                 className="hover:bg-primeGreen-600 block py-2"
