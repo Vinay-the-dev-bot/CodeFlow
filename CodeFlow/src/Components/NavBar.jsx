@@ -224,13 +224,36 @@ const Navbar = () => {
                     {name}
                   </Link>
 
-                  <Text
+                  {/* <Text
                     className="hover:bg-primeGreen-600 block py-2"
                     color="#2f4e44"
                     onClick={onClose}
                   >
                     Logout
-                  </Text>
+                  </Text> */}
+                  <Button
+                    fontSize={"1.3rem"}
+                    color={"black"}
+                    colorScheme="red"
+                    _hover={{ bg: "#AAD7D9", color: "black" }}
+                    onClick={() => {
+                      setTimeout(() => {
+                        localStorage.setItem("token", "");
+                        localStorage.setItem("name", "");
+                        dispatch(authLinLout(false));
+                      }, 1000);
+                      toast({
+                        title: "Logout successful ",
+                        status: "success",
+                        duration: 2000,
+                        isClosable: true,
+                      });
+                      onClose();
+                      navigate("/");
+                    }}
+                  >
+                    Logout
+                  </Button>
                 </>
               ) : (
                 <>
