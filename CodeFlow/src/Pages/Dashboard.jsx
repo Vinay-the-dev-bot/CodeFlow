@@ -281,7 +281,7 @@ const Dashboard = () => {
         <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Create Notes</ModalHeader>
+            <ModalHeader>Add A Question</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <FormControl>

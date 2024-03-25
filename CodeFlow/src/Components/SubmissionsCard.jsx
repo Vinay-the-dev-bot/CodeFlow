@@ -9,6 +9,8 @@ import {
   ModalCloseButton,
   useDisclosure,
   Button,
+  Box,
+  Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
 const QuestionCard = ({ submission, slNo }) => {
@@ -24,20 +26,36 @@ const QuestionCard = ({ submission, slNo }) => {
   }
   console.log(count);
   return (
-    <div className="w-3/5 mx-auto">
-      <div className="flex items-center  border-2 text-center w-full   px-5 py-4 justify-around rounded-md ">
-        <p className="w-9/10 text-center">{slNo + 1}</p>
-        <p className="w-9/10  text-center ">{submission.title}</p>
-        <p className="w-1/10 text-center">{submission.results.length}</p>
-        <p className="w-1/5 text-center">{(count / 4) * 100}%</p>
-        <button
-          className="bg-sky-500 px-10 text-2xl py-1 rounded-md "
-          onClick={onOpen}
+    <Box w={{ md: "60%", base: "100%" }} className="  mx-auto">
+      <Box
+        flexDirection={{ md: "row", base: "column" }}
+        gap={{ base: "20px" }}
+        className="flex items-center  border-2 text-center w-full    px-5 py-4 justify-evenly rounded-md "
+      >
+        <Box w={{ md: "50%", base: "100%" }} className="  flex justify-around">
+          <p className="w-9/10 text-center">{slNo + 1}</p>
+          <p className="w-9/10  text-center ">{submission.title}</p>
+          <p className="w-1/10 text-center">{submission.results.length}</p>
+        </Box>
+
+        <Box
+          w={{ md: "40%", base: "80%" }}
+          className=" items-center flex justify-around "
         >
-          View
-        </button>
-        <p></p>
-      </div>
+          <Text
+            w={{ md: "20%", base: "fit-content" }}
+            className="  text-center"
+          >
+            {(count / 4) * 100}%
+          </Text>
+          <button
+            className="bg-sky-500 px-10 text-2xl py-1 rounded-md "
+            onClick={onOpen}
+          >
+            View
+          </button>
+        </Box>
+      </Box>
 
       <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay
@@ -57,7 +75,8 @@ const QuestionCard = ({ submission, slNo }) => {
               {submission.title}
             </p>
             <p>
-              <strong>Submission Code</strong> :<pre> {submission.code}</pre>
+              <strong>Submission Code</strong> :
+              <pre className="w-full m-auto"> {submission.code}</pre>
             </p>
             <table className="w-full border border-orange-950 ">
               <tr className="w-full  border ">
@@ -93,7 +112,7 @@ const QuestionCard = ({ submission, slNo }) => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </div>
+    </Box>
   );
 };
 export default QuestionCard;

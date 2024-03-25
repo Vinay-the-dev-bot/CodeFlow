@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import SubmissionsCard from "../Components/SubmissionsCard";
 import { url } from "../assets/Extra";
 import LoadingToast from "../Components/LoadingToast";
+import { Box, Text } from "@chakra-ui/react";
 
 const Submissions = () => {
   const [submissions, setSubmissions] = useState([]);
@@ -26,10 +27,13 @@ const Submissions = () => {
     <>
       {isLoading && <LoadingToast message={"getting submissions"} />}
       <div className="w-full p-10 mx-auto ">
-        <h1 className="w-4/5 m-auto text-5xl font-bold  text-center ">
+        <Text className="w-full m-auto text-5xl font-bold  text-center ">
           My Submissions
-        </h1>
-        <div className=" w-full p-10 flex    mx-auto justify-around h-fit flex-col gap-10 w-">
+        </Text>
+        <Box
+          padding={{ md: "2.5rem", base: "0" }}
+          className=" w-full   flex   mt-10  mx-auto justify-around h-fit flex-col gap-10 w-"
+        >
           {submissions.map((submission, index) => {
             return (
               <>
@@ -41,7 +45,7 @@ const Submissions = () => {
               </>
             );
           })}
-        </div>
+        </Box>
       </div>
     </>
   );
